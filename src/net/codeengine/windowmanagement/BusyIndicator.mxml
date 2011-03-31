@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SkinnableContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				   xmlns:s="library://ns.adobe.com/flex/spark" 
+				   xmlns:mx="library://ns.adobe.com/flex/mx"
+				   width="100%"
+				   height="100%"
+				   implements="net.codeengine.windowmanagement.IBusy"
+				   creationComplete="init()">
+	<s:SkinnableContainer backgroundColor="#000000"
+	alpha="0.6"
+	horizontalCenter="0"
+	verticalCenter="0"
+	resizeEffect="{resizeEffect}"
+	minWidth="100">
+		<s:Label text="Busy..."
+				 color="#FFFFFF"
+				 fontSize="16"
+				 id="title"
+				 top="25"
+				 left="25"
+				 right="25"
+				 textAlign="center"
+				 bottom="25"/>
+		
+	</s:SkinnableContainer>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import spark.effects.Resize;
+			private var _window:IWindow;
+			[Bindable] private var resizeEffect:Resize;
+			
+			public function get window():IWindow {
+			return this._window;
+			}
+			
+			public function set window(window:IWindow):void {
+			this.window=_window;
+			}
+			
+			public function get message():String {
+			return this.title.text;
+			}
+			
+			public function set message(value:String):void {
+			this.title.text=value;
+			}
+			
+			public function init():void {
+		
+			}
+		]]>
+	</fx:Script>
+</s:SkinnableContainer>

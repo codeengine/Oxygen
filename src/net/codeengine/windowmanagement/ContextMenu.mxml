@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+           implements="net.codeengine.windowmanagement.IContextMenu"
+           width="208"
+           height="300"
+           cornerRadius="10"
+           
+           backgroundColor="#FBF4FB">
+    <mx:Script>
+        <![CDATA[
+            private var _window:IWindow;
+
+            public function get window():IWindow {
+                return this._window;
+            }
+
+            public function set window(value:IWindow):void {
+                this._window=value;
+            }
+        ]]>
+    </mx:Script>
+</mx:Canvas>

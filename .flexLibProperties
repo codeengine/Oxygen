@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="false" version="1">
+  <includeClasses>
+    <classEntry path="net.codeengine.windowmanagement.Background"/>
+    <classEntry path="net.codeengine.windowmanagement.ContextMenu"/>
+    <classEntry path="net.codeengine.windowmanagement.Drawer"/>
+    <classEntry path="net.codeengine.windowmanagement.DrawerProxy"/>
+    <classEntry path="net.codeengine.windowmanagement.IBusy"/>
+    <classEntry path="net.codeengine.windowmanagement.IContextMenu"/>
+    <classEntry path="net.codeengine.windowmanagement.IDrawer"/>
+    <classEntry path="net.codeengine.windowmanagement.IDrawerProxy"/>
+    <classEntry path="net.codeengine.windowmanagement.INotificationWindow"/>
+    <classEntry path="net.codeengine.windowmanagement.IPanelWindow"/>
+    <classEntry path="net.codeengine.windowmanagement.IPopover"/>
+    <classEntry path="net.codeengine.windowmanagement.ISheet"/>
+    <classEntry path="net.codeengine.windowmanagement.ISheetProxy"/>
+    <classEntry path="net.codeengine.windowmanagement.IWindow"/>
+    <classEntry path="net.codeengine.windowmanagement.IWindowManager"/>
+    <classEntry path="net.codeengine.windowmanagement.IWindowProxy"/>
+    <classEntry path="net.codeengine.windowmanagement.NotificationWindow"/>
+    <classEntry path="net.codeengine.windowmanagement.Popover"/>
+    <classEntry path="net.codeengine.windowmanagement.Sheet"/>
+    <classEntry path="net.codeengine.windowmanagement.SheetEvent"/>
+    <classEntry path="net.codeengine.windowmanagement.SheetProxy"/>
+    <classEntry path="net.codeengine.windowmanagement.Window"/>
+    <classEntry path="net.codeengine.windowmanagement.WindowManager"/>
+    <classEntry path="net.codeengine.windowmanagement.WindowProxy"/>
+    <classEntry path="net.codeengine.windowmanagement.animations.AppearPopoverAnimation"/>
+    <classEntry path="net.codeengine.windowmanagement.animations.CloseDrawerAnimation"/>
+    <classEntry path="net.codeengine.windowmanagement.animations.DisappearPopoverAnimation"/>
+    <classEntry path="net.codeengine.windowmanagement.animations.IDrawerAnimation"/>
+    <classEntry path="net.codeengine.windowmanagement.animations.IPopoverAnimation"/>
+    <classEntry path="net.codeengine.windowmanagement.animations.ISheetAnimation"/>
+    <classEntry path="net.codeengine.windowmanagement.animations.IWindowAnimation"/>
+    <classEntry path="net.codeengine.windowmanagement.animations.IWindowsAnimation"/>
+    <classEntry path="net.codeengine.windowmanagement.animations.LayingMinimizedWindowsAnimation"/>
+    <classEntry path="net.codeengine.windowmanagement.animations.LayoutMinimizedWindows"/>
+    <classEntry path="net.codeengine.windowmanagement.animations.OpenDrawerAnimation"/>
+    <classEntry path="net.codeengine.windowmanagement.animations.PopoverAnimationConstants"/>
+    <classEntry path="net.codeengine.windowmanagement.animations.PopoverAnimationEvent"/>
+    <classEntry path="net.codeengine.windowmanagement.animations.PulseAnimation"/>
+    <classEntry path="net.codeengine.windowmanagement.animations.SheetAnimationEvent"/>
+    <classEntry path="net.codeengine.windowmanagement.animations.SlideSheetInAnimation"/>
+    <classEntry path="net.codeengine.windowmanagement.animations.SlideSheetOutAnimation"/>
+    <classEntry path="net.codeengine.windowmanagement.animations.UnminimizeWindowAnimation"/>
+    <classEntry path="net.codeengine.windowmanagement.animations.WindowAlertingAnimation"/>
+    <classEntry path="net.codeengine.windowmanagement.animations.WindowMaximizingAnimation"/>
+    <classEntry path="net.codeengine.windowmanagement.animations.WindowMinimizingAnimation"/>
+    <classEntry path="net.codeengine.windowmanagement.animations.ZoomInOpeningWindowAnimation"/>
+    <classEntry path="net.codeengine.windowmanagement.animations.ZoomOutClosingWindowAnimation"/>
+    <classEntry path="net.codeengine.windowmanagement.decorations.AbstractDecoration"/>
+    <classEntry path="net.codeengine.windowmanagement.decorations.AbstractWindowDecoration"/>
+    <classEntry path="net.codeengine.windowmanagement.decorations.BackgroundDecoration"/>
+    <classEntry path="net.codeengine.windowmanagement.decorations.BlurDecoration"/>
+    <classEntry path="net.codeengine.windowmanagement.decorations.BlurWindowDecoration"/>
+    <classEntry path="net.codeengine.windowmanagement.decorations.GlowDecoration"/>
+    <classEntry path="net.codeengine.windowmanagement.decorations.IDecoration"/>
+    <classEntry path="net.codeengine.windowmanagement.decorations.IWindowDecoration"/>
+    <classEntry path="net.codeengine.windowmanagement.decorations.SheetDecoration"/>
+    <classEntry path="net.codeengine.windowmanagement.decorator.Decorator"/>
+    <classEntry path="net.codeengine.windowmanagement.decorator.IDecorator"/>
+    <classEntry path="net.codeengine.windowmanagement.events.WindowAnimationDirectorEvent"/>
+    <classEntry path="net.codeengine.windowmanagement.events.WindowAnimatorEvent"/>
+    <classEntry path="net.codeengine.windowmanagement.events.WindowEvent"/>
+    <classEntry path="net.codeengine.windowmanagement.events.WindowManagerEvent"/>
+    <classEntry path="net.codeengine.windowmanagement.OuterGroup"/>
+    <classEntry path="net.codeengine.windowmanagement.InnerGroup"/>
+    <classEntry path="net.codeengine.windowmanagement.AbstractGroup"/>
+    <classEntry path="net.codeengine.windowmanagement.animations.AbstractAnimation"/>
+    <classEntry path="net.codeengine.windowmanagement.BusyIndicator"/>
+  </includeClasses>
+  <includeResources>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenRadioButtonDown.png" sourcePath="assets/themes/oxygen/oxygenRadioButtonDown.png"/>
+    <resourceEntry destPath="assets/images/buttons/old/minimizeButton.PNG" sourcePath="assets/images/buttons/old/minimizeButton.PNG"/>
+    <resourceEntry destPath="asdoc-output/cookies.js" sourcePath="asdoc-output/cookies.js"/>
+    <resourceEntry destPath="asdoc-output/all-index-S.html" sourcePath="asdoc-output/all-index-S.html"/>
+    <resourceEntry destPath="assets/images/buttons/old/minimizeButton7x7.PNG" sourcePath="assets/images/buttons/old/minimizeButton7x7.PNG"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenRadioButtonSelectedDown.png" sourcePath="assets/themes/oxygen/oxygenRadioButtonSelectedDown.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/decorator/IDecorator.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/decorator/IDecorator.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxgenButtonAddUp.png" sourcePath="assets/themes/oxygen/oxgenButtonAddUp.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenTabNavigatorLeftButtonOver.png" sourcePath="assets/themes/oxygen/oxygenTabNavigatorLeftButtonOver.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenScrollBarThumbUp.png" sourcePath="assets/themes/oxygen/oxygenScrollBarThumbUp.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/decorations/package-detail.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/decorations/package-detail.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/animations/OpenAndSpinAnimation.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/animations/OpenAndSpinAnimation.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/button_over.png" sourcePath="assets/themes/oxygen/button_over.png"/>
+    <resourceEntry destPath="asdoc-output/all-index-O.html" sourcePath="asdoc-output/all-index-O.html"/>
+    <resourceEntry destPath="assets/images/buttons/old/maximizeButton7x7.PNG" sourcePath="assets/images/buttons/old/maximizeButton7x7.PNG"/>
+    <resourceEntry destPath="asdoc-output/package-list.html" sourcePath="asdoc-output/package-list.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenTabNavigatorMiddleButtonUp.png" sourcePath="assets/themes/oxygen/oxygenTabNavigatorMiddleButtonUp.png"/>
+    <resourceEntry destPath="asdoc-output/all-index-I.html" sourcePath="asdoc-output/all-index-I.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenCheckBoxOver.png" sourcePath="assets/themes/oxygen/oxygenCheckBoxOver.png"/>
+    <resourceEntry destPath="asdoc-output/all-index-U.html" sourcePath="asdoc-output/all-index-U.html"/>
+    <resourceEntry destPath="assets/images/buttons/old/restoreButton_light.png" sourcePath="assets/images/buttons/old/restoreButton_light.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/class-list.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/class-list.html"/>
+    <resourceEntry destPath="asdoc-output/all-index-E.html" sourcePath="asdoc-output/all-index-E.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/button_disabled.png" sourcePath="assets/themes/oxygen/button_disabled.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/animations/WindowAlertingAnimation.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/animations/WindowAlertingAnimation.html"/>
+    <resourceEntry destPath="assets/images/buttons/old/buttonMaximizeUp.png" sourcePath="assets/images/buttons/old/buttonMaximizeUp.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/decorations/IWindowDecoration.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/decorations/IWindowDecoration.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenTabNavigatorRightButtonSelected.png" sourcePath="assets/themes/oxygen/oxygenTabNavigatorRightButtonSelected.png"/>
+    <resourceEntry destPath="asdoc-output/class-summary.html" sourcePath="asdoc-output/class-summary.html"/>
+    <resourceEntry destPath="asdoc-output/all-index-Z.html" sourcePath="asdoc-output/all-index-Z.html"/>
+    <resourceEntry destPath="assets/images/buttons/old/buttonMinimize.png" sourcePath="assets/images/buttons/old/buttonMinimize.png"/>
+    <resourceEntry destPath="assets/images/buttons/old/minimizeButton_light.png" sourcePath="assets/images/buttons/old/minimizeButton_light.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenButtonAddOver.png" sourcePath="assets/themes/oxygen/oxygenButtonAddOver.png"/>
+    <resourceEntry destPath="assets/images/buttons/old/button_restore15x15.png" sourcePath="assets/images/buttons/old/button_restore15x15.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenSliderTrack.png" sourcePath="assets/themes/oxygen/oxygenSliderTrack.png"/>
+    <resourceEntry destPath="assets/images/buttons/old/fancy_right.png" sourcePath="assets/images/buttons/old/fancy_right.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/decorations/BlurDecoration.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/decorations/BlurDecoration.html"/>
+    <resourceEntry destPath="asdoc-output/all-index-F.html" sourcePath="asdoc-output/all-index-F.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenRadioButtonSelectedDisabled.png" sourcePath="assets/themes/oxygen/oxygenRadioButtonSelectedDisabled.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenButtonAddDisabled.png" sourcePath="assets/themes/oxygen/oxygenButtonAddDisabled.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/WindowProxyManager.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/WindowProxyManager.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenScrollBarTrack.png" sourcePath="assets/themes/oxygen/oxygenScrollBarTrack.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/buttonDisabled.png" sourcePath="assets/themes/oxygen/buttonDisabled.png"/>
+    <resourceEntry destPath="assets/images/buttons/old/close.png" sourcePath="assets/images/buttons/old/close.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenCheckBoxDisabledSelected.png" sourcePath="assets/themes/oxygen/oxygenCheckBoxDisabledSelected.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/decorator/class-list.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/decorator/class-list.html"/>
+    <resourceEntry destPath="assets/images/buttons/old/closeButton_soft.png" sourcePath="assets/images/buttons/old/closeButton_soft.png"/>
+    <resourceEntry destPath="asdoc-output/all-classes.html" sourcePath="asdoc-output/all-classes.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenTabNavigatorRightButtonUp.png" sourcePath="assets/themes/oxygen/oxygenTabNavigatorRightButtonUp.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenTabNavigatorLeftButtonUp.png" sourcePath="assets/themes/oxygen/oxygenTabNavigatorLeftButtonUp.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/SheetEvent.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/SheetEvent.html"/>
+    <resourceEntry destPath="asdoc-output/all-index-L.html" sourcePath="asdoc-output/all-index-L.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenCheckBoxDisabled.png" sourcePath="assets/themes/oxygen/oxygenCheckBoxDisabled.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/events/WindowAnimationDirectorEvent.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/events/WindowAnimationDirectorEvent.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/decorator/IWindowDecorator.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/decorator/IWindowDecorator.html"/>
+    <resourceEntry destPath="assets/images/buttons/old/minimizeButton_dark.png" sourcePath="assets/images/buttons/old/minimizeButton_dark.png"/>
+    <resourceEntry destPath="assets/images/buttons/oxygenButtonUp.png" sourcePath="assets/images/buttons/oxygenButtonUp.png"/>
+    <resourceEntry destPath="asdoc-output/images/inherit-arrow.gif" sourcePath="asdoc-output/images/inherit-arrow.gif"/>
+    <resourceEntry destPath="asdoc-output/all-index-R.html" sourcePath="asdoc-output/all-index-R.html"/>
+    <resourceEntry destPath="assets/images/buttons/old/restoreButton.png" sourcePath="assets/images/buttons/old/restoreButton.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/animations/IWindowOpeniningAnimation.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/animations/IWindowOpeniningAnimation.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/decorations/ForegroundDecoration.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/decorations/ForegroundDecoration.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenCheckBoxSelectedUp.png" sourcePath="assets/themes/oxygen/oxygenCheckBoxSelectedUp.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/buttonOver.png" sourcePath="assets/themes/oxygen/buttonOver.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenRadioButtonUp.png" sourcePath="assets/themes/oxygen/oxygenRadioButtonUp.png"/>
+    <resourceEntry destPath="asdoc-output/all-index-D.html" sourcePath="asdoc-output/all-index-D.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenNumericStepperDownArrowUp.png" sourcePath="assets/themes/oxygen/oxygenNumericStepperDownArrowUp.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/IWindow.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/IWindow.html"/>
+    <resourceEntry destPath="assets/images/buttons/old/button_close15x15.png" sourcePath="assets/images/buttons/old/button_close15x15.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenGroupBackground.png" sourcePath="assets/themes/oxygen/oxygenGroupBackground.png"/>
+    <resourceEntry destPath="assets/images/Thumbs.db" sourcePath="assets/images/Thumbs.db"/>
+    <resourceEntry destPath="assets/images/buttons/old/closeButton7x7.PNG" sourcePath="assets/images/buttons/old/closeButton7x7.PNG"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenSliderThumbUp.png" sourcePath="assets/themes/oxygen/oxygenSliderThumbUp.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/events/WindowAnimatorEvent.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/events/WindowAnimatorEvent.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/IWindowProxy.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/IWindowProxy.html"/>
+    <resourceEntry destPath="asdoc-output/all-index-B.html" sourcePath="asdoc-output/all-index-B.html"/>
+    <resourceEntry destPath="asdoc-output/images/detailHeaderRule.jpg" sourcePath="asdoc-output/images/detailHeaderRule.jpg"/>
+    <resourceEntry destPath="assets/images/buttons/old/buttonMinimizeOver.png" sourcePath="assets/images/buttons/old/buttonMinimizeOver.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/animations/WindowMaximizingAnimation.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/animations/WindowMaximizingAnimation.html"/>
+    <resourceEntry destPath="asdoc-output/index-list.html" sourcePath="asdoc-output/index-list.html"/>
+    <resourceEntry destPath="asdoc-output/all-index-P.html" sourcePath="asdoc-output/all-index-P.html"/>
+    <resourceEntry destPath="assets/images/buttons/resizeHandle11x11.png" sourcePath="assets/images/buttons/resizeHandle11x11.png"/>
+    <resourceEntry destPath="assets/images/buttons/old/buttonCloseUp.png" sourcePath="assets/images/buttons/old/buttonCloseUp.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenButtonEditDisabled.png" sourcePath="assets/themes/oxygen/oxygenButtonEditDisabled.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/IWindowManager.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/IWindowManager.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenButtonRemoveUp.png" sourcePath="assets/themes/oxygen/oxygenButtonRemoveUp.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/Sheet.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/Sheet.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/ISheet.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/ISheet.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenRadioButtonDisabled.png" sourcePath="assets/themes/oxygen/oxygenRadioButtonDisabled.png"/>
+    <resourceEntry destPath="assets/images/buttons/Thumbs.db" sourcePath="assets/images/buttons/Thumbs.db"/>
+    <resourceEntry destPath="assets/images/buttons/old/button_close_over15x15.png" sourcePath="assets/images/buttons/old/button_close_over15x15.png"/>
+    <resourceEntry destPath="assets/images/buttons/oxygenButtonMinimizeOver.png" sourcePath="assets/images/buttons/oxygenButtonMinimizeOver.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/buttonUp.png" sourcePath="assets/themes/oxygen/buttonUp.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/animations/IWindowClosingAnimation.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/animations/IWindowClosingAnimation.html"/>
+    <resourceEntry destPath="asdoc-output/all-index-V.html" sourcePath="asdoc-output/all-index-V.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/Helper.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/Helper.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/decorator/package-detail.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/decorator/package-detail.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/WindowProxyGenerator.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/WindowProxyGenerator.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/animations/IWindowMaximizingAnimation.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/animations/IWindowMaximizingAnimation.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenNumericStepperUpArrowOver.png" sourcePath="assets/themes/oxygen/oxygenNumericStepperUpArrowOver.png"/>
+    <resourceEntry destPath="assets/images/buttons/resizeCursor14x20.png" sourcePath="assets/images/buttons/resizeCursor14x20.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenCheckBoxSelectedOver.png" sourcePath="assets/themes/oxygen/oxygenCheckBoxSelectedOver.png"/>
+    <resourceEntry destPath="assets/images/buttons/old/closeButton.PNG" sourcePath="assets/images/buttons/old/closeButton.PNG"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/decorator/Decorator.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/decorator/Decorator.html"/>
+    <resourceEntry destPath="assets/images/buttons/old/restoreButton_soft.png" sourcePath="assets/images/buttons/old/restoreButton_soft.png"/>
+    <resourceEntry destPath="asdoc-output/images/detailSectionHeader.jpg" sourcePath="asdoc-output/images/detailSectionHeader.jpg"/>
+    <resourceEntry destPath="asdoc-output/images/collapsed.gif" sourcePath="asdoc-output/images/collapsed.gif"/>
+    <resourceEntry destPath="asdoc-output/all-index-K.html" sourcePath="asdoc-output/all-index-K.html"/>
+    <resourceEntry destPath="assets/images/buttons/oxygenButtonCloseOver.png" sourcePath="assets/images/buttons/oxygenButtonCloseOver.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/decorations/BackgroundDecoration.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/decorations/BackgroundDecoration.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/button_up.png" sourcePath="assets/themes/oxygen/button_up.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/animations/ZoomInOpeningWindowAnimation.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/animations/ZoomInOpeningWindowAnimation.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/events/class-list.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/events/class-list.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/decorations/AbstractDecoration.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/decorations/AbstractDecoration.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/animations/WindowMinimizingAnimation.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/animations/WindowMinimizingAnimation.html"/>
+    <resourceEntry destPath="asdoc-output/all-index-C.html" sourcePath="asdoc-output/all-index-C.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/animations/LayingMinimizedWindowsAnimation.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/animations/LayingMinimizedWindowsAnimation.html"/>
+    <resourceEntry destPath="asdoc-output/images/titleTableMiddle.jpg" sourcePath="asdoc-output/images/titleTableMiddle.jpg"/>
+    <resourceEntry destPath="assets/images/buttons/old/buttonCloseOver.png" sourcePath="assets/images/buttons/old/buttonCloseOver.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenWindowBackground.png" sourcePath="assets/themes/oxygen/oxygenWindowBackground.png"/>
+    <resourceEntry destPath="assets/images/buttons/old/buttonMinimizeUp.png" sourcePath="assets/images/buttons/old/buttonMinimizeUp.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenRadioButtonSelectedUp.png" sourcePath="assets/themes/oxygen/oxygenRadioButtonSelectedUp.png"/>
+    <resourceEntry destPath="asdoc-output/images/inheritedSummary.gif" sourcePath="asdoc-output/images/inheritedSummary.gif"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/events/package-detail.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/events/package-detail.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/animations/ILayingMinimizedWindowsAnimation.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/animations/ILayingMinimizedWindowsAnimation.html"/>
+    <resourceEntry destPath="assets/images/resizeCursor.png" sourcePath="assets/images/resizeCursor.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/IWindowDialog.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/IWindowDialog.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/Thumbs.db" sourcePath="assets/themes/oxygen/Thumbs.db"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenButtonRemoveOver.png" sourcePath="assets/themes/oxygen/oxygenButtonRemoveOver.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenRadioButtonOver.png" sourcePath="assets/themes/oxygen/oxygenRadioButtonOver.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/package-detail.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/package-detail.html"/>
+    <resourceEntry destPath="asdoc-output/all-index-A.html" sourcePath="asdoc-output/all-index-A.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/animations/class-list.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/animations/class-list.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/animations/IUnminimizeWindowAnimation.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/animations/IUnminimizeWindowAnimation.html"/>
+    <resourceEntry destPath="asdoc-output/all-index-J.html" sourcePath="asdoc-output/all-index-J.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/animations/LayoutMinimizedWindows.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/animations/LayoutMinimizedWindows.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/ISheetProxy.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/ISheetProxy.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/animations/ISheetAnimation.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/animations/ISheetAnimation.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/WindowDialog.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/WindowDialog.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenButtonOver.png" sourcePath="assets/themes/oxygen/oxygenButtonOver.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/WindowProxy.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/WindowProxy.html"/>
+    <resourceEntry destPath="assets/images/buttons/old/fancy_left.png" sourcePath="assets/images/buttons/old/fancy_left.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/animations/SheetAnimationEvent.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/animations/SheetAnimationEvent.html"/>
+    <resourceEntry destPath="assets/fonts/verdana.TTF" sourcePath="assets/fonts/verdana.TTF"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenNumericStepperUpArrowUp.png" sourcePath="assets/themes/oxygen/oxygenNumericStepperUpArrowUp.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenSliderThumbOver.png" sourcePath="assets/themes/oxygen/oxygenSliderThumbOver.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/SheetProxy.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/SheetProxy.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenScrollBarThumbDown.png" sourcePath="assets/themes/oxygen/oxygenScrollBarThumbDown.png"/>
+    <resourceEntry destPath="assets/images/buttons/old/maximizeButton_light.png" sourcePath="assets/images/buttons/old/maximizeButton_light.png"/>
+    <resourceEntry destPath="asdoc-output/mxml-tags.html" sourcePath="asdoc-output/mxml-tags.html"/>
+    <resourceEntry destPath="asdoc-output/all-index-W.html" sourcePath="asdoc-output/all-index-W.html"/>
+    <resourceEntry destPath="assets/images/buttons/old/button_minimize_over15x15.png" sourcePath="assets/images/buttons/old/button_minimize_over15x15.png"/>
+    <resourceEntry destPath="asdoc-output/style.css" sourcePath="asdoc-output/style.css"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenButtonEditUp.png" sourcePath="assets/themes/oxygen/oxygenButtonEditUp.png"/>
+    <resourceEntry destPath="asdoc-output/all-index-Y.html" sourcePath="asdoc-output/all-index-Y.html"/>
+    <resourceEntry destPath="asdoc-output/images/logo.jpg" sourcePath="asdoc-output/images/logo.jpg"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/decorations/BlurWindowDecoration.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/decorations/BlurWindowDecoration.html"/>
+    <resourceEntry destPath="asdoc-output/package-summary.html" sourcePath="asdoc-output/package-summary.html"/>
+    <resourceEntry destPath="assets/images/buttons/old/Thumbs.db" sourcePath="assets/images/buttons/old/Thumbs.db"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenScrollBarThumbOver.png" sourcePath="assets/themes/oxygen/oxygenScrollBarThumbOver.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenCheckBoxUp.png" sourcePath="assets/themes/oxygen/oxygenCheckBoxUp.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenNumericStepperDownArrowOver.png" sourcePath="assets/themes/oxygen/oxygenNumericStepperDownArrowOver.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/decorations/AbstractWindowDecoration.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/decorations/AbstractWindowDecoration.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/animations/WindowAnimationDirector.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/animations/WindowAnimationDirector.html"/>
+    <resourceEntry destPath="assets/images/buttons/old/closeButton_light.png" sourcePath="assets/images/buttons/old/closeButton_light.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenButtonEditOver.png" sourcePath="assets/themes/oxygen/oxygenButtonEditOver.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenSheetBackground.png" sourcePath="assets/themes/oxygen/oxygenSheetBackground.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/WindowManager.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/WindowManager.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/animations/SlideSheetInAnimation.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/animations/SlideSheetInAnimation.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/events/WindowEvent.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/events/WindowEvent.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenScrollBarTopArrowUp.png" sourcePath="assets/themes/oxygen/oxygenScrollBarTopArrowUp.png"/>
+    <resourceEntry destPath="asdoc-output/appendixes.html" sourcePath="asdoc-output/appendixes.html"/>
+    <resourceEntry destPath="assets/images/buttons/old/maximizeButton.PNG" sourcePath="assets/images/buttons/old/maximizeButton.PNG"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenComboBoxUp.png" sourcePath="assets/themes/oxygen/oxygenComboBoxUp.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/decorations/GlowDecoration.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/decorations/GlowDecoration.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/Window.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/Window.html"/>
+    <resourceEntry destPath="asdoc-output/all-index-N.html" sourcePath="asdoc-output/all-index-N.html"/>
+    <resourceEntry destPath="asdoc-output/images/titleTableBottom.jpg" sourcePath="asdoc-output/images/titleTableBottom.jpg"/>
+    <resourceEntry destPath="asdoc-output/index.html" sourcePath="asdoc-output/index.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenSliderThumbDown.png" sourcePath="assets/themes/oxygen/oxygenSliderThumbDown.png"/>
+    <resourceEntry destPath="asdoc-output/all-index-Q.html" sourcePath="asdoc-output/all-index-Q.html"/>
+    <resourceEntry destPath="assets/images/buttons/old/button_little_frame.png" sourcePath="assets/images/buttons/old/button_little_frame.png"/>
+    <resourceEntry destPath="asdoc-output/print.css" sourcePath="asdoc-output/print.css"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/decorations/class-list.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/decorations/class-list.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenControlBarBackground.png" sourcePath="assets/themes/oxygen/oxygenControlBarBackground.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/animations/IWindowAlertingAnimation.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/animations/IWindowAlertingAnimation.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenTabNavigatorMiddleButtonOver.png" sourcePath="assets/themes/oxygen/oxygenTabNavigatorMiddleButtonOver.png"/>
+    <resourceEntry destPath="assets/images/buttons/old/fancy_closebox.png" sourcePath="assets/images/buttons/old/fancy_closebox.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/animations/IWindowAnimation.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/animations/IWindowAnimation.html"/>
+    <resourceEntry destPath="assets/images/buttons/oxygenButtonMaximizeOver.png" sourcePath="assets/images/buttons/oxygenButtonMaximizeOver.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenButtonRemoveDisabled.png" sourcePath="assets/themes/oxygen/oxygenButtonRemoveDisabled.png"/>
+    <resourceEntry destPath="assets/images/buttons/old/button_restore_over15x15.png" sourcePath="assets/images/buttons/old/button_restore_over15x15.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/animations/ZoomOutClosingWindowAnimation.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/animations/ZoomOutClosingWindowAnimation.html"/>
+    <resourceEntry destPath="assets/images/buttons/old/maximizeButton_dark.png" sourcePath="assets/images/buttons/old/maximizeButton_dark.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/animations/package-detail.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/animations/package-detail.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/animations/UnminimizeWindowAnimation.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/animations/UnminimizeWindowAnimation.html"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/animations/SlideSheetOutAnimation.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/animations/SlideSheetOutAnimation.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenButtonDown.png" sourcePath="assets/themes/oxygen/oxygenButtonDown.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenTabNavigatorLeftButtonSelected.png" sourcePath="assets/themes/oxygen/oxygenTabNavigatorLeftButtonSelected.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/ProxyManager.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/ProxyManager.html"/>
+    <resourceEntry destPath="asdoc-output/title-bar.html" sourcePath="asdoc-output/title-bar.html"/>
+    <resourceEntry destPath="assets/images/buttons/old/button_minimize15x15.png" sourcePath="assets/images/buttons/old/button_minimize15x15.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/animations/IWindowMinimizingAnimation.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/animations/IWindowMinimizingAnimation.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenButtonUp.png" sourcePath="assets/themes/oxygen/oxygenButtonUp.png"/>
+    <resourceEntry destPath="asdoc-output/net/codeengine/windowmanagement/decorations/IDecoration.html" sourcePath="asdoc-output/net/codeengine/windowmanagement/decorations/IDecoration.html"/>
+    <resourceEntry destPath="asdoc-output/asdoc.js" sourcePath="asdoc-output/asdoc.js"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenButtonDisabled.png" sourcePath="assets/themes/oxygen/oxygenButtonDisabled.png"/>
+    <resourceEntry destPath="assets/images/buttons/old/maximizeButton_soft.png" sourcePath="assets/images/buttons/old/maximizeButton_soft.png"/>
+    <resourceEntry destPath="assets/images/buttons/old/buttonMaximizeOver.png" sourcePath="assets/images/buttons/old/buttonMaximizeOver.png"/>
+    <resourceEntry destPath="asdoc-output/all-index-G.html" sourcePath="asdoc-output/all-index-G.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenButtonAddUp.png" sourcePath="assets/themes/oxygen/oxygenButtonAddUp.png"/>
+    <resourceEntry destPath="asdoc-output/all-index-M.html" sourcePath="asdoc-output/all-index-M.html"/>
+    <resourceEntry destPath="asdoc-output/package-frame.html" sourcePath="asdoc-output/package-frame.html"/>
+    <resourceEntry destPath="asdoc-output/images/expanded.gif" sourcePath="asdoc-output/images/expanded.gif"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenTabNavigatorRightButtonOver.png" sourcePath="assets/themes/oxygen/oxygenTabNavigatorRightButtonOver.png"/>
+    <resourceEntry destPath="asdoc-output/all-index-T.html" sourcePath="asdoc-output/all-index-T.html"/>
+    <resourceEntry destPath="asdoc-output/all-index-H.html" sourcePath="asdoc-output/all-index-H.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenBottomArrowUp.png" sourcePath="assets/themes/oxygen/oxygenBottomArrowUp.png"/>
+    <resourceEntry destPath="assets/images/buttons/old/closeButton_dark.png" sourcePath="assets/images/buttons/old/closeButton_dark.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenTabNavigatorMiddleButtonSelected.png" sourcePath="assets/themes/oxygen/oxygenTabNavigatorMiddleButtonSelected.png"/>
+    <resourceEntry destPath="asdoc-output/all-index-X.html" sourcePath="asdoc-output/all-index-X.html"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenScrollBarBottomArrowUp.png" sourcePath="assets/themes/oxygen/oxygenScrollBarBottomArrowUp.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenCheckBoxSelectedDown.png" sourcePath="assets/themes/oxygen/oxygenCheckBoxSelectedDown.png"/>
+    <resourceEntry destPath="assets/images/buttons/old/button_big_frame.png" sourcePath="assets/images/buttons/old/button_big_frame.png"/>
+    <resourceEntry destPath="asdoc-output/images/titleTableTop.jpg" sourcePath="asdoc-output/images/titleTableTop.jpg"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenRadioButtonSelectedOver.png" sourcePath="assets/themes/oxygen/oxygenRadioButtonSelectedOver.png"/>
+    <resourceEntry destPath="assets/themes/oxygen/oxygenCheckBoxDown.png" sourcePath="assets/themes/oxygen/oxygenCheckBoxDown.png"/>
+    <resourceEntry destPath="assets/images/buttons/old/minimizeButton_soft.png" sourcePath="assets/images/buttons/old/minimizeButton_soft.png"/>
+  </includeResources>
+  <namespaceManifests/>
+</flexLibProperties>

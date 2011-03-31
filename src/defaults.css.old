@@ -1,0 +1,445 @@
+/* •••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••
+   ••  Kit Venter                                                   ••
+   ••  Updated:  January 2010                                       ••
+   ••                                                               ••
+   ••  Copyright 2011 Kit Venter                                    ••
+   ••  Feel free to learn and adapt techniques used here,           ••
+   ••  but don’t just copy and call it yours.                       ••
+   •••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••   
+   
+   0. APPLICATION
+   1. WINDOWS 
+        1.1 Window
+        1.2 Sheet
+        1.3 Drawer
+        1.4 Context Menu
+   2. COMPONENTS
+   
+---------------------------------------------------------------------- */
+
+
+/* 0. APPLICATION
+•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••• */
+
+Text, Label, CheckBox, RadioButton, LinkButton, Link, TextArea, Button, TabNavigator, List, ComboBox	 {	
+ font-family: VerdanaEmbedded;
+}
+
+/* CSS file */
+Application{
+	backgroundColor: #ffffff;
+    fill-colors:#ffffff, #ffffff;
+}
+
+
+
+@font-face {
+	src: url("assets/fonts/verdana.TTF");
+    font-family: VerdanaEmbedded;
+}
+
+/* 1. WINDOWS
+•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••• */
+/* 1.1 =Window
+---------------------------------------------------------------------- */
+
+Window{
+    background-color: #EDEDED;
+    /*border-color: #979795;*/
+    
+    border-alpha: 1;
+    corner-radius: 8;
+    rounded-bottom-corners: true;
+    border-thickness-left: 0;
+    border-thickness-right: 0;
+    color: #000000;
+    font-size: 12;
+    header-height: 20;
+   	/*headerColors: #BEBEBE, #979795;*/
+   	headerColors: #f0f0f0, #c9c9c9;
+   	title-style-name: "headerStyle";
+   	disabled-color:#000000;
+}
+
+.headerStyle{
+	color: #000000;
+    font-family: "VerdanaEmbedded";
+    text-align: center;
+	embedAsCFF: true;
+}
+
+/* 1.2 =Sheet
+---------------------------------------------------------------------- */
+Sheet{
+    /*border-color: #979795;*/
+    border-color: #b4b4b4;
+   	/*background-image:Embed('assets/themes/oxygen/sheet.png');*/
+    border-alpha: 1;
+    /*border-thickness-left: 2;
+    border-thickness-right: 2;
+    border-thickness-top: 0;
+    border-thickness-bottom: 2;*/
+    background-color: #ECEDEC;
+    border-style:solid;
+    background-alpha:0.7;
+	font-family: VerdanaEmbedded;
+	font-size:13;
+}
+
+/* 1.3 =Drawer
+---------------------------------------------------------------------- */
+Drawer{
+    border-color: #979795;
+    background-color: #FFFFFF;
+    border-style:solid;
+    border-alpha: 1;
+    corner-radius: 10;
+    rounded-bottom-corners: true;
+    border-thickness: 2;
+    font-family: "VerdanaEmbedded";
+    font-size: 12;
+    header-height: 20;
+}
+/* 1.4 =Context Menu
+---------------------------------------------------------------------- */
+ContextMenu{
+	background-color:#EDEDED;
+	color:#000000;
+	corner-radius:10px;
+	border-style:solid;
+  	dropShadowEnabled:true;
+  	background-alpha:0.8;
+}
+
+ContextMenuLinkButton{
+	font-size:14px;
+	text-align:left;
+	padding-left:10;
+	left:0;
+	right:0;
+	corner-radius:0;
+	
+}
+
+
+/* 0. APPLICATION
+•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••• */
+
+ScrollBar
+{
+	thumbUpSkin:Embed('assets/themes/oxygen/oxygenScrollBarThumbUp.png', scaleGridLeft=7, scaleGridRight=8, scaleGridTop=6,scaleGridBottom=60);
+	thumbOverSkin:Embed('assets/themes/oxygen/oxygenScrollBarThumbOver.png', scaleGridLeft=7, scaleGridRight=8, scaleGridTop=6,scaleGridBottom=60);
+	thumbDownSkin:Embed('assets/themes/oxygen/oxygenScrollBarThumbDown.png',  scaleGridLeft=7, scaleGridRight=8, scaleGridTop=6,scaleGridBottom=60); 
+   	trackSkin: Embed("assets/themes/oxygen/oxygenScrollBarTrack.png", scaleGridLeft=6, scaleGridRight=7, scaleGridTop=22,scaleGridBottom=160);
+    upArrowSkin: Embed("assets/themes/oxygen/oxygenScrollBarTopArrowUp.png");
+    downArrowSkin: Embed("assets/themes/oxygen/oxygenScrollBarBottomArrowUp.png");
+}
+
+ComboBox
+{
+  embedFonts: true;
+  fontFamily: VerdanaEmbedded;
+  fontWeight: normal;
+  fontSize: 12; 
+	upSkin: Embed('assets/themes/oxygen/oxygenComboBoxUp.png', scaleGridLeft=2, scaleGridRight=14, scaleGridTop=2,scaleGridBottom=25);
+	overSkin: Embed('assets/themes/oxygen/oxygenComboBoxUp.png', scaleGridLeft=2, scaleGridRight=14, scaleGridTop=2,scaleGridBottom=25);
+	downSkin: Embed('assets/themes/oxygen/oxygenComboBoxUp.png', scaleGridLeft=2, scaleGridRight=14, scaleGridTop=2,scaleGridBottom=25);
+	button-height:26;
+}
+
+CheckBox
+{
+	upIcon: Embed('assets/themes/oxygen/oxygenCheckBoxUp.png');
+	downIcon:Embed('assets/themes/oxygen/oxygenCheckBoxDown.png');
+	overIcon:Embed('assets/themes/oxygen/oxygenCheckBoxOver.png');
+	selectedUpIcon:Embed('assets/themes/oxygen/oxygenCheckBoxSelectedUp.png');
+	selectedOverIcon:Embed('assets/themes/oxygen/oxygenCheckBoxSelectedOver.png');
+	selectedDownIcon:Embed('assets/themes/oxygen/oxygenCheckBoxSelectedDown.png');
+	disabledIcon:Embed('assets/themes/oxygen/oxygenCheckBoxDisabled.png');
+	selectedDisabledIcon:Embed('assets/themes/oxygen/oxygenCheckBoxDisabledSelected.png');
+	textRollOverColor:#000000;
+	textSelectedColor:#000000;
+	color: #000000;
+    background-color: #00A8E9;
+    border-style:solid;
+    border-color: #251E85;
+    corner-radius:2;
+    fillAlphas: 1, 1, 0.75, 0.65;    
+    fillColors: #C7E0E7, #83B8EC, #a4c7ed, #65a5e3;
+    color: #000000;
+}
+
+RadioButton
+{
+	textRollOverColor:#000000;
+	textSelectedColor:#000000; 
+	color: #000000;
+    background-color: #00A8E9;
+    border-style:solid;
+    corner-radius:2;
+    border-color: #251E85;
+    fillAlphas: 1, 1, 0.75, 0.65;    
+    fillColors: #C7E0E7, #83B8EC, #a4c7ed, #65a5e3;
+    color: #000000;
+	upIcon: Embed('assets/themes/oxygen/oxygenRadioButtonUp.png');
+	downIcon:Embed('assets/themes/oxygen/oxygenRadioButtonDown.png');
+	overIcon:Embed('assets/themes/oxygen/oxygenRadioButtonOver.png');
+	selectedUpIcon:Embed('assets/themes/oxygen/oxygenRadioButtonSelectedUp.png');
+	selectedOverIcon:Embed('assets/themes/oxygen/oxygenRadioButtonSelectedOver.png');
+	selectedDownIcon:Embed('assets/themes/oxygen/oxygenRadioButtonSelectedDown.png');
+	disabledIcon:Embed('assets/themes/oxygen/oxygenRadioButtonDisabled.png');
+	selectedDisabledIcon:Embed('assets/themes/oxygen/oxygenRadioButtonSelectedDisabled.png');
+}
+
+NumericStepper
+{
+	upArrowUpSkin: Embed('assets/themes/oxygen/oxygenNumericStepperUpArrowUp.png');
+	upArrowOverSkin: Embed('assets/themes/oxygen/oxygenNumericStepperUpArrowOver.png');
+	upArrowDownSkin: Embed('assets/themes/oxygen/oxygenNumericStepperUpArrowOver.png');
+	downArrowUpSkin: Embed('assets/themes/oxygen/oxygenNumericStepperDownArrowUp.png');
+	downArrowOverSkin: Embed('assets/themes/oxygen/oxygenNumericStepperDownArrowOver.png');
+	downArrowDownSkin: Embed('assets/themes/oxygen/oxygenNumericStepperDownArrowOver.png');
+}
+
+.ButtonAdd{
+	over-skin: Embed('assets/themes/oxygen/oxygenButtonAddOver.png');
+	down-skin: Embed('assets/themes/oxygen/oxygenButtonAddOver.png');
+	up-skin: Embed('assets/themes/oxygen/oxygenButtonAddUp.png');
+	disabled-skin: Embed('assets/themes/oxygen/oxygenButtonAddDisabled.png');
+	
+}
+
+.ButtonRemove{
+	over-skin: Embed('assets/themes/oxygen/oxygenButtonRemoveOver.png');
+	down-skin: Embed('assets/themes/oxygen/oxygenButtonRemoveOver.png');
+	up-skin: Embed('assets/themes/oxygen/oxygenButtonRemoveUp.png');
+	disabled-skin: Embed('assets/themes/oxygen/oxygenButtonRemoveDisabled.png');
+}
+
+.ButtonEdit{
+	over-skin: Embed('assets/themes/oxygen/oxygenButtonEditOver.png');
+	down-skin: Embed('assets/themes/oxygen/oxygenButtonEditOver.png');
+	up-skin: Embed('assets/themes/oxygen/oxygenButtonEditUp.png');
+	disabled-skin: Embed('assets/themes/oxygen/oxygenButtonEditDisabled.png');
+}
+
+Button {
+   fillAlphas: 1, 1, 1, 1;
+   fillColors: #fffeff, #dfdfdf, #a4c7ed, #65a5e3;
+   borderColor: #878787;
+   font-weight: normal;
+   disabled-color: #878787;
+   font-family: VerdanaEmbedded;
+   corner-radius:10;
+   
+}
+	
+
+.tagPushButton{
+    background-color: #00A8E9;
+    border-style:solid;
+    corner-radius:5;
+    fillAlphas: 1, 1, 0.75, 0.65;    
+    fillColors: #8dd006, #05b205, #D965A7, #D93B94;
+}
+
+
+TextInput{
+    border-color: #878787;
+    background-color: #FAFBFA;
+   	
+    color: #740242;
+	border-style:solid;
+    embedFonts: true;
+    fontFamily: VerdanaEmbedded;
+    padding-left:2;
+    padding-top:2;
+}
+
+LinkButton{
+    color: #000000;
+   	fillAlphas: 1, 1, 1, 1;
+   	fillColors: #fffeff, #dfdfdf, #a4c7ed, #65a5e3;
+}
+
+DateField{
+    fontFamily: VerdanaEmbedded;
+}
+
+TextBox{
+	corner-radius:2;
+	border-style:solid;
+	border-thickness:1;
+}
+
+Canvas{
+	background-color: #FFFFFF;
+}
+
+DataGrid{
+    selectionColor:#4385d9;
+    rollOverColor:#4385d9;
+    textRollOverColor:#ffffff;
+    textSelectedColor:#ffffff;
+  	embedFonts: true;
+  	fontFamily: VerdanaEmbedded;
+  	fontSize: 12; 
+  	header-style-name: datagrid-header-style;
+}
+
+.datagrid-header-style{
+	embedFonts: true;
+  	fontFamily: VerdanaEmbedded;
+  	fontSize: 12; 
+}
+
+
+
+HSlider{	
+	thumbDisabledSkin: Embed('assets/themes/oxygen/oxygenSliderThumbDown.png');
+	thumbDownSkin: Embed('assets/themes/oxygen/oxygenSliderThumbDown.png');
+	thumbOverSkin: Embed('assets/themes/oxygen/oxygenSliderThumbDown.png');
+	thumbUpSkin: Embed('assets/themes/oxygen/oxygenSliderThumbDown.png');
+	trackSkin: Embed('assets/themes/oxygen/oxygenSliderTrack.png');
+}
+
+VSlider{	
+	thumbDisabledSkin: Embed('assets/themes/oxygen/oxygenSliderThumbDown.png');
+	thumbDownSkin: Embed('assets/themes/oxygen/oxygenSliderThumbDown.png');
+	thumbOverSkin: Embed('assets/themes/oxygen/oxygenSliderThumbDown.png');
+	thumbUpSkin: Embed('assets/themes/oxygen/oxygenSliderThumbDown.png');
+	trackSkin: Embed('assets/themes/oxygen/oxygenSliderTrack.png');
+}
+
+.OxygenButton {
+   fillAlphas: 1, 1;
+   fillColors: #fffeff, #dfdfdf,#dfdfdf,#dfdfdf;
+   borderColor: #6274a5;
+   color: #000000;
+   font-weight: normal;
+   disabled-color: #878787;
+   font-family: VerdanaEmbedded;
+   corner-radius:4;
+   up-skin: Embed('assets/themes/oxygen/oxygenButtonUp.png', scaleGridLeft=10, scaleGridRight=71, scaleGridTop=2,scaleGridBottom=22);
+ 	down-skin: Embed('assets/themes/oxygen/oxygenButtonDown.png', scaleGridLeft=10, scaleGridRight=71, scaleGridTop=2,scaleGridBottom=22);
+	over-skin: Embed('assets/themes/oxygen/oxygenButtonOver.png', scaleGridLeft=10, scaleGridRight=71, scaleGridTop=2,scaleGridBottom=22);
+	disabled-skin: Embed('assets/themes/oxygen/oxygenButtonDisabled.png', scaleGridLeft=10, scaleGridRight=71, scaleGridTop=2,scaleGridBottom=22);
+
+}
+.OxygenDefaultButton {
+    fillAlphas: 1, 1;
+   fillColors: #fffeff, #dfdfdf,#dfdfdf,#dfdfdf;
+   borderColor: #6274a5;
+   color: #000000;
+   font-weight: normal;
+   disabled-color: #878787;
+   font-family: VerdanaEmbedded;
+   corner-radius:4;
+   up-skin: Embed(source='assets/themes/oxygen/oxygenButtonUp.png', scaleGridLeft=10, scaleGridRight=71, scaleGridTop=2,scaleGridBottom=22);
+ 	down-skin: Embed(source='assets/themes/oxygen/oxygenButtonDown.png', scaleGridLeft=10, scaleGridRight=71, scaleGridTop=2,scaleGridBottom=22);
+	over-skin: Embed(source='assets/themes/oxygen/oxygenButtonOver.png', scaleGridLeft=10, scaleGridRight=71, scaleGridTop=2,scaleGridBottom=22);
+	disabled-skin: Embed(source='assets/themes/oxygen/oxygenButtonDisabled.png', scaleGridLeft=10, scaleGridRight=71, scaleGridTop=2,scaleGridBottom=22);
+   
+}
+
+DateChooser{
+	header-style-name:header-style-name;
+	header-colors:#8fbce9,#cbdfeb;
+	week-day-style-name:week-day-style-name
+}
+.week-day-style-name{
+    font-family: VerdanaEmbedded;
+}
+
+.header-style-name{
+    font-family: VerdanaEmbedded;
+}
+
+TabNavigator{
+	tabStyleName: "tabStyle";
+    firstTabStyleName: "firstTab";
+    lastTabStyleName: "lastTab";
+    fontSize: 12;    
+    font-family: VerdanaEmbedded;
+    selected-tab-text-style-name: tabSelectedTextStyle;
+  
+}
+
+.tabStyle
+{    
+	font-family: VerdanaEmbedded;
+	upSkin: Embed(source='assets/themes/oxygen/oxygenTabNavigatorMiddleButtonUp.png',  scaleGridLeft=4, scaleGridRight=13, scaleGridTop=3,scaleGridBottom=15);
+    downSkin: Embed(source='assets/themes/oxygen/oxygenTabNavigatorMiddleButtonOver.png',scaleGridLeft=4, scaleGridRight=13, scaleGridTop=3,scaleGridBottom=15);
+    overSkin:  Embed(source='assets/themes/oxygen/oxygenTabNavigatorMiddleButtonOver.png', scaleGridLeft=4, scaleGridRight=13, scaleGridTop=3,scaleGridBottom=15);
+    selectedUpSkin: Embed(source='assets/themes/oxygen/oxygenTabNavigatorMiddleButtonSelected.png', scaleGridLeft=4, scaleGridRight=13, scaleGridTop=3,scaleGridBottom=15);
+    selectedDownSkin: Embed(source='assets/themes/oxygen/oxygenTabNavigatorMiddleButtonSelected.png', scaleGridLeft=4, scaleGridRight=13, scaleGridTop=3,scaleGridBottom=15);
+    selectedOverSkin: Embed(source='assets/themes/oxygen/oxygenTabNavigatorMiddleButtonSelected.png', scaleGridLeft=4, scaleGridRight=13, scaleGridTop=3,scaleGridBottom=15);
+
+}
+.firstTab {
+	   font-family: VerdanaEmbedded;
+    upSkin:Embed(source='assets/themes/oxygen/oxygenTabNavigatorLeftButtonUp.png', scaleGridLeft=4, scaleGridRight=13, scaleGridTop=3,scaleGridBottom=15);
+    downSkin:Embed(source='assets/themes/oxygen/oxygenTabNavigatorLeftButtonOver.png', scaleGridLeft=4, scaleGridRight=13, scaleGridTop=3,scaleGridBottom=15);
+    overSkin:Embed(source='assets/themes/oxygen/oxygenTabNavigatorLeftButtonOver.png', scaleGridLeft=4, scaleGridRight=13, scaleGridTop=3,scaleGridBottom=15);
+    selectedUpSkin:Embed(source='assets/themes/oxygen/oxygenTabNavigatorLeftButtonSelected.png', scaleGridLeft=4, scaleGridRight=13, scaleGridTop=3,scaleGridBottom=15);
+    selectedOverSkin:Embed(source='assets/themes/oxygen/oxygenTabNavigatorLeftButtonOver.png', scaleGridLeft=4, scaleGridRight=13, scaleGridTop=3,scaleGridBottom=15);
+
+}
+
+.lastTab {
+	   font-family: VerdanaEmbedded;
+    upSkin:Embed(source='assets/themes/oxygen/oxygenTabNavigatorRightButtonUp.png', scaleGridLeft=1, scaleGridRight=10, scaleGridTop=3,scaleGridBottom=15);
+    downSkin:Embed(source='assets/themes/oxygen/oxygenTabNavigatorRightButtonOver.png', scaleGridLeft=1, scaleGridRight=10, scaleGridTop=3,scaleGridBottom=15);
+    overSkin:Embed(source='assets/themes/oxygen/oxygenTabNavigatorRightButtonOver.png', scaleGridLeft=1, scaleGridRight=10, scaleGridTop=3,scaleGridBottom=15);
+    selectedUpSkin:Embed(source='assets/themes/oxygen/oxygenTabNavigatorRightButtonSelected.png', scaleGridLeft=1, scaleGridRight=10, scaleGridTop=3,scaleGridBottom=15);
+    selectedOverSkin:Embed(source='assets/themes/oxygen/oxygenTabNavigatorRightButtonOver.png', scaleGridLeft=1, scaleGridRight=10, scaleGridTop=3,scaleGridBottom=15);
+}
+.tabSelectedTextStyle{
+	   font-family: VerdanaEmbedded;
+}
+
+
+
+
+
+TabBar{
+	tabStyleName: "buttonBarStyle";
+    firstTabStyleName: "buttonBarFirstTab";
+    lastTabStyleName: "buttonBarLastTab";
+    fontSize: 12;    
+    font-family: VerdanaEmbedded;
+    selected-tab-text-style-name: tabSelectedTextStyle;
+    button-height:22;
+  
+}
+
+.buttonBarStyle
+{    
+	font-family: VerdanaEmbedded;
+	upSkin: Embed(source='assets/themes/oxygen/oxygenTabNavigatorMiddleButtonUp.png',scaleGridLeft=1, scaleGridRight=13, scaleGridTop=3,scaleGridBottom=22);
+    downSkin: Embed(source='assets/themes/oxygen/oxygenTabNavigatorMiddleButtonOver.png',scaleGridLeft=1, scaleGridRight=13, scaleGridTop=3,scaleGridBottom=22);
+    overSkin:  Embed(source='assets/themes/oxygen/oxygenTabNavigatorMiddleButtonOver.png', scaleGridLeft=1, scaleGridRight=13, scaleGridTop=3,scaleGridBottom=22);
+     
+     selectedUpSkin: Embed(source='assets/themes/oxygen/oxygenTabNavigatorMiddleButtonSelected.png', scaleGridLeft=1, scaleGridRight=13, scaleGridTop=3,scaleGridBottom=22);
+     selectedDownSkin: Embed(source='assets/themes/oxygen/oxygenTabNavigatorMiddleButtonSelected.png',scaleGridLeft=1, scaleGridRight=13, scaleGridTop=3,scaleGridBottom=22);
+     selectedOverSkin: Embed(source='assets/themes/oxygen/oxygenTabNavigatorMiddleButtonSelected.png',scaleGridLeft=1, scaleGridRight=13, scaleGridTop=3,scaleGridBottom=22);
+
+}
+.buttonBarFirstTab {
+	   font-family: VerdanaEmbedded;
+    upSkin:Embed(source='assets/themes/oxygen/oxygenTabNavigatorLeftButtonUp.png', scaleGridLeft=4, scaleGridRight=13, scaleGridTop=1,scaleGridBottom=21);
+    downSkin:Embed(source='assets/themes/oxygen/oxygenTabNavigatorLeftButtonOver.png', scaleGridLeft=4, scaleGridRight=13, scaleGridTop=1,scaleGridBottom=21);
+    overSkin:Embed(source='assets/themes/oxygen/oxygenTabNavigatorLeftButtonOver.png', scaleGridLeft=4, scaleGridRight=13, scaleGridTop=1,scaleGridBottom=21);
+    selectedUpSkin:Embed(source='assets/themes/oxygen/oxygenTabNavigatorLeftButtonSelected.png', scaleGridLeft=4, scaleGridRight=13, scaleGridTop=1,scaleGridBottom=21);
+    selectedOverSkin:Embed(source='assets/themes/oxygen/oxygenTabNavigatorLeftButtonOver.png', scaleGridLeft=4, scaleGridRight=13, scaleGridTop=1,scaleGridBottom=21);
+
+}
+
+.buttonBarLastTab {
+	   font-family: VerdanaEmbedded;
+    upSkin:Embed(source='assets/themes/oxygen/oxygenTabNavigatorRightButtonUp.png', scaleGridLeft=1, scaleGridRight=10, scaleGridTop=1,scaleGridBottom=21);
+    downSkin:Embed(source='assets/themes/oxygen/oxygenTabNavigatorRightButtonOver.png', scaleGridLeft=1, scaleGridRight=10, scaleGridTop=1,scaleGridBottom=21);
+    overSkin:Embed(source='assets/themes/oxygen/oxygenTabNavigatorRightButtonOver.png', scaleGridLeft=1, scaleGridRight=10, scaleGridTop=1,scaleGridBottom=21);
+    selectedUpSkin:Embed(source='assets/themes/oxygen/oxygenTabNavigatorRightButtonSelected.png', scaleGridLeft=1, scaleGridRight=10, scaleGridTop=1,scaleGridBottom=21);
+    selectedOverSkin:Embed(source='assets/themes/oxygen/oxygenTabNavigatorRightButtonOver.png', scaleGridLeft=1, scaleGridRight=10, scaleGridTop=1,scaleGridBottom=21);
+}
