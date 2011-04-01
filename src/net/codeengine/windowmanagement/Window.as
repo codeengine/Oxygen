@@ -61,16 +61,16 @@ package net.codeengine.windowmanagement {
          * Class Properties                                             *
          * ************************************************************ */
         [Bindable]
-        [Embed(source='assets/themes/oxygen/oxygenGroupBackground.png')]
+        [Embed(source='assets/images/oxygenGroupBackground.png')]
         public static var oxygenGroupBackground:Class;
 
         [Bindable]
-        [Embed(source='assets/themes/oxygen/oxygenWindowBackground.png')]
+        [Embed(source='assets/images/oxygenWindowBackground.png')]
         public static var oxygenWindowBackground:Class;
 
 
         [Bindable]
-        [Embed(source='assets/themes/oxygen/oxygenSheetBackground.png')]
+        [Embed(source='assets/images/oxygenSheetBackground.png')]
         public static var oxygenSheetBackground:Class;
         [Bindable] private var _showCloseButton:Boolean=true;
 
@@ -182,7 +182,7 @@ package net.codeengine.windowmanagement {
         [Bindable] private var _preRollUpHeight:int;
         private var _titleBarDoubleClickAction:String="Rollup";
 
-        [Embed(source='assets/themes/oxygen/oxygenWindowBackground.png')]
+        [Embed(source='assets/images/oxygenWindowBackground.png')]
         private var windowBackground:Class;
         
         private var _premovex:Number;

@@ -17,6 +17,7 @@ package net.codeengine.windowmanagement {
     import net.codeengine.windowmanagement.animations.*;
     import net.codeengine.windowmanagement.decorations.BackgroundDecoration;
     import net.codeengine.windowmanagement.decorations.BorderDecoration;
+    import net.codeengine.windowmanagement.decorations.DrawerDecoration;
     import net.codeengine.windowmanagement.decorations.ForegroundDecoration;
     import net.codeengine.windowmanagement.decorations.NullDecoration;
     import net.codeengine.windowmanagement.decorations.SheetDecoration;
@@ -71,9 +72,9 @@ package net.codeengine.windowmanagement {
 
         private var _sheets:ArrayCollection=new ArrayCollection();
 
-        private var _addWindowAnimation:IWindowAnimation=new ZoomInOpeningWindowAnimation;
+        private var _addWindowAnimation:IWindowAnimation=new WindowAppearAnimation;
 
-        private var _closeWindowAnimation:IWindowAnimation=new ZoomOutClosingWindowAnimation;
+        private var _closeWindowAnimation:IWindowAnimation=new WindowDisappearAnimation;
 
         private var _resizeWindowAnimation:IWindowAnimation=new WindowMaximizingAnimation;
 
@@ -83,9 +84,9 @@ package net.codeengine.windowmanagement {
 
         private var _unminimizeWindowAnimation:IWindowAnimation=new UnminimizeWindowAnimation();
 
-        private var _openSheetAnimation:ISheetAnimation=new SlideSheetInAnimation();
+        private var _openSheetAnimation:ISheetAnimation=new SheetAppearAnimation();
 
-        private var _closeSheetAnimation:ISheetAnimation=new SlideSheetOutAnimation();
+        private var _closeSheetAnimation:ISheetAnimation=new SheetDisappearAnimation();
 
         private var _decorator:IDecorator=new Decorator();
 
@@ -823,7 +824,7 @@ package net.codeengine.windowmanagement {
 
             //Play the window closing animation.
             if (ENABLE_ANIMATIONS) {
-                var zo:ZoomOutClosingWindowAnimation=new ZoomOutClosingWindowAnimation();
+                var zo:WindowDisappearAnimation=new WindowDisappearAnimation();
                 this._closeWindowAnimation.play(window.proxy);
             }
 
@@ -912,7 +913,7 @@ package net.codeengine.windowmanagement {
             }
             //(window as Panel).enabled=true;
             (sheet as DisplayObject).visible=false;
-            var animation:SlideSheetOutAnimation=new SlideSheetOutAnimation();
+            var animation:SheetDisappearAnimation=new SheetDisappearAnimation();
             animation.play(sheet.proxy);
             window.isSheetActive=false;
             this.removeSheetListeners(sheet);
@@ -1026,7 +1027,7 @@ package net.codeengine.windowmanagement {
         private function onSheetCreationComplete(event:Event):void {
             var sheet:ISheet=ISheet(event.currentTarget);
             this.decorator.decorate(new SheetDecoration(), sheet as DisplayObject);
-            var animation:ISheetAnimation=new SlideSheetInAnimation();
+            var animation:ISheetAnimation=new SheetAppearAnimation();
             animation.addEventListener(WindowAnimationDirectorEvent.OPEN_ANIMATION_COMPLETE, onSheetOpeningAnimationComplete);
             animation.play(sheet.proxy);
         }
@@ -1290,7 +1291,7 @@ package net.codeengine.windowmanagement {
         private function onDrawerCreationComplete(event:Event):void {
             //trace("AbstractWindowManager: onDrawerCreationComplete");
             var drawer:IDrawer=IDrawer(event.currentTarget);
-            //this.decorator.decorate(new SheetDecoration(), sheet as DisplayObject);
+            this.decorator.decorate(new DrawerDecoration(), drawer as DisplayObject);
             var animation:IDrawerAnimation=new OpenDrawerAnimation();
             this.bringToFront(drawer.window as DisplayObject);
             //animation.addEventListener(WindowAnimationDirectorEvent.OPEN_ANIMATION_COMPLETE, onSheetOpeningAnimationComplete);
