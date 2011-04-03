@@ -259,7 +259,7 @@ package net.codeengine.windowmanagement {
             var paddingRight:Number=20;
             var paddingLeft:Number=20;
             var windowTitleBarHeight:Number=20;
-            var windowOverlap:Number=6;
+            var windowOverlap:Number=10;
             switch (drawer.location) {
                 case Drawer.LOCATION_RIGHT:
                     //Height is the height of the window - titlebar height - padding
