@@ -51,7 +51,7 @@ package net.codeengine.windowmanagement {
         public static var ORPHAN_LEFT_THRESHOLD:Number = 10;
         public static var ORPHAN_RIGHT_THRESHOLD:Number = 10;
         public static var ORPHAN_BOTTOM_THRESHOLD:Number = 10;
-        private var _version:String="2.0.20";
+        private var _version:String="2.0.50";
 
         private var _windowHeaderHeight:Number=20;
         private var _cornerRadius:Number=5;

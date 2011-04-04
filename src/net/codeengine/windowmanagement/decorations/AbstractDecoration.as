@@ -5,12 +5,12 @@ package net.codeengine.windowmanagement.decorations {
 
 
     public class AbstractDecoration {
-        protected function addFilter(target:DisplayObject, filter:Object):void {
+        protected function addFilter(target:DisplayObject, f:Object):void {
             var filters:Array=new Array();
             for each (var filter:Object in target.filters) {
                 filters.push(filter);
             }
-            filters.push(filter);
+            filters.push(f);
             target.filters=filters;
         }
 
