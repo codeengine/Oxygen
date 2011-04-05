@@ -11,7 +11,7 @@ package net.codeengine.windowmanagement
 	import flash.geom.Rectangle;
 	import flash.utils.Timer;
 	import flash.utils.getQualifiedClassName;
-
+	
 	import mx.controls.DateField;
 	import mx.controls.Image;
 	import mx.controls.LinkButton;
@@ -27,7 +27,7 @@ package net.codeengine.windowmanagement
 	import mx.graphics.LinearGradient;
 	import mx.managers.CursorManager;
 	import mx.skins.halo.WindowBackground;
-
+	
 	import net.codeengine.windowmanagement.animations.AppearPopoverAnimation;
 	import net.codeengine.windowmanagement.animations.DisappearPopoverAnimation;
 	import net.codeengine.windowmanagement.animations.IPopoverAnimation;
@@ -36,7 +36,8 @@ package net.codeengine.windowmanagement
 	import net.codeengine.windowmanagement.decorations.*;
 	import net.codeengine.windowmanagement.decorator.IDecorator;
 	import net.codeengine.windowmanagement.events.*;
-
+	import net.codeengine.windowmanagement.skins.BorderSkin;
+	
 	import spark.components.BorderContainer;
 	import spark.components.Group;
 	import spark.components.HGroup;
@@ -494,13 +495,15 @@ package net.codeengine.windowmanagement
 			titlebar.height=this._titlebarHeight;
 			titlebar.left=0;
 			titlebar.right=0;
-			titlebar.top=0;
-			titlebar.setStyle("borderVisible", false);
-			titlebar.setStyle("backgroundImage", bg);
-			titlebar.setStyle("backgroundImageFillMode", "repeat");
-
+			titlebar.top=-22;
+			
+			titlebar.setStyle("cornerRadius", 6);
+			titlebar.setStyle("skinClass", Class(BorderSkin));
+		
 			var l:Label=new Label();
 			l.text=this.title;
+			l.setStyle("fontSize", 15);
+			l.setStyle("fontFamily", "verdana");
 			l.horizontalCenter=0;
 			l.verticalCenter=0;
 			titlebar.addElement(l);
