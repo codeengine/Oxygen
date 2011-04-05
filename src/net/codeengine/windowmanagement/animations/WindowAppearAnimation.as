@@ -5,6 +5,7 @@ package net.codeengine.windowmanagement.animations {
     import mx.events.EffectEvent;
     
     import net.codeengine.windowmanagement.IWindowProxy;
+    import net.codeengine.windowmanagement.WindowManager;
     import net.codeengine.windowmanagement.events.WindowAnimationDirectorEvent;
     
     import spark.effects.Animate;
@@ -29,7 +30,7 @@ package net.codeengine.windowmanagement.animations {
             
             
             var t:Number;
-            t=300;
+            t=WindowManager.ANIMATION_SPEED;
             /* Calculate the static centers of the image. */
             var scX:Number=0;
             var scY:Number=0;

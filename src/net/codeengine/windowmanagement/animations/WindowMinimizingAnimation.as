@@ -2,11 +2,14 @@ package net.codeengine.windowmanagement.animations {
     import flash.display.SimpleButton;
     import flash.events.EventDispatcher;
     import flash.events.MouseEvent;
+    
     import mx.controls.Image;
-    import mx.events.EffectEvent;    
+    import mx.events.EffectEvent;
+    
     import net.codeengine.windowmanagement.IWindowProxy;
     import net.codeengine.windowmanagement.WindowManager;
-    import net.codeengine.windowmanagement.events.WindowAnimationDirectorEvent;    
+    import net.codeengine.windowmanagement.events.WindowAnimationDirectorEvent;
+    
     import spark.effects.Animate;
     import spark.effects.animation.MotionPath;
     import spark.effects.animation.SimpleMotionPath;
@@ -31,6 +34,7 @@ package net.codeengine.windowmanagement.animations {
             var animate:Animate = new Animate(proxy);
             var v:Vector.<MotionPath> = new Vector.<MotionPath>();
             animate.motionPaths = v;
+			animate.duration= WindowManager.ANIMATION_SPEED
             
             //Move
             var moveX:SimpleMotionPath = new SimpleMotionPath("x", null, marginFromLeft);

@@ -20,6 +20,8 @@ package net.codeengine.windowmanagement {
         function set windowManager(value:IWindowManager):void;
         function get window():IWindow;
         function set window(value:IWindow):void;
-        function get proxy():IDrawerProxy
+        function get proxy():IDrawerProxy;
+		function block():void;
+		function unblock():void;
     }
 }

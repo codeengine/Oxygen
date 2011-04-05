@@ -1,8 +1,12 @@
 package net.codeengine.windowmanagement.animations {
     import flash.display.DisplayObject;
+    
     import mx.events.EffectEvent;
+    
     import net.codeengine.windowmanagement.Drawer;
     import net.codeengine.windowmanagement.IDrawerProxy;
+    import net.codeengine.windowmanagement.WindowManager;
+    
     import spark.effects.Animate;
     import spark.effects.animation.MotionPath;
     import spark.effects.animation.SimpleMotionPath;
@@ -18,7 +22,7 @@ package net.codeengine.windowmanagement.animations {
             var a:Animate = new Animate(target.drawer);
             var v:Vector.<MotionPath> = new Vector.<MotionPath>();
             a.motionPaths=v;
-            a.duration = 300;
+            a.duration = WindowManager.ANIMATION_SPEED;
             
             var move:SimpleMotionPath = new SimpleMotionPath();
             

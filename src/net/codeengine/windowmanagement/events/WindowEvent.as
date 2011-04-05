@@ -32,7 +32,8 @@ package net.codeengine.windowmanagement.events {
         public static const ON_WINDOW_CLOSED:String = "onWindowClosed";
         
         public static const ON_WINDOW_CREATION_COMPLETE:String = "onWindowCreationComplete";
-        public static const HALT_DRAGGING:String = "haltDragging";
+		public static const HALT_DRAGGING:String = "haltDragging";
+		public static const WINDOW_AUTOMATICALLY_REPOSITIONED:String = "automaticallyRepositioned";
         
         public var window:IWindow;
         

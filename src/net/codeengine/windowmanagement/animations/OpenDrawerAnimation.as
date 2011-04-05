@@ -4,6 +4,7 @@ package net.codeengine.windowmanagement.animations {
     
     import net.codeengine.windowmanagement.Drawer;
     import net.codeengine.windowmanagement.IDrawerProxy;
+    import net.codeengine.windowmanagement.WindowManager;
     
     import spark.effects.Animate;
     import spark.effects.animation.MotionPath;
@@ -18,7 +19,7 @@ package net.codeengine.windowmanagement.animations {
             var a:Animate = new Animate(_proxy.drawer);
             var v:Vector.<MotionPath> = new Vector.<MotionPath>();
             a.motionPaths=v;
-            a.duration = 300;
+            a.duration = WindowManager.ANIMATION_SPEED;
            
             var move:SimpleMotionPath = new SimpleMotionPath();
             //var move:Move=new Move(target.drawer);
@@ -31,12 +32,12 @@ package net.codeengine.windowmanagement.animations {
                 case Drawer.LOCATION_LEFT:
                     move.property="x";
                     move.valueFrom=target.drawer.window.x;
-                    move.valueTo=target.drawer.window.x - target.drawer.width;
+                    move.valueTo=target.drawer.window.x - target.drawer.width + 10;
                     break;
                 case Drawer.LOCATION_BOTTON:
                     move.property="y";
                     move.valueFrom=target.drawer.window.y;
-                    move.valueTo=target.drawer.y;
+                    move.valueTo=target.drawer.y +10;
                     break;
             }
             v.push(move);

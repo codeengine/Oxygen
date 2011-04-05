@@ -7,6 +7,7 @@ package net.codeengine.windowmanagement.animations {
     import mx.events.EffectEvent;
     
     import net.codeengine.windowmanagement.ISheetProxy;
+    import net.codeengine.windowmanagement.WindowManager;
     
     import spark.effects.Animate;
     import spark.effects.animation.MotionPath;
@@ -23,7 +24,7 @@ package net.codeengine.windowmanagement.animations {
 			this._proxy.image.maintainAspectRatio=false;
             var v:Vector.<MotionPath> = new Vector.<MotionPath>();
             a.motionPaths=v;
-            a.duration = 300;
+            a.duration = WindowManager.ANIMATION_SPEED;
             
             var resizeHeight:SimpleMotionPath = new SimpleMotionPath("height", 0, target.sheet.height);
            	v.push(resizeHeight);

@@ -27,7 +27,7 @@ package net.codeengine.windowmanagement.animations {
 
         private function resizeAboutCenter(image:Image, sizeUp:Boolean):void {
             var t:Number;
-            t=300;
+            t=WindowManager.ANIMATION_SPEED;
             /* Calculate the static centers of the image. */
             var scX:Number=0;
             var scY:Number=0;
