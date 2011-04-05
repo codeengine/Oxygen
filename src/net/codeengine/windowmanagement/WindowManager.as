@@ -277,7 +277,7 @@ package net.codeengine.windowmanagement
 			var headerHeight:Number=(window as Window).getTitlebarHeight() == undefined ? this._windowHeaderHeight : (window as Window).getTitlebarHeight();
 
 			sheet.x=window.x + window.width / 2 - sheet.width / 2;
-			sheet.y=window.y + headerHeight + 2;
+			sheet.y=window.y;
 		}
 
 		private function positionDrawerRelativeToWindow(drawer:IDrawer, window:IWindow):void
