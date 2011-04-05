@@ -502,7 +502,7 @@ package net.codeengine.windowmanagement
 		
 			var l:Label=new Label();
 			l.text=this.title;
-			l.setStyle("fontSize", 15);
+			l.setStyle("fontSize", 14);
 			l.setStyle("fontFamily", "verdana");
 			l.horizontalCenter=0;
 			l.verticalCenter=0;
