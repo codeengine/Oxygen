@@ -964,11 +964,13 @@ package net.codeengine.windowmanagement
 			}
 			else
 			{
-				(this.sheet as Object).enabled=true;
+				//(this.sheet as Object).enabled=true;
+				this.sheet.unblock();
 			}
 			if (this.isDrawerActive)
 			{
-				(this.drawer as Object).enabled=true;
+				//(this.drawer as Object).enabled=true;
+				this.drawer.unblock();
 			}
 		}
 
