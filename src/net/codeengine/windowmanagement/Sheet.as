@@ -6,11 +6,13 @@ package net.codeengine.windowmanagement
 	import flash.display.IBitmapDrawable;
 	import flash.events.MouseEvent;
 	
+	import mx.controls.HRule;
 	import mx.graphics.ImageSnapshot;
 	
 	import net.codeengine.windowmanagement.decorator.IDecorator;
 	
 	import spark.components.BorderContainer;
+	import spark.filters.DropShadowFilter;
 
 	/**
 	 * A sheet is window level modal visual component. Once added,
@@ -76,6 +78,7 @@ package net.codeengine.windowmanagement
 			this.repeatImage=Window.oxygenSheetBackground;
 			this.radius=0;
 			this.isInset=false;
+			this.alpha = 0.95;
 		}
 
 		public function get decorator():IDecorator

@@ -49,6 +49,7 @@ package net.codeengine.windowmanagement
 	import spark.effects.Resize;
 	import spark.effects.animation.MotionPath;
 	import spark.effects.animation.SimpleMotionPath;
+	import spark.filters.BlurFilter;
 	import spark.filters.DropShadowFilter;
 	import spark.filters.ShaderFilter;
 
@@ -924,6 +925,7 @@ package net.codeengine.windowmanagement
 		 * Block the window from receiving any input or interaction from the user.
 		 */
 
+		var preBlockFilters:Array;
 		public function block():void
 		{
 			if (this.isSheetActive)
@@ -943,6 +945,16 @@ package net.codeengine.windowmanagement
 			blocker.y=this.titlebar.height;
 			blocker.x=-1;
 			this.addElement(blocker);
+			
+			this.preBlockFilters = this.filters;
+			
+			/*var filter:BlurFilter = new BlurFilter(2,2);
+			var filters:Array = new Array();
+			for each (var f:Object in this.filters){
+				filters.push(f);
+			}
+			filters.push(filter);
+			this.filters = filters;*/
 		}
 
 		/**
@@ -972,6 +984,7 @@ package net.codeengine.windowmanagement
 				//(this.drawer as Object).enabled=true;
 				this.drawer.unblock();
 			}
+			//this.filters = this.preBlockFilters;
 		}
 
 		/**

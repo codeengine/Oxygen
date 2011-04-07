@@ -429,6 +429,7 @@ package net.codeengine.windowmanagement
 			//Add sheet specific event listeners.
 			if (sheet == null)
 				return;
+			
 			sheet.addEventListener(mx.events.FlexEvent.CREATION_COMPLETE, this.onSheetCreationComplete);
 			sheet.addEventListener(SheetEvent.CLOSE_SHEET, this.onCloseSheet);
 			sheet.addEventListener(SheetEvent.MOUSE_MOVE, onSheetMouseMove);
