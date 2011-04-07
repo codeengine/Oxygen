@@ -54,7 +54,7 @@ package net.codeengine.windowmanagement
 		public static var ORPHAN_LEFT_THRESHOLD:Number=10;
 		public static var ORPHAN_RIGHT_THRESHOLD:Number=10;
 		public static var ORPHAN_BOTTOM_THRESHOLD:Number=10;
-		private var _version:String="2.0.61";
+		private var _version:String="2.0.62";
 
 		private var _windowHeaderHeight:Number=20;
 		private var _cornerRadius:Number=5;
@@ -350,6 +350,13 @@ package net.codeengine.windowmanagement
 			{
 				window.x=(this.container.width - window.width) / 2;
 				window.y=(this.container.height - window.height) / 2;
+				
+				/* But what if the title of the window falls into negative space?
+			     * We cannot intentionally orphan a window.
+				 */
+				if (window.y <= ORPHAN_TOP_THRESHOLD){
+					window.y = ORPHAN_TOP_THRESHOLD;
+				}
 			}
 			else
 			{
