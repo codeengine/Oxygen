@@ -12,6 +12,7 @@ package net.codeengine.windowmanagement
 	import flash.utils.Timer;
 	import flash.utils.getQualifiedClassName;
 	
+	import mx.controls.Alert;
 	import mx.controls.DateField;
 	import mx.controls.Image;
 	import mx.controls.LinkButton;
@@ -19,6 +20,7 @@ package net.codeengine.windowmanagement
 	import mx.core.EdgeMetrics;
 	import mx.core.IVisualElement;
 	import mx.core.UIComponent;
+	import mx.core.mx_internal;
 	import mx.effects.Parallel;
 	import mx.events.EffectEvent;
 	import mx.events.MoveEvent;
@@ -925,9 +927,20 @@ package net.codeengine.windowmanagement
 		 * Block the window from receiving any input or interaction from the user.
 		 */
 
-		var preBlockFilters:Array;
+		private var preBlockFilters:Array;
 		public function block():void
 		{
+			
+			this.preBlockFilters = this.filters;
+			
+			var filter:BlurFilter = new BlurFilter();
+			var fs:Array = new Array();
+			for each (var f:Object in this.filters){
+				fs.push(f);
+			}
+			fs.push(filter);
+			this.filters = fs;
+			
 			if (this.isSheetActive)
 			{
 				this.sheet.block();
@@ -945,16 +958,6 @@ package net.codeengine.windowmanagement
 			blocker.y=this.titlebar.height;
 			blocker.x=-1;
 			this.addElement(blocker);
-			
-			this.preBlockFilters = this.filters;
-			
-			/*var filter:BlurFilter = new BlurFilter(2,2);
-			var filters:Array = new Array();
-			for each (var f:Object in this.filters){
-				filters.push(f);
-			}
-			filters.push(filter);
-			this.filters = filters;*/
 		}
 
 		/**
@@ -984,7 +987,7 @@ package net.codeengine.windowmanagement
 				//(this.drawer as Object).enabled=true;
 				this.drawer.unblock();
 			}
-			//this.filters = this.preBlockFilters;
+			this.filters = this.preBlockFilters;
 		}
 
 		/**
@@ -1345,8 +1348,8 @@ package net.codeengine.windowmanagement
 				var v:Vector.<MotionPath>=new Vector.<MotionPath>();
 				/* Fade */
 				var fade:SimpleMotionPath=new SimpleMotionPath("alpha");
-				fade.valueFrom=0;
-				fade.valueTo=1;
+				fade.valueFrom=Sheet.MINIMUM_ALPHA;
+				fade.valueTo=Sheet.MAXIMUM_ALPHA;
 				v.push(fade);
 				a.motionPaths=v;
 				a.play();

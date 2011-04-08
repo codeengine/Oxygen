@@ -32,6 +32,8 @@ package net.codeengine.windowmanagement
 
 		private var _window:IWindow;
 		private var blocker:BorderContainer;
+		public static var MAXIMUM_ALPHA:Number = 0.95;
+		public static var MINIMUM_ALPHA:Number = 0;
 
 		/**
 		 * Get the window manager that this window is managed by.
