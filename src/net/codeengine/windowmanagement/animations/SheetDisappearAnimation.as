@@ -6,6 +6,7 @@ package net.codeengine.windowmanagement.animations
 	import mx.events.EffectEvent;
 	
 	import net.codeengine.windowmanagement.ISheetProxy;
+	import net.codeengine.windowmanagement.Sheet;
 	import net.codeengine.windowmanagement.WindowManager;
 	
 	import spark.effects.Animate;
@@ -42,7 +43,7 @@ package net.codeengine.windowmanagement.animations
 			var resizeWidth:SimpleMotionPath=new SimpleMotionPath("width", target.image.width, target.image.width);
 			v.push(resizeWidth);
 
-			var fade:SimpleMotionPath=new SimpleMotionPath("alpha", 1, 0);
+			var fade:SimpleMotionPath=new SimpleMotionPath("alpha", Sheet.MAXIMUM_ALPHA, Sheet.MINIMUM_ALPHA);
 			v.push(fade);
 			a.addEventListener(EffectEvent.EFFECT_END, onEffectEnd);
 			a.play();
