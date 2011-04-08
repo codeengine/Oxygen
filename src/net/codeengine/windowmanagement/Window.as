@@ -12,6 +12,7 @@ package net.codeengine.windowmanagement
 	import flash.utils.Timer;
 	import flash.utils.getQualifiedClassName;
 	
+	import mx.charts.chartClasses.DualStyleObject;
 	import mx.controls.Alert;
 	import mx.controls.DateField;
 	import mx.controls.Image;
@@ -69,6 +70,11 @@ package net.codeengine.windowmanagement
 		/* ************************************************************ *
 		 * Class Properties                                             *
 		 * ************************************************************ */
+		public static var DIM_DURATION_SHEET:int = 500;
+		public static var DIM_DURATION_DRAWER:int = 500;
+		public static var UNDIM_DURATION_SHEET:int = 500;
+		public static var UNDIM_DURATION_DRAWER:int = 500;
+		
 		[Bindable]
 		[Embed(source='assets/images/oxygenGroupBackground.png')]
 		public static var oxygenGroupBackground:Class;
@@ -1310,7 +1316,7 @@ package net.codeengine.windowmanagement
 			if (this.isDrawerActive)
 			{
 				var a:Animate=new Animate(this.drawer as DisplayObject);
-				a.duration=WindowManager.ANIMATION_SPEED;
+				a.duration=Window.DIM_DURATION_DRAWER;
 				var v:Vector.<MotionPath>=new Vector.<MotionPath>();
 				/* Fade */
 				var fade:SimpleMotionPath=new SimpleMotionPath("alpha");
@@ -1327,7 +1333,7 @@ package net.codeengine.windowmanagement
 			if (this.isSheetActive)
 			{
 				var a:Animate=new Animate(this.sheet as DisplayObject);
-				a.duration=WindowManager.ANIMATION_SPEED;
+				a.duration=Window.DIM_DURATION_SHEET;
 				var v:Vector.<MotionPath>=new Vector.<MotionPath>();
 				/* Fade */
 				var fade:SimpleMotionPath=new SimpleMotionPath("alpha");
@@ -1344,7 +1350,7 @@ package net.codeengine.windowmanagement
 			if (this.isSheetActive)
 			{
 				var a:Animate=new Animate(this.sheet as DisplayObject);
-				a.duration=WindowManager.ANIMATION_SPEED;
+				a.duration=Window.UNDIM_DURATION_SHEET
 				var v:Vector.<MotionPath>=new Vector.<MotionPath>();
 				/* Fade */
 				var fade:SimpleMotionPath=new SimpleMotionPath("alpha");
@@ -1361,7 +1367,7 @@ package net.codeengine.windowmanagement
 			if (this.isDrawerActive)
 			{
 				var a:Animate=new Animate(this.drawer as DisplayObject);
-				a.duration=WindowManager.ANIMATION_SPEED;
+				a.duration=Window.UNDIM_DURATION_DRAWER;
 				var v:Vector.<MotionPath>=new Vector.<MotionPath>();
 				/* Fade */
 				var fade:SimpleMotionPath=new SimpleMotionPath("alpha");
