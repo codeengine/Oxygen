@@ -6,15 +6,17 @@ package net.codeengine.windowmanagement
 	import flash.events.EventDispatcher;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
-
+	
 	import mx.collections.ArrayCollection;
 	import mx.controls.Image;
 	import mx.core.Container;
+	import mx.core.FlexGlobals;
 	import mx.core.IVisualElement;
 	import mx.effects.Parallel;
 	import mx.events.EffectEvent;
+	import mx.events.FlexEvent;
 	import mx.events.ResizeEvent;
-
+	
 	import net.codeengine.windowmanagement.animations.*;
 	import net.codeengine.windowmanagement.decorations.BackgroundDecoration;
 	import net.codeengine.windowmanagement.decorations.BorderDecoration;
@@ -28,7 +30,8 @@ package net.codeengine.windowmanagement
 	import net.codeengine.windowmanagement.events.WindowAnimatorEvent;
 	import net.codeengine.windowmanagement.events.WindowEvent;
 	import net.codeengine.windowmanagement.events.WindowManagerEvent;
-
+	
+	import spark.components.Application;
 	import spark.components.BorderContainer;
 	import spark.components.Group;
 	import spark.components.Panel;
@@ -1097,7 +1100,15 @@ package net.codeengine.windowmanagement
 			this.addEventListener(WindowAnimatorEvent.kDidFinishPlayingWindowAppearAnimation, this.onDidFinishPlayingWindowAppearAnimation);
 			this.addEventListener(WindowAnimatorEvent.kDidFinishPlayingWindowClosingAnimation, this.onDidFinishPlayingWindowClosingAnimation);
 
-			this.container.systemManager.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+
+			FlexGlobals.topLevelApplication.addEventListener(mx.events.FlexEvent.APPLICATION_COMPLETE
+,onApplicationComplete);
+		
+		}
+
+		private function onApplicationComplete(event:FlexEvent):void
+		{
+			this.container.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyUp);
 		}
 
 		private function onDidFinishPlayingWindowAppearAnimation(event:WindowAnimatorEvent):void
@@ -1541,6 +1552,7 @@ package net.codeengine.windowmanagement
 
 		public function onKeyUp(event:KeyboardEvent):void
 		{
+			
 			trace(event.charCode);
 			if (event.charCode == 27)
 			{
@@ -1555,6 +1567,10 @@ package net.codeengine.windowmanagement
 						this.getTopMostWindow().close();
 					}
 				}
+			}else if (event.charCode == 109 && event.altKey && event.altKey && this.getTopMostWindow().showMinimizeButton){
+				this.minimizeWindow(this.getTopMostWindow());
+			}else if (event.charCode == 122 && event.altKey && event.altKey && this.getTopMostWindow().showMaximizeButton){
+				this.maximizeWindow(this.getTopMostWindow());
 			}
 		}
 

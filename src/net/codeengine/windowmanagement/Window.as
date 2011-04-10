@@ -26,6 +26,7 @@ package net.codeengine.windowmanagement
 	import mx.events.EffectEvent;
 	import mx.events.MoveEvent;
 	import mx.events.ResizeEvent;
+	import mx.geom.RoundedRectangle;
 	import mx.graphics.ImageSnapshot;
 	import mx.graphics.LinearGradient;
 	import mx.managers.CursorManager;
@@ -70,11 +71,11 @@ package net.codeengine.windowmanagement
 		/* ************************************************************ *
 		 * Class Properties                                             *
 		 * ************************************************************ */
-		public static var DIM_DURATION_SHEET:int = 500;
-		public static var DIM_DURATION_DRAWER:int = 500;
-		public static var UNDIM_DURATION_SHEET:int = 500;
-		public static var UNDIM_DURATION_DRAWER:int = 500;
-		
+		public static var DIM_DURATION_SHEET:int=500;
+		public static var DIM_DURATION_DRAWER:int=500;
+		public static var UNDIM_DURATION_SHEET:int=500;
+		public static var UNDIM_DURATION_DRAWER:int=500;
+
 		[Bindable]
 		[Embed(source='assets/images/oxygenGroupBackground.png')]
 		public static var oxygenGroupBackground:Class;
@@ -142,7 +143,7 @@ package net.codeengine.windowmanagement
 
 		private var titlebar:BorderContainer=new BorderContainer();
 		private var titlebarButtons:HGroup=new HGroup();
-		
+
 		private var blocker:BorderContainer;
 
 
@@ -505,10 +506,10 @@ package net.codeengine.windowmanagement
 			titlebar.left=0;
 			titlebar.right=0;
 			titlebar.top=-22;
-			
+
 			titlebar.setStyle("cornerRadius", 6);
 			titlebar.setStyle("skinClass", Class(BorderSkin));
-		
+
 			var l:Label=new Label();
 			l.text=this.title;
 			l.setStyle("fontSize", 14);
@@ -697,7 +698,9 @@ package net.codeengine.windowmanagement
 			titlebar.addEventListener(MouseEvent.DOUBLE_CLICK, onTitleBarDoubleClick);
 			titlebar.addEventListener(MouseEvent.MOUSE_DOWN, onTitleBarMouseDown);
 			titlebar.addEventListener(MouseEvent.MOUSE_UP, onTitleBarMouseUp);
+			titlebar.addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
 
+			
 
 			this.addEventListener(ResizeEvent.RESIZE, onResize);
 			this.addEventListener(WindowEvent.ON_MINIMIZE, onMinimize);
@@ -756,6 +759,16 @@ package net.codeengine.windowmanagement
 			buttonResize.addEventListener(MouseEvent.MOUSE_DOWN, onResizeMouseDown);
 			buttonResize.addEventListener(MouseEvent.MOUSE_OVER, onResizeMouseOver);
 			buttonResize.addEventListener(MouseEvent.MOUSE_OUT, onResizeMouseOut);
+		}
+		
+		private function onMouseOver(event:MouseEvent):void
+		{
+			
+			/*this.titlebar.graphics.clear();
+			this.titlebar.graphics.beginFill(0xFFFFFF,0.8);
+			this.titlebar.graphics.drawCircle(mouseX, mouseY , this.titlebar.height/2);
+			this.titlebar.graphics.endFill();*/
+			
 		}
 
 		private function removeEventListeners():void
@@ -932,21 +945,8 @@ package net.codeengine.windowmanagement
 		/**
 		 * Block the window from receiving any input or interaction from the user.
 		 */
-
-		private var preBlockFilters:Array;
 		public function block():void
 		{
-			
-			this.preBlockFilters = this.filters;
-			
-			var filter:BlurFilter = new BlurFilter();
-			var fs:Array = new Array();
-			for each (var f:Object in this.filters){
-				fs.push(f);
-			}
-			fs.push(filter);
-			this.filters = fs;
-			
 			if (this.isSheetActive)
 			{
 				this.sheet.block();
@@ -993,7 +993,6 @@ package net.codeengine.windowmanagement
 				//(this.drawer as Object).enabled=true;
 				this.drawer.unblock();
 			}
-			this.filters = this.preBlockFilters;
 		}
 
 		/**
