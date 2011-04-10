@@ -826,13 +826,13 @@ package net.codeengine.windowmanagement
 			this.sheet=null;
 		}
 
-		public function addDrawer(drawer:IDrawer):void
+		public function addDrawer(drawer:IDrawer, location:String = "right"):void
 		{
 
 			if (this.isDrawerActive)
 			{
-				//Check if the drawer that is being added is of the same kind, and if it is, ignore it.
-				if (flash.utils.getQualifiedClassName(this.drawer) == flash.utils.getQualifiedClassName(drawer) && this.drawer.location == drawer.location)
+				//Check if the drawer that is being added is of the same kind, and if it is, ignore it, unless it's location is different.
+				if (flash.utils.getQualifiedClassName(this.drawer) == flash.utils.getQualifiedClassName(drawer) && this.drawer.location == location)
 				{
 					return;
 				}

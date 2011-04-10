@@ -6,7 +6,7 @@ package net.codeengine.windowmanagement
 	import flash.events.EventDispatcher;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
-	
+
 	import mx.collections.ArrayCollection;
 	import mx.controls.Image;
 	import mx.core.Container;
@@ -16,7 +16,7 @@ package net.codeengine.windowmanagement
 	import mx.events.EffectEvent;
 	import mx.events.FlexEvent;
 	import mx.events.ResizeEvent;
-	
+
 	import net.codeengine.windowmanagement.animations.*;
 	import net.codeengine.windowmanagement.decorations.BackgroundDecoration;
 	import net.codeengine.windowmanagement.decorations.BorderDecoration;
@@ -30,7 +30,7 @@ package net.codeengine.windowmanagement
 	import net.codeengine.windowmanagement.events.WindowAnimatorEvent;
 	import net.codeengine.windowmanagement.events.WindowEvent;
 	import net.codeengine.windowmanagement.events.WindowManagerEvent;
-	
+
 	import spark.components.Application;
 	import spark.components.BorderContainer;
 	import spark.components.Group;
@@ -353,12 +353,13 @@ package net.codeengine.windowmanagement
 			{
 				window.x=(this.container.width - window.width) / 2;
 				window.y=(this.container.height - window.height) / 2;
-				
+
 				/* But what if the title of the window falls into negative space?
-			     * We cannot intentionally orphan a window.
+				 * We cannot intentionally orphan a window.
 				 */
-				if (window.y <= ORPHAN_TOP_THRESHOLD){
-					window.y = ORPHAN_TOP_THRESHOLD;
+				if (window.y <= ORPHAN_TOP_THRESHOLD)
+				{
+					window.y=ORPHAN_TOP_THRESHOLD;
 				}
 			}
 			else
@@ -432,7 +433,7 @@ package net.codeengine.windowmanagement
 			//Add sheet specific event listeners.
 			if (sheet == null)
 				return;
-			
+
 			sheet.addEventListener(mx.events.FlexEvent.CREATION_COMPLETE, this.onSheetCreationComplete);
 			sheet.addEventListener(SheetEvent.CLOSE_SHEET, this.onCloseSheet);
 			sheet.addEventListener(SheetEvent.MOUSE_MOVE, onSheetMouseMove);
@@ -1101,9 +1102,8 @@ package net.codeengine.windowmanagement
 			this.addEventListener(WindowAnimatorEvent.kDidFinishPlayingWindowClosingAnimation, this.onDidFinishPlayingWindowClosingAnimation);
 
 
-			FlexGlobals.topLevelApplication.addEventListener(mx.events.FlexEvent.APPLICATION_COMPLETE
-,onApplicationComplete);
-		
+			FlexGlobals.topLevelApplication.addEventListener(mx.events.FlexEvent.APPLICATION_COMPLETE, onApplicationComplete);
+
 		}
 
 		private function onApplicationComplete(event:FlexEvent):void
@@ -1552,10 +1552,12 @@ package net.codeengine.windowmanagement
 
 		public function onKeyUp(event:KeyboardEvent):void
 		{
-			
-			trace(event.charCode);
+
+			//trace(event.charCode);
 			if (event.charCode == 27)
 			{
+				trace("Asking top most window to close, if it is allowed");
+
 				if (this.getTopMostWindow().isSheetActive)
 				{
 					this.getTopMostWindow().removeSheet(this.getTopMostWindow().sheet);
@@ -1567,10 +1569,31 @@ package net.codeengine.windowmanagement
 						this.getTopMostWindow().close();
 					}
 				}
-			}else if (event.charCode == 109 && event.altKey && event.altKey && this.getTopMostWindow().showMinimizeButton){
+			}
+			else if (event.charCode == 109 && event.ctrlKey && event.altKey && this.getTopMostWindow().showMinimizeButton)
+			{
+				trace("Asking top most window to minimize, if it is allowed");
 				this.minimizeWindow(this.getTopMostWindow());
-			}else if (event.charCode == 122 && event.altKey && event.altKey && this.getTopMostWindow().showMaximizeButton){
+			}
+			else if (event.charCode == 122 && event.ctrlKey && event.altKey && this.getTopMostWindow().showMaximizeButton)
+			{
+				trace("Asking top most window to zoom, if it is allowed");
 				this.maximizeWindow(this.getTopMostWindow());
+			}
+			else if (event.charCode == 120 && event.ctrlKey && event.altKey)
+			{
+				trace("Asking window manager to expose all windows");
+				this.expose();
+			}
+			else if (event.charCode == 44 && event.ctrlKey && event.altKey)
+			{
+				trace("Asking top most window to shift it's drawer to the left");
+				this.getTopMostWindow().addDrawer(this.getTopMostWindow().drawer, "left");
+			}
+			else if (event.charCode == 46 && event.ctrlKey && event.altKey)
+			{
+				trace("Asking top most window to shift it's drawer to the right");
+				this.getTopMostWindow().addDrawer(this.getTopMostWindow().drawer, "right");
 			}
 		}
 

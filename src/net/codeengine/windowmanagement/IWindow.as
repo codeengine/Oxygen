@@ -35,7 +35,7 @@ package net.codeengine.windowmanagement {
         function set drawer(value:IDrawer):void;
         function addSheet(sheet:ISheet):void;
         function removeSheet(sheet:ISheet):void;
-        function addDrawer(drawer:IDrawer):void;
+        function addDrawer(drawer:IDrawer, location:String):void;
         function removeDrawer(drawer:IDrawer):void;
         function refresh():void;
         function showBusyIndicator():void;
