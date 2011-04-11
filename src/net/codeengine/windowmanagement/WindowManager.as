@@ -6,7 +6,7 @@ package net.codeengine.windowmanagement
 	import flash.events.EventDispatcher;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
-
+	
 	import mx.collections.ArrayCollection;
 	import mx.controls.Image;
 	import mx.core.Container;
@@ -16,7 +16,7 @@ package net.codeengine.windowmanagement
 	import mx.events.EffectEvent;
 	import mx.events.FlexEvent;
 	import mx.events.ResizeEvent;
-
+	
 	import net.codeengine.windowmanagement.animations.*;
 	import net.codeengine.windowmanagement.decorations.BackgroundDecoration;
 	import net.codeengine.windowmanagement.decorations.BorderDecoration;
@@ -30,7 +30,7 @@ package net.codeengine.windowmanagement
 	import net.codeengine.windowmanagement.events.WindowAnimatorEvent;
 	import net.codeengine.windowmanagement.events.WindowEvent;
 	import net.codeengine.windowmanagement.events.WindowManagerEvent;
-
+	
 	import spark.components.Application;
 	import spark.components.BorderContainer;
 	import spark.components.Group;
@@ -57,7 +57,7 @@ package net.codeengine.windowmanagement
 		public static var ORPHAN_LEFT_THRESHOLD:Number=10;
 		public static var ORPHAN_RIGHT_THRESHOLD:Number=10;
 		public static var ORPHAN_BOTTOM_THRESHOLD:Number=10;
-		private var _version:String="2.0.62";
+		private var _version:String="2.0.64";
 
 		private var _windowHeaderHeight:Number=20;
 		private var _cornerRadius:Number=5;
@@ -1588,12 +1588,18 @@ package net.codeengine.windowmanagement
 			else if (event.charCode == 44 && event.ctrlKey && event.altKey)
 			{
 				trace("Asking top most window to shift it's drawer to the left");
-				this.getTopMostWindow().addDrawer(this.getTopMostWindow().drawer, "left");
+				var drawer:IDrawer = this.getTopMostWindow().drawer;
+				var a:OpenDrawerAnimation = new OpenDrawerAnimation();
+				drawer.location = "left";
+				a.play(drawer.proxy);
 			}
 			else if (event.charCode == 46 && event.ctrlKey && event.altKey)
 			{
 				trace("Asking top most window to shift it's drawer to the right");
-				this.getTopMostWindow().addDrawer(this.getTopMostWindow().drawer, "right");
+				var drawer:IDrawer = this.getTopMostWindow().drawer;
+				var a:OpenDrawerAnimation = new OpenDrawerAnimation();
+				drawer.location = "right";
+				a.play(drawer.proxy);
 			}
 		}
 
