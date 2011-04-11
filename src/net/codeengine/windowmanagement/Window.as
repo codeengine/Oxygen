@@ -214,6 +214,10 @@ package net.codeengine.windowmanagement
 
 		private var _premovex:Number;
 		private var _premovey:Number;
+		
+		public var _prezoomwidth:Number;
+		public var _prezoomheight:Number;
+		public var _isZoomed:Boolean = false;
 
 		public function Window()
 		{
@@ -1012,16 +1016,12 @@ package net.codeengine.windowmanagement
 
 		public function maximize():void
 		{
-			if (this.currentWindowState != WINDOW_STATE_MAXIMIZED && this.currentWindowState != this.WINDOW_STATE_MINIMIZED)
-			{
-				this.windowManager.maximizeWindow(this);
-				this.currentWindowState=this.WINDOW_STATE_MAXIMIZED
+			if (!this._isZoomed){
+				this._prezoomheight = this.height;
+				this._prezoomwidth = this.width;
 			}
-			else if (this.currentWindowState == this.WINDOW_STATE_MAXIMIZED)
-			{
-				this.windowManager.restoreWindow(this);
-				this.currentWindowState=this.WINDOW_STATE_NORMAL;
-			}
+			this.windowManager.maximizeWindow(this);
+			
 			this.redrawMyTitlebarButtons();
 		}
 

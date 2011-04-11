@@ -1,9 +1,12 @@
 package net.codeengine.windowmanagement.animations
 {
 	import flash.events.EventDispatcher;
+	
 	import net.codeengine.windowmanagement.IWindow;
 	import net.codeengine.windowmanagement.IWindowProxy;
+	import net.codeengine.windowmanagement.Window;
 	import net.codeengine.windowmanagement.WindowManager;
+	
 	import spark.effects.Animate;
 	import spark.effects.animation.MotionPath;
 	import spark.effects.animation.SimpleMotionPath;
@@ -29,10 +32,20 @@ package net.codeengine.windowmanagement.animations
 			v.push(moveY);
 
 			//Resize
-			var resizeHeight:SimpleMotionPath=new SimpleMotionPath("height", null, target.window.windowManager.height() - 2 * margin);
-			var resizeWidth:SimpleMotionPath=new SimpleMotionPath("width", null, target.window.windowManager.width() - 2 * margin);
-			v.push(resizeHeight);
-			v.push(resizeWidth);
+			if ((target.window as Window)._isZoomed){
+				var resizeHeight:SimpleMotionPath=new SimpleMotionPath("height", target.window.height, (target.window as Window)._prezoomheight);
+				var resizeWidth:SimpleMotionPath=new SimpleMotionPath("width", target.window.width, (target.window as Window)._prezoomwidth);
+				v.push(resizeHeight);
+				v.push(resizeWidth);
+				(target.window as Window)._isZoomed = false;
+			}else{
+				var resizeHeight:SimpleMotionPath=new SimpleMotionPath("height", null, target.window.windowManager.height() - 2 * margin);
+				var resizeWidth:SimpleMotionPath=new SimpleMotionPath("width", null, target.window.windowManager.width() - 2 * margin);
+				v.push(resizeHeight);
+				v.push(resizeWidth);
+				(target.window as Window)._isZoomed = true;
+			}
+			
 
 			a.duration=500;
 			a.play();
