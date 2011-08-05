@@ -103,7 +103,7 @@ package net.codeengine.windowmanagement.animations {
 
             animate.motionPaths = v;
             animate.play();
-            animate.addEventListener(EffectEvent.EFFECT_END, onEffectEnd);
+            animate.addEventListener(EffectEvent.EFFECT_END, onEffectEnd, false, 0, true);
             
             
         }

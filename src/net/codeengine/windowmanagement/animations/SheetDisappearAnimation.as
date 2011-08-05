@@ -55,6 +55,7 @@ package net.codeengine.windowmanagement.animations
 			var animationEvent:SheetAnimationEvent=new SheetAnimationEvent(SheetAnimationEvent.SHEET_CLOSING_ANIMATION_COMPLETE);
 			animationEvent.sheet=this._proxy.sheet;
 			dispatchEvent(animationEvent);
+			this._proxy = null;
 		}
 
 	}

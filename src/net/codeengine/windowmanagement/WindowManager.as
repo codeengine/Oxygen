@@ -111,7 +111,7 @@ package net.codeengine.windowmanagement
 
 		public function WindowManager()
 		{
-			this.addEventListener("containerChanged", onContainerChanged);
+			this.addEventListener("containerChanged", onContainerChanged, false, 0, true);
 			this.addEventListeners();
 		}
 
@@ -146,20 +146,20 @@ package net.codeengine.windowmanagement
 		private function addEventListeners():void
 		{
 			//Add all of the window manager system wide event listeners.
-			this._closeWindowAnimation.addEventListener(WindowAnimationDirectorEvent.CLOSE_ANIMATION_COMPLETE, this.onWindowClosingAnimationComplete);
-			this._closeSheetAnimation.addEventListener(SheetAnimationEvent.SHEET_CLOSING_ANIMATION_COMPLETE, onSheetClosingAnimationComplete)
-			this._addWindowAnimation.addEventListener(WindowAnimationDirectorEvent.OPEN_ANIMATION_COMPLETE, onWindowOpeningAnimationComplete);
-			this._unminimizeWindowAnimation.addEventListener(WindowAnimationDirectorEvent.UNMINIMIZE_ANIMATION_COMPLETE, onWindowUnminimizeAnimationComplete);
-			this.addEventListener(WindowManagerEvent.DRAWER_ADDED_TO_WINDOW, onDrawerAddedToWindow);
-			this.addEventListener(WindowManagerEvent.DRAWER_REMOVED_FROM_WINDOW, onDrawerRemovedFromWindow);
-			this.addEventListener(WindowManagerEvent.SHEET_ADDED_TO_WINDOW, onSheetAddedToWindow);
-			this.addEventListener(WindowManagerEvent.SHEET_REMOVED_FROM_WINDOW, onSheetRemovedFromWindow);
-			this.addEventListener(WindowManagerEvent.WINDOW_CLOSED, onWindowClosed);
-			this.addEventListener(WindowManagerEvent.WINDOW_MAXIMIZED, onWindowMaximized);
-			this.addEventListener(WindowManagerEvent.WINDOW_MINIMIZED, onWindowMinimized);
-			this.addEventListener(WindowManagerEvent.WINDOW_MOVED, onWindowMoved);
-			this.addEventListener(WindowManagerEvent.WINDOW_RESIZED, onWindowResized);
-			this.addEventListener(WindowManagerEvent.WINDOW_RESTORED, onWindowRestored);
+			this._closeWindowAnimation.addEventListener(WindowAnimationDirectorEvent.CLOSE_ANIMATION_COMPLETE, this.onWindowClosingAnimationComplete, false, 0, true);
+			this._closeSheetAnimation.addEventListener(SheetAnimationEvent.SHEET_CLOSING_ANIMATION_COMPLETE, onSheetClosingAnimationComplete, false, 0, true)
+			this._addWindowAnimation.addEventListener(WindowAnimationDirectorEvent.OPEN_ANIMATION_COMPLETE, onWindowOpeningAnimationComplete, false, 0, true);
+			this._unminimizeWindowAnimation.addEventListener(WindowAnimationDirectorEvent.UNMINIMIZE_ANIMATION_COMPLETE, onWindowUnminimizeAnimationComplete, false, 0, true);
+			this.addEventListener(WindowManagerEvent.DRAWER_ADDED_TO_WINDOW, onDrawerAddedToWindow, false, 0, true);
+			this.addEventListener(WindowManagerEvent.DRAWER_REMOVED_FROM_WINDOW, onDrawerRemovedFromWindow, false, 0, true);
+			this.addEventListener(WindowManagerEvent.SHEET_ADDED_TO_WINDOW, onSheetAddedToWindow, false, 0, true);
+			this.addEventListener(WindowManagerEvent.SHEET_REMOVED_FROM_WINDOW, onSheetRemovedFromWindow, false, 0, true);
+			this.addEventListener(WindowManagerEvent.WINDOW_CLOSED, onWindowClosed, false, 0, true);
+			this.addEventListener(WindowManagerEvent.WINDOW_MAXIMIZED, onWindowMaximized, false, 0, true);
+			this.addEventListener(WindowManagerEvent.WINDOW_MINIMIZED, onWindowMinimized, false, 0, true);
+			this.addEventListener(WindowManagerEvent.WINDOW_MOVED, onWindowMoved, false, 0, true);
+			this.addEventListener(WindowManagerEvent.WINDOW_RESIZED, onWindowResized, false, 0, true);
+			this.addEventListener(WindowManagerEvent.WINDOW_RESTORED, onWindowRestored, false, 0, true);
 			//Be sure to remove all the added event listeners.
 		}
 
@@ -247,7 +247,7 @@ package net.codeengine.windowmanagement
 				var index:int=container.getChildIndex(nw as DisplayObject);
 				container.removeChildAt(index);
 				nw=null;
-			});
+			}, false, 0, true);
 			move.play();
 
 
@@ -279,8 +279,8 @@ package net.codeengine.windowmanagement
 
 			var headerHeight:Number=(window as Window).getTitlebarHeight() == undefined ? this._windowHeaderHeight : (window as Window).getTitlebarHeight();
 
-			sheet.x=window.x + window.width / 2 - sheet.width / 2;
-			sheet.y=window.y;
+			sheet.x = window.x + window.width / 2 - sheet.width / 2;
+			sheet.y = 1 + window.y;
 		}
 
 		private function positionDrawerRelativeToWindow(drawer:IDrawer, window:IWindow):void
@@ -415,11 +415,11 @@ package net.codeengine.windowmanagement
 		private function addWindowListeners(window:IWindow):void
 		{
 			//Add window specific event listeners.
-			window.addEventListener(WindowEvent.ON_FOCUS, onWindowFocus);
-			window.addEventListener(mx.events.FlexEvent.CREATION_COMPLETE, onWindowCreationComplete);
-			window.addEventListener(WindowEvent.ON_MOVE, onWindowMoved);
+			window.addEventListener(WindowEvent.ON_FOCUS, onWindowFocus, false, 0, true);
+			window.addEventListener(mx.events.FlexEvent.CREATION_COMPLETE, onWindowCreationComplete, false, 0, true);
+			window.addEventListener(WindowEvent.ON_MOVE, onWindowMoved, false, 0, true);
 			window.addEventListener(WindowEvent.ON_RESIZE, onWindowResize);
-			window.addEventListener(WindowEvent.WINDOW_AUTOMATICALLY_REPOSITIONED, onWindowAutomaticallyRepositioned);
+			window.addEventListener(WindowEvent.WINDOW_AUTOMATICALLY_REPOSITIONED, onWindowAutomaticallyRepositioned, false, 0, true);
 		}
 
 		private function onWindowAutomaticallyRepositioned(event:WindowEvent):void
@@ -434,15 +434,15 @@ package net.codeengine.windowmanagement
 			if (sheet == null)
 				return;
 
-			sheet.addEventListener(mx.events.FlexEvent.CREATION_COMPLETE, this.onSheetCreationComplete);
-			sheet.addEventListener(SheetEvent.CLOSE_SHEET, this.onCloseSheet);
-			sheet.addEventListener(SheetEvent.MOUSE_MOVE, onSheetMouseMove);
+			sheet.addEventListener(mx.events.FlexEvent.CREATION_COMPLETE, this.onSheetCreationComplete, false, 0, true);
+			sheet.addEventListener(SheetEvent.CLOSE_SHEET, this.onCloseSheet, false, 0, true);
+			sheet.addEventListener(SheetEvent.MOUSE_MOVE, onSheetMouseMove, false, 0, true);
 		}
 
 		private function addDrawerListeners(drawer:IDrawer):void
 		{
 			//Add drawer specific event listeners.
-			drawer.addEventListener(mx.events.FlexEvent.CREATION_COMPLETE, this.onDrawerCreationComplete)
+			drawer.addEventListener(mx.events.FlexEvent.CREATION_COMPLETE, this.onDrawerCreationComplete, false, 0, true)
 		}
 
 		private function removeWindowListeners(window:IWindow):void
@@ -456,11 +456,14 @@ package net.codeengine.windowmanagement
 		private function removeSheetListeners(sheet:ISheet):void
 		{
 			sheet.removeEventListener(SheetEvent.MOUSE_MOVE, onSheetMouseMove);
+			sheet.removeEventListener(mx.events.FlexEvent.CREATION_COMPLETE, this.onSheetCreationComplete);
+			sheet.removeEventListener(SheetEvent.CLOSE_SHEET, this.onCloseSheet);
 		}
 
 		private function removeDrawerListeners(drawer:IDrawer):void
 		{
-
+			
+			drawer.removeEventListener(mx.events.FlexEvent.CREATION_COMPLETE, this.onDrawerCreationComplete)
 		}
 
 
@@ -526,6 +529,8 @@ package net.codeengine.windowmanagement
 			var event:WindowManagerEvent=new WindowManagerEvent(WindowManagerEvent.DRAWER_REMOVED_FROM_WINDOW);
 			event.window=window;
 			dispatchEvent(event);
+			
+			container.removeChild(drawer as DisplayObject);
 		}
 
 		/**
@@ -914,8 +919,8 @@ package net.codeengine.windowmanagement
 		{
 			var _minimizeWindowAnimation:IWindowAnimation=new WindowMinimizingAnimation()
 			_minimizeWindowAnimation.play(window.proxy);
-			_minimizeWindowAnimation.addEventListener(WindowAnimationDirectorEvent.MINIMIZE_ANIMATION_COMPLETE, this.onWindowMinimizingAnimationComplete);
-			_minimizeWindowAnimation.addEventListener(WindowAnimationDirectorEvent.MINIMIZED_WINDOW_CLICK, onMinimizedWindowClick);
+			_minimizeWindowAnimation.addEventListener(WindowAnimationDirectorEvent.MINIMIZE_ANIMATION_COMPLETE, this.onWindowMinimizingAnimationComplete, false, 0, true);
+			_minimizeWindowAnimation.addEventListener(WindowAnimationDirectorEvent.MINIMIZED_WINDOW_CLICK, onMinimizedWindowClick, false, 0, true);
 
 			var event:WindowManagerEvent=new WindowManagerEvent(WindowManagerEvent.WINDOW_MINIMIZED);
 			event.window=window;
@@ -960,7 +965,7 @@ package net.codeengine.windowmanagement
 
 			var event:WindowManagerEvent=new WindowManagerEvent(WindowManagerEvent.WINDOW_CLOSED);
 			dispatchEvent(event);
-
+			window = null;
 		}
 
 		/**
@@ -1044,14 +1049,19 @@ package net.codeengine.windowmanagement
 			(sheet as DisplayObject).visible=false;
 			var animation:SheetDisappearAnimation=new SheetDisappearAnimation();
 			animation.play(sheet.proxy);
+			animation.addEventListener(SheetAnimationEvent.SHEET_CLOSING_ANIMATION_COMPLETE, function(event:SheetAnimationEvent):void{
+				event.sheet = null;
+			}, false, 0, true);
+			animation = null;
 			window.isSheetActive=false;
 			this.removeSheetListeners(sheet);
 			window.sheet=null;
-
+		
 			var event:WindowManagerEvent=new WindowManagerEvent(WindowManagerEvent.SHEET_REMOVED_FROM_WINDOW);
 			event.window=window;
 			dispatchEvent(event);
 			window.unblock();
+			container.removeChild(sheet as DisplayObject);
 		}
 
 
@@ -1098,17 +1108,17 @@ package net.codeengine.windowmanagement
 			this.container.horizontalScrollPolicy="off";
 			this.container.verticalScrollPolicy="off";
 
-			this.addEventListener(WindowAnimatorEvent.kDidFinishPlayingWindowAppearAnimation, this.onDidFinishPlayingWindowAppearAnimation);
-			this.addEventListener(WindowAnimatorEvent.kDidFinishPlayingWindowClosingAnimation, this.onDidFinishPlayingWindowClosingAnimation);
+			this.addEventListener(WindowAnimatorEvent.kDidFinishPlayingWindowAppearAnimation, this.onDidFinishPlayingWindowAppearAnimation, false, 0, true);
+			this.addEventListener(WindowAnimatorEvent.kDidFinishPlayingWindowClosingAnimation, this.onDidFinishPlayingWindowClosingAnimation, false, 0, true);
 
 
-			FlexGlobals.topLevelApplication.addEventListener(mx.events.FlexEvent.APPLICATION_COMPLETE, onApplicationComplete);
+			FlexGlobals.topLevelApplication.addEventListener(mx.events.FlexEvent.APPLICATION_COMPLETE, onApplicationComplete, false, 0, true);
 
 		}
 
 		private function onApplicationComplete(event:FlexEvent):void
 		{
-			this.container.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyUp);
+			this.container.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyUp, false, 0, true);
 		}
 
 		private function onDidFinishPlayingWindowAppearAnimation(event:WindowAnimatorEvent):void
@@ -1180,7 +1190,7 @@ package net.codeengine.windowmanagement
 			var sheet:ISheet=ISheet(event.currentTarget);
 			this.decorator.decorate(new SheetDecoration(), sheet as DisplayObject);
 			var animation:ISheetAnimation=new SheetAppearAnimation();
-			animation.addEventListener(WindowAnimationDirectorEvent.OPEN_ANIMATION_COMPLETE, onSheetOpeningAnimationComplete);
+			animation.addEventListener(WindowAnimationDirectorEvent.OPEN_ANIMATION_COMPLETE, onSheetOpeningAnimationComplete, false, 0, true);
 			animation.play(sheet.proxy);
 		}
 
@@ -1408,13 +1418,13 @@ package net.codeengine.windowmanagement
 					{
 						var d:Decorator=new Decorator();
 						d.decorate(new ForegroundDecoration(), event.currentTarget as DisplayObject);
-					});
+					}, false, 0, true);
 
 					image.addEventListener(MouseEvent.MOUSE_OUT, function(event:MouseEvent):void
 					{
 						var d:Decorator=new Decorator();
 						d.decorate(new BackgroundDecoration(), event.currentTarget as DisplayObject);
-					});
+					}, false, 0, true);
 
 
 					image.addEventListener(MouseEvent.CLICK, function(event:MouseEvent):void
@@ -1434,7 +1444,7 @@ package net.codeengine.windowmanagement
 						var window:IWindow=getWindowById(id);
 						bringWindowToFront(window);
 						exposeProxys.removeAll();
-					});
+					}, false, 0, true);
 				}
 			}
 		}

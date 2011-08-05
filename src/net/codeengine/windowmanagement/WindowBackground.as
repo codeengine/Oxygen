@@ -81,7 +81,7 @@ package net.codeengine.windowmanagement {
                 }
                 var Grpx:Graphics=graphics;
                 Grpx.clear();
-
+				
                 Grpx.beginBitmapFill(new repeatImage().bitmapData);
                 drawRoundRect(0, 0, this.width, this.height);
                 Grpx.endFill();

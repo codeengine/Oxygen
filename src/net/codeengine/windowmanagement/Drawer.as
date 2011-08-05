@@ -23,9 +23,9 @@ package net.codeengine.windowmanagement
 	{
 		private var _windowDecorator:IDecorator;
 
-		private var _windowManager:IWindowManager;
+		[Bindable]private var _windowManager:IWindowManager;
 
-		private var _window:IWindow;
+		[Bindable]private var _window:IWindow;
 
 		private var _location:String="right";
 

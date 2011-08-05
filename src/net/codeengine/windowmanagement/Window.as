@@ -40,7 +40,7 @@ package net.codeengine.windowmanagement
 	import net.codeengine.windowmanagement.decorations.*;
 	import net.codeengine.windowmanagement.decorator.IDecorator;
 	import net.codeengine.windowmanagement.events.*;
-	import net.codeengine.windowmanagement.skins.BorderSkin;
+	import net.codeengine.windowmanagement.skins.TitleBarSkin;
 	
 	import spark.components.BorderContainer;
 	import spark.components.Group;
@@ -71,10 +71,10 @@ package net.codeengine.windowmanagement
 		/* ************************************************************ *
 		 * Class Properties                                             *
 		 * ************************************************************ */
-		public static var DIM_DURATION_SHEET:int=500;
-		public static var DIM_DURATION_DRAWER:int=500;
-		public static var UNDIM_DURATION_SHEET:int=500;
-		public static var UNDIM_DURATION_DRAWER:int=500;
+		public static var DIM_DURATION_SHEET:int=0;
+		public static var DIM_DURATION_DRAWER:int=0;
+		public static var UNDIM_DURATION_SHEET:int=0;
+		public static var UNDIM_DURATION_DRAWER:int=0;
 
 		[Bindable]
 		[Embed(source='assets/images/oxygenGroupBackground.png')]
@@ -222,10 +222,10 @@ package net.codeengine.windowmanagement
 		public function Window()
 		{
 			this.repeatImage=Window.oxygenWindowBackground;
-			this.setStyle("borderThickness", 1);
-			this.setStyle("borderAlpha", 1);
-			this.setStyle("borderStyle", "solid");
-			this.setStyle("borderColor", 0xb1b1b1);
+			this.setStyle("borderThickness", 0);
+			this.setStyle("borderAlpha", 0);
+//			this.setStyle("borderStyle", "solid");
+//			this.setStyle("borderColor", 0xDBDBDB);
 		}
 
 		/* ************************************************************ *
@@ -512,7 +512,7 @@ package net.codeengine.windowmanagement
 			titlebar.top=-22;
 
 			titlebar.setStyle("cornerRadius", 6);
-			titlebar.setStyle("skinClass", Class(BorderSkin));
+			titlebar.setStyle("skinClass", Class(TitleBarSkin));
 
 			var l:Label=new Label();
 			l.text=this.title;
@@ -521,6 +521,7 @@ package net.codeengine.windowmanagement
 			l.horizontalCenter=0;
 			l.verticalCenter=0;
 			titlebar.addElement(l);
+			
 		}
 
 
@@ -634,7 +635,7 @@ package net.codeengine.windowmanagement
 			this.titlebarButtons.addElement(buttonMinimize);
 			this.titlebarButtons.addElement(buttonMaximize);
 			this.titlebarButtons.addElement(buttonClose);
-
+			
 			if (_showResizeHandle)
 			{
 				this.addElement(buttonResize);
@@ -699,20 +700,20 @@ package net.codeengine.windowmanagement
 		private function addEventHandlers():void
 		{
 
-			titlebar.addEventListener(MouseEvent.DOUBLE_CLICK, onTitleBarDoubleClick);
-			titlebar.addEventListener(MouseEvent.MOUSE_DOWN, onTitleBarMouseDown);
-			titlebar.addEventListener(MouseEvent.MOUSE_UP, onTitleBarMouseUp);
-			titlebar.addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
+			titlebar.addEventListener(MouseEvent.DOUBLE_CLICK, onTitleBarDoubleClick, false, 0, true);
+			titlebar.addEventListener(MouseEvent.MOUSE_DOWN, onTitleBarMouseDown, false, 0, true);
+			titlebar.addEventListener(MouseEvent.MOUSE_UP, onTitleBarMouseUp, false, 0, true);
+			titlebar.addEventListener(MouseEvent.MOUSE_OVER, onMouseOver, false, 0, true);
 
 			
 
-			this.addEventListener(ResizeEvent.RESIZE, onResize);
-			this.addEventListener(WindowEvent.ON_MINIMIZE, onMinimize);
-			this.addEventListener(MouseEvent.CLICK, this.onMouseDown);
-			this.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
-			this.addEventListener("windowmanagerChanged", onWindowManagerChanged);
-			this.addEventListener(MoveEvent.MOVE, onMove);
-			this.addEventListener(WindowEvent.ON_WINDOW_CREATION_COMPLETE, onCreationComplete)
+			this.addEventListener(ResizeEvent.RESIZE, onResize, false, 0, true);
+			this.addEventListener(WindowEvent.ON_MINIMIZE, onMinimize, false, 0, true);
+			this.addEventListener(MouseEvent.CLICK, onMouseDown, false, 0, true);
+			this.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove, false, 0, true);
+			this.addEventListener("windowmanagerChanged", onWindowManagerChanged, false, 0, true);
+			this.addEventListener(MoveEvent.MOVE, onMove, false, 0, true);
+			this.addEventListener(WindowEvent.ON_WINDOW_CREATION_COMPLETE, onCreationComplete, false, 0, true);
 			this.addEventListener(WindowEvent.HALT_DRAGGING, function(event:WindowEvent):void
 			{
 				stopDrag();
@@ -742,27 +743,27 @@ package net.codeengine.windowmanagement
 					dispatchEvent(e);
 					undimDrawer();
 					undimSheet();
-				});
+				}, false, 0, true);
 				animate.play();
 
 
-			});
+			}, false, 0, true);
 
-			buttonMinimize.addEventListener(MouseEvent.MOUSE_UP, onMinimizeClick);
-			buttonMaximize.addEventListener(MouseEvent.CLICK, onMaximizeClick);
-			buttonClose.addEventListener(MouseEvent.CLICK, onCloseClick);
+			buttonMinimize.addEventListener(MouseEvent.MOUSE_UP, onMinimizeClick, false, 0, true);
+			buttonMaximize.addEventListener(MouseEvent.CLICK, onMaximizeClick, false, 0, true);
+			buttonClose.addEventListener(MouseEvent.CLICK, onCloseClick, false, 0, true);
 
-			buttonMinimize.addEventListener(MouseEvent.MOUSE_OVER, onMinimizeMouseOver);
-			buttonMaximize.addEventListener(MouseEvent.MOUSE_OVER, onMaximizeMouseOver);
-			buttonClose.addEventListener(MouseEvent.MOUSE_OVER, onCloseMouseOver);
+			buttonMinimize.addEventListener(MouseEvent.MOUSE_OVER, onMinimizeMouseOver, false, 0, true);
+			buttonMaximize.addEventListener(MouseEvent.MOUSE_OVER, onMaximizeMouseOver, false, 0, true);
+			buttonClose.addEventListener(MouseEvent.MOUSE_OVER, onCloseMouseOver, false, 0, true);
 
-			buttonMinimize.addEventListener(MouseEvent.MOUSE_OUT, onMinimizeMouseOut);
-			buttonMaximize.addEventListener(MouseEvent.MOUSE_OUT, onMaximizeMouseOut);
-			buttonClose.addEventListener(MouseEvent.MOUSE_OUT, onCloseMouseOut);
+			buttonMinimize.addEventListener(MouseEvent.MOUSE_OUT, onMinimizeMouseOut, false, 0, true);
+			buttonMaximize.addEventListener(MouseEvent.MOUSE_OUT, onMaximizeMouseOut, false, 0, true);
+			buttonClose.addEventListener(MouseEvent.MOUSE_OUT, onCloseMouseOut, false, 0, true);
 
-			buttonResize.addEventListener(MouseEvent.MOUSE_DOWN, onResizeMouseDown);
-			buttonResize.addEventListener(MouseEvent.MOUSE_OVER, onResizeMouseOver);
-			buttonResize.addEventListener(MouseEvent.MOUSE_OUT, onResizeMouseOut);
+			buttonResize.addEventListener(MouseEvent.MOUSE_DOWN, onResizeMouseDown, false, 0, true);
+			buttonResize.addEventListener(MouseEvent.MOUSE_OVER, onResizeMouseOver, false, 0, true);
+			buttonResize.addEventListener(MouseEvent.MOUSE_OUT, onResizeMouseOut, false, 0, true);
 		}
 		
 		private function onMouseOver(event:MouseEvent):void
@@ -892,7 +893,7 @@ package net.codeengine.windowmanagement
 		private function closeWithDelay(delay:int):void
 		{
 			var timer:Timer=new Timer(1000);
-			timer.addEventListener(TimerEvent.TIMER, onCloseWithDelayTimer);
+			timer.addEventListener(TimerEvent.TIMER, onCloseWithDelayTimer, false, 0, true);
 			timer.start();
 		}
 
@@ -933,7 +934,7 @@ package net.codeengine.windowmanagement
 			//if (!this._isPopoverShowing) return;
 			//this.unblock();
 			var effect:IPopoverAnimation=new DisappearPopoverAnimation();
-			effect.addEventListener(PopoverAnimationEvent.POPOVER_DISAPPEAR_COMPLETE, onPopoverDisappearAnimationComplete);
+			effect.addEventListener(PopoverAnimationEvent.POPOVER_DISAPPEAR_COMPLETE, onPopoverDisappearAnimationComplete, false, 0, true);
 
 			effect.play(popover);
 
@@ -1048,7 +1049,7 @@ package net.codeengine.windowmanagement
 			fade.addEventListener(EffectEvent.EFFECT_END, function(event:EffectEvent):void
 			{
 				removeElement(busy as IVisualElement);
-			});
+			}, false, 0, true);
 		}
 
 		//Undocumented API
@@ -1215,9 +1216,9 @@ package net.codeengine.windowmanagement
 			removeActiveContextMenu();
 			CursorManager.setCursor(this.resizeCursor);
 			event.stopImmediatePropagation();
-			buttonResize.addEventListener(MouseEvent.MOUSE_UP, onResizeMouseUp);
-			systemManager.addEventListener(MouseEvent.MOUSE_MOVE, onSystemMouseMove);
-			systemManager.addEventListener(MouseEvent.MOUSE_UP, onResizeMouseUp);
+			buttonResize.addEventListener(MouseEvent.MOUSE_UP, onResizeMouseUp, false, 0, true);
+			systemManager.addEventListener(MouseEvent.MOUSE_MOVE, onSystemMouseMove, false, 0, true);
+			systemManager.addEventListener(MouseEvent.MOUSE_UP, onResizeMouseUp, false, 0, true);
 			//trace("Window: resize_mouseDownHandler");
 		}
 
