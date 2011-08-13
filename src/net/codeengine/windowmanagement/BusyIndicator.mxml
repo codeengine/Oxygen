@@ -4,9 +4,12 @@
 					  xmlns:mx="library://ns.adobe.com/flex/mx"
 					  width="100%" height="100%" backgroundAlpha="0.1" backgroundColor="#FFFFFF"
 					  creationComplete="init()" implements="net.codeengine.windowmanagement.IBusy">
-	<s:SkinnableContainer minWidth="100" alpha="0.6" backgroundColor="#000000" horizontalCenter="0"
-						  resizeEffect="{resizeEffect}"
-						  verticalCenter="0">
+	<s:BorderContainer height="66" minWidth="100" alpha="0.6" backgroundColor="#000000"
+					   cornerRadius="10" horizontalCenter="0" resizeEffect="{resizeEffect}"
+					   verticalCenter="0">
+		<s:filters>
+			<s:DropShadowFilter alpha="0.8" blurX="10" blurY="10" distance="0" angle="90"/>
+		</s:filters>
 		<s:Label text="Busy..."
 				 color="#FFFFFF"
 				 fontSize="16"
@@ -17,7 +20,7 @@
 				 textAlign="center"
 				 bottom="25"/>
 		
-	</s:SkinnableContainer>
+	</s:BorderContainer>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
