@@ -65,7 +65,7 @@ package net.codeengine.windowmanagement
 	 * <p>Windows support sheets (modal window level components) and drawers.
 	 */
 
-	public class Window extends net.codeengine.windowmanagement.WindowBackground implements IWindow
+	public class Window extends BorderContainer implements IWindow
 	{
 
 		/* ************************************************************ *
@@ -100,49 +100,14 @@ package net.codeengine.windowmanagement
 		[Bindable]
 		private var _showResizeHandle:Boolean=true;
 
-		[Bindable]
-		private var buttonMinimize:Image=new Image();
-
-		[Bindable]
-		private var buttonMaximize:Image=new Image();
-
-		[Bindable]
-		private var buttonClose:Image=new Image();
-
-		[Bindable]
-		private var buttonResize:Image=new Image();
-
-		/* Button Up Skin */
-		//Close
-		//[Embed(source="assets/images/buttons/oxygenButtonCloseUp.png")]
-		[Embed(source="assets/images/titlebarbutton.png")]
-		private var _closeButtonSkin:Class;
-		//Zoom
-		[Embed(source="assets/images/titlebarbutton.png")]
-		private var _maximizeButtonSkin:Class;
-		//Minimize
-		[Embed(source="assets/images/titlebarbutton.png")]
-		private var _minizeButtonSkin:Class;
-
-		/* Button Over Skin */
-		//Close
-		[Embed(source="assets/images/titlebarbutton.png")]
-		private var _closeButton_overSkin:Class;
-
-		//Zoom
-		[Embed(source="assets/images/titlebarbutton.png")]
-		private var _maximizeButton_overSkin:Class;
-
-		//Minimize
-		[Embed(source="assets/images/titlebarbutton.png")]
-		private var _minizeButton_overSkin:Class;
+		
+		
 
 		[Embed(source="assets/images/titlebarbg.png")]
 		private var bg:Class;
 
 
-		private var titlebar:BorderContainer=new BorderContainer();
-		private var titlebarButtons:HGroup=new HGroup();
+		private var titlebar:IWindowTitleBar=new WindowTitleBar();
 
 		private var blocker:BorderContainer;
 
@@ -221,11 +186,13 @@ package net.codeengine.windowmanagement
 
 		public function Window()
 		{
-			this.repeatImage=Window.oxygenWindowBackground;
-			this.setStyle("borderThickness", 0);
-			this.setStyle("borderAlpha", 0);
-//			this.setStyle("borderStyle", "solid");
-//			this.setStyle("borderColor", 0xDBDBDB);
+			//this.repeatImage=Window.oxygenWindowBackground;
+			this.setStyle("backgroundColor", 0xE6E6E6);
+			this.setStyle("borderThickness", 1);
+//			this.setStyle("borderAlpha", 0);
+			this.setStyle("cornerRadius", 4);
+			this.setStyle("borderStyle", "solid");
+			this.setStyle("borderColor", 0xDBDBDB);
 		}
 
 		/* ************************************************************ *
@@ -233,7 +200,7 @@ package net.codeengine.windowmanagement
 		 * ************************************************************ */
 		public function getTitlebarHeight():int
 		{
-			return this.titlebar.height;
+			return _titlebarHeight;
 		}
 
 		public function setTitlebarHeight(value:int):void
@@ -455,39 +422,7 @@ package net.codeengine.windowmanagement
 			this.redrawMyTitlebarButtons();
 		}
 
-		[Inspectable(category="Styles")]
-		public function get minimizeButtonSkin():Class
-		{
-			return _minizeButtonSkin
-		}
-
-		public function set minimizeButtonSkin(value:Class):void
-		{
-			_minizeButtonSkin=value;
-		}
-
-		[Inspectable(category="Styles")]
-		public function get maximizeButtonSkin():Class
-		{
-			return _maximizeButtonSkin
-		}
-
-		public function set maximizeButtonSkin(value:Class):void
-		{
-			_maximizeButtonSkin=value;
-		}
-
-		[Inspectable(category="Styles")]
-		public function get closeButtonSkin():Class
-		{
-			return _closeButtonSkin
-		}
-
-		public function set closeButtonSkin(value:Class):void
-		{
-			_closeButtonSkin=value;
-		}
-
+		
 
 
 		[Inspectable(category="General")]
@@ -506,22 +441,23 @@ package net.codeengine.windowmanagement
 
 		private function createTitlebar():void
 		{
-			titlebar.height=this._titlebarHeight;
-			titlebar.left=0;
-			titlebar.right=0;
-			titlebar.top=-22;
+	
+			//titlebar.setStyle("skinClass", Class(TitleBarSkin));
 
-			titlebar.setStyle("cornerRadius", 6);
-			titlebar.setStyle("skinClass", Class(TitleBarSkin));
-
-			var l:Label=new Label();
-			l.text=this.title;
-			l.setStyle("fontSize", 14);
-			l.setStyle("fontFamily", "verdana");
-			l.horizontalCenter=0;
-			l.verticalCenter=0;
-			titlebar.addElement(l);
+			//var l:Label=new Label();
+			//l.text=this.title;
+			//l.setStyle("fontSize", 14);
+			//l.setStyle("fontFamily", "verdana");
+			//l.horizontalCenter=0;
+			//l.verticalCenter=0;
+			//titlebar.addElement(l);
 			
+			titlebar.title = title;
+			titlebar.height = _titlebarHeight;
+			titlebar.showCloseButton = showCloseButton;
+			titlebar.showMaximizeButton = showMaximizeButton;
+			titlebar.showMinimizeButton = showMinimizeButton;
+			titlebar.window = this;
 		}
 
 
@@ -553,8 +489,6 @@ package net.codeengine.windowmanagement
 
 			this.createTitlebar();
 
-			this.addTitleBarButtons();
-
 
 			/*titlebar.addEventListener(MouseEvent.DOUBLE_CLICK, onTitleBarDoubleClick);
 			titlebar.addEventListener(MouseEvent.MOUSE_DOWN, function(event:MouseEvent):void{
@@ -574,7 +508,7 @@ package net.codeengine.windowmanagement
 			});
 			titlebar.addEventListener(MouseEvent.MOUSE_UP, onTitleBarMouseUp);*/
 
-			this.addElement(titlebar);
+			this.addElement(titlebar as IVisualElement);
 
 
 
@@ -587,116 +521,10 @@ package net.codeengine.windowmanagement
 
 		private function redrawMyTitlebarButtons():void
 		{
-			this.deactivateDisabledTitleBarButtonsVisually();
+			titlebar.deactivateDisabledTitleBarButtonsVisually();
 		}
 
-		private function deactivateDisabledTitleBarButtonsVisually():void
-		{
-			this.buttonClose.alpha=this.showCloseButton ? 1 : 0.2;
-			this.buttonMinimize.alpha=this.showMinimizeButton ? 1 : 0.2;
-			this.buttonMaximize.alpha=this.showMaximizeButton ? 1 : 0.2;
-		}
-
-		private function positionTitleBarButtons():void
-		{
-
-
-
-		}
-
-		private function addTitleBarButtons():void
-		{
-
-
-			titlebarButtons.right=10;
-			titlebarButtons.top=3;
-			titlebar.addElement(titlebarButtons);
-
-			buttonMinimize.height=14;
-			buttonMinimize.width=14;
-			buttonMinimize.source=_minizeButtonSkin;
-
-
-			buttonMaximize.height=14;
-			buttonMaximize.width=14;
-			buttonMaximize.source=_maximizeButtonSkin;
-
-
-			buttonClose.height=14;
-			buttonClose.width=14;
-			buttonClose.source=_closeButtonSkin;
-
-			buttonResize.height=11;
-			buttonResize.width=11;
-			buttonResize.source=_buttonResizeSkin;
-			buttonResize.right=5;
-			buttonResize.bottom=5;
-
-			this.titlebarButtons.addElement(buttonMinimize);
-			this.titlebarButtons.addElement(buttonMaximize);
-			this.titlebarButtons.addElement(buttonClose);
-			
-			if (_showResizeHandle)
-			{
-				this.addElement(buttonResize);
-			}
-			else
-			{
-				this.removeElement(buttonResize);
-			}
-		}
-
-		private function titlebarButtonMouseOverEffect(target:DisplayObject):void
-		{
-			var glow:GlowDecoration=new GlowDecoration();
-			glow.color=0x676767;
-
-			glow.decorate(target);
-		}
-
-		private function titlebarButtonMouseOutEffect(target:DisplayObject):void
-		{
-			target.filters=[];
-		}
-
-		private function onMinimizeMouseOver(event:MouseEvent):void
-		{
-			this.buttonMinimize.source=this._minizeButton_overSkin;
-			this.titlebarButtonMouseOverEffect(event.target as DisplayObject);
-		}
-
-		private function onMaximizeMouseOver(event:MouseEvent):void
-		{
-			this.buttonMaximize.source=this._maximizeButton_overSkin;
-
-			this.titlebarButtonMouseOverEffect(event.target as DisplayObject);
-		}
-
-		private function onCloseMouseOver(event:MouseEvent):void
-		{
-			this.buttonClose.source=this._closeButton_overSkin;
-
-			this.titlebarButtonMouseOverEffect(event.target as DisplayObject);
-		}
-
-		private function onMinimizeMouseOut(event:MouseEvent):void
-		{
-			this.buttonMinimize.source=this._minizeButtonSkin;
-			this.titlebarButtonMouseOutEffect(event.currentTarget as DisplayObject);
-		}
-
-		private function onMaximizeMouseOut(event:MouseEvent):void
-		{
-			this.buttonMaximize.source=this._maximizeButtonSkin;
-			this.titlebarButtonMouseOutEffect(event.currentTarget as DisplayObject);
-		}
-
-		private function onCloseMouseOut(event:MouseEvent):void
-		{
-			this.buttonClose.source=this._closeButtonSkin;
-			this.titlebarButtonMouseOutEffect(event.currentTarget as DisplayObject);
-		}
-
+		
 		private function addEventHandlers():void
 		{
 
@@ -749,22 +577,7 @@ package net.codeengine.windowmanagement
 
 			}, false, 0, true);
 
-			buttonMinimize.addEventListener(MouseEvent.MOUSE_UP, onMinimizeClick, false, 0, true);
-			buttonMaximize.addEventListener(MouseEvent.CLICK, onMaximizeClick, false, 0, true);
-			buttonClose.addEventListener(MouseEvent.CLICK, onCloseClick, false, 0, true);
-
-			buttonMinimize.addEventListener(MouseEvent.MOUSE_OVER, onMinimizeMouseOver, false, 0, true);
-			buttonMaximize.addEventListener(MouseEvent.MOUSE_OVER, onMaximizeMouseOver, false, 0, true);
-			buttonClose.addEventListener(MouseEvent.MOUSE_OVER, onCloseMouseOver, false, 0, true);
-
-			buttonMinimize.addEventListener(MouseEvent.MOUSE_OUT, onMinimizeMouseOut, false, 0, true);
-			buttonMaximize.addEventListener(MouseEvent.MOUSE_OUT, onMaximizeMouseOut, false, 0, true);
-			buttonClose.addEventListener(MouseEvent.MOUSE_OUT, onCloseMouseOut, false, 0, true);
-
-			buttonResize.addEventListener(MouseEvent.MOUSE_DOWN, onResizeMouseDown, false, 0, true);
-			buttonResize.addEventListener(MouseEvent.MOUSE_OVER, onResizeMouseOver, false, 0, true);
-			buttonResize.addEventListener(MouseEvent.MOUSE_OUT, onResizeMouseOut, false, 0, true);
-		}
+					}
 		
 		private function onMouseOver(event:MouseEvent):void
 		{
@@ -791,13 +604,7 @@ package net.codeengine.windowmanagement
 			this.removeEventListener("windowmanagerChanged", onWindowManagerChanged);
 			this.removeEventListener(MoveEvent.MOVE, onMove);
 
-			buttonMinimize.removeEventListener(MouseEvent.MOUSE_UP, onMinimizeClick);
-			buttonMaximize.removeEventListener(MouseEvent.CLICK, onMaximizeClick);
-			buttonClose.removeEventListener(MouseEvent.CLICK, onCloseClick);
-
-			buttonResize.removeEventListener(MouseEvent.MOUSE_DOWN, onResizeMouseDown);
-			buttonResize.removeEventListener(MouseEvent.MOUSE_OVER, onResizeMouseOver);
-			buttonResize.removeEventListener(MouseEvent.MOUSE_OUT, onResizeMouseOut);
+			
 		}
 
 		private function getFrame(source:IBitmapDrawable):Bitmap
@@ -1159,47 +966,7 @@ package net.codeengine.windowmanagement
 			}
 		}
 
-		private function onMinimizeClick(event:MouseEvent):void
-		{
-			removeActiveContextMenu();
-			if (this._isSheetActive || this._isDrawerActive)
-			{
-				return;
-			}
-
-			if (!this.showMinimizeButton)
-				return;
-
-			this.windowManager.minimizeWindow(this);
-			//trace("Window: imgMinimizeClickHandler");
-		}
-
-		private function onCloseClick(event:MouseEvent):void
-		{
-			removeActiveContextMenu();
-			if (this.isSheetActive)
-			{
-				return;
-			}
-			if (!this.showCloseButton)
-				return;
-			//trace("Window: imgCloseClickHandler");
-			close();
-		}
-
-		private function onMaximizeClick(event:MouseEvent):void
-		{
-			removeActiveContextMenu();
-			if (this.isSheetActive || this._isDrawerActive)
-			{
-				return;
-			}
-			if (!this.showMaximizeButton)
-				return;
-			this.maximize();
-
-			//trace("Window: imgMaximizeClickHandler");
-		}
+		
 
 		private function onResize(event:ResizeEvent):void
 		{
@@ -1213,39 +980,39 @@ package net.codeengine.windowmanagement
 
 		private function onResizeMouseDown(event:MouseEvent):void
 		{
-			removeActiveContextMenu();
-			CursorManager.setCursor(this.resizeCursor);
-			event.stopImmediatePropagation();
-			buttonResize.addEventListener(MouseEvent.MOUSE_UP, onResizeMouseUp, false, 0, true);
-			systemManager.addEventListener(MouseEvent.MOUSE_MOVE, onSystemMouseMove, false, 0, true);
-			systemManager.addEventListener(MouseEvent.MOUSE_UP, onResizeMouseUp, false, 0, true);
+//			removeActiveContextMenu();
+//			CursorManager.setCursor(this.resizeCursor);
+//			event.stopImmediatePropagation();
+//			buttonResize.addEventListener(MouseEvent.MOUSE_UP, onResizeMouseUp, false, 0, true);
+//			systemManager.addEventListener(MouseEvent.MOUSE_MOVE, onSystemMouseMove, false, 0, true);
+//			systemManager.addEventListener(MouseEvent.MOUSE_UP, onResizeMouseUp, false, 0, true);
 			//trace("Window: resize_mouseDownHandler");
 		}
 
 		private function onResizeMouseOver(event:MouseEvent):void
 		{
-			removeActiveContextMenu();
-			CursorManager.setCursor(this.resizeCursor);
+//			removeActiveContextMenu();
+//			CursorManager.setCursor(this.resizeCursor);
 		}
 
 		private function onResizeMouseOut(event:MouseEvent):void
 		{
-			removeActiveContextMenu();
-			CursorManager.removeAllCursors();
+//			removeActiveContextMenu();
+//			CursorManager.removeAllCursors();
 		}
 
 		private function onResizeMouseUp(event:MouseEvent):void
 		{
-			removeActiveContextMenu();
-
-			event.stopImmediatePropagation();
-
-			buttonResize.removeEventListener(MouseEvent.MOUSE_UP, onResizeMouseUp);
-
-			systemManager.removeEventListener(MouseEvent.MOUSE_MOVE, onSystemMouseMove);
-			systemManager.removeEventListener(MouseEvent.MOUSE_UP, onResizeMouseUp);
-			//trace("Window: resize_mouseUpHandler");
-			CursorManager.removeAllCursors();
+//			removeActiveContextMenu();
+//
+//			event.stopImmediatePropagation();
+//
+//			buttonResize.removeEventListener(MouseEvent.MOUSE_UP, onResizeMouseUp);
+//
+//			systemManager.removeEventListener(MouseEvent.MOUSE_MOVE, onSystemMouseMove);
+//			systemManager.removeEventListener(MouseEvent.MOUSE_UP, onResizeMouseUp);
+//			//trace("Window: resize_mouseUpHandler");
+//			CursorManager.removeAllCursors();
 		}
 
 
@@ -1473,6 +1240,8 @@ package net.codeengine.windowmanagement
 		[Bindable]
 		private var _title:String;
 
+		
+		[Inspectable(category="Common")]
 		public function get title():String
 		{
 			return this._title;
@@ -1481,6 +1250,14 @@ package net.codeengine.windowmanagement
 		public function set title(value:String):void
 		{
 			this._title=value;
+		}
+		
+		public function minimize():void{
+			windowManager.minimizeWindow(this);
+		}
+		
+		public function maxmize():void{
+			windowManager.maximizeWindow(this);
 		}
 	}
 }

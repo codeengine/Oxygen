@@ -7,7 +7,7 @@ package net.codeengine.windowmanagement
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.utils.ByteArray;
-
+	
 	import mx.controls.Image;
 	import mx.effects.Blur;
 	import mx.graphics.ImageSnapshot;
@@ -16,11 +16,12 @@ package net.codeengine.windowmanagement
 	{
 		public static function getSectionFromBehindComponent(areaBehind:*, component:*):BitmapData
 		{
+			component.visible = false;
 			var areaBehind_BitmapData:BitmapData=ImageSnapshot.captureBitmapData(areaBehind);
-			var difference:BitmapData=UIHelper.copyFrom(areaBehind_BitmapData, component.x, component.y, component.width, component.height);
-			return difference;
+			component.visible = true;
+			return UIHelper.copyFrom(areaBehind_BitmapData, component.x, component.y, component.width, component.height);
 		}
-
+	
 		private static function copyFrom(bitmapData:BitmapData, x:Number, y:Number, width:Number, height:Number):BitmapData
 		{
 			var data:BitmapData=new BitmapData(width, height, true, 0x00ffffff);

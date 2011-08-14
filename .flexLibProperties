@@ -73,20 +73,21 @@
     <classEntry path="net.codeengine.windowmanagement.events.WindowAnimatorEvent"/>
     <classEntry path="net.codeengine.windowmanagement.events.WindowEvent"/>
     <classEntry path="net.codeengine.windowmanagement.events.WindowManagerEvent"/>
+    <classEntry path="net.codeengine.windowmanagement.WindowTitleBar"/>
   </includeClasses>
   <includeResources>
-    <resourceEntry destPath="assets/images/buttons/oxygenButtonUp.png" sourcePath="assets/images/buttons/oxygenButtonUp.png"/>
     <resourceEntry destPath="assets/images/buttons/old/minimizeButton_dark.png" sourcePath="assets/images/buttons/old/minimizeButton_dark.png"/>
+    <resourceEntry destPath="assets/images/buttons/oxygenButtonUp.png" sourcePath="assets/images/buttons/oxygenButtonUp.png"/>
     <resourceEntry destPath="assets/images/buttons/oxygenButtonMinimizeUp.png" sourcePath="assets/images/buttons/oxygenButtonMinimizeUp.png"/>
     <resourceEntry destPath="assets/images/buttons/old/minimizeButton.PNG" sourcePath="assets/images/buttons/old/minimizeButton.PNG"/>
-    <resourceEntry destPath="assets/images/buttons/old/restoreButton.png" sourcePath="assets/images/buttons/old/restoreButton.png"/>
     <resourceEntry destPath="assets/images/buttons/old/minimizeButton7x7.PNG" sourcePath="assets/images/buttons/old/minimizeButton7x7.PNG"/>
+    <resourceEntry destPath="assets/images/buttons/old/restoreButton.png" sourcePath="assets/images/buttons/old/restoreButton.png"/>
     <resourceEntry destPath="assets/images/buttons/closeButton_dark.png" sourcePath="assets/images/buttons/closeButton_dark.png"/>
     <resourceEntry destPath="assets/images/titlebarbuttongreen.png" sourcePath="assets/images/titlebarbuttongreen.png"/>
     <resourceEntry destPath="assets/images/buttons/old/button_little_frame.png" sourcePath="assets/images/buttons/old/button_little_frame.png"/>
     <resourceEntry destPath="assets/images/buttons/old/button_close15x15.png" sourcePath="assets/images/buttons/old/button_close15x15.png"/>
-    <resourceEntry destPath="assets/images/buttons/old/maximizeButton7x7.PNG" sourcePath="assets/images/buttons/old/maximizeButton7x7.PNG"/>
     <resourceEntry destPath="assets/images/buttons/old/closeButton7x7.PNG" sourcePath="assets/images/buttons/old/closeButton7x7.PNG"/>
+    <resourceEntry destPath="assets/images/buttons/old/maximizeButton7x7.PNG" sourcePath="assets/images/buttons/old/maximizeButton7x7.PNG"/>
     <resourceEntry destPath="assets/images/buttons/old/fancy_closebox.png" sourcePath="assets/images/buttons/old/fancy_closebox.png"/>
     <resourceEntry destPath="assets/images/buttons/oxygenButtonMaximizeUp.png" sourcePath="assets/images/buttons/oxygenButtonMaximizeUp.png"/>
     <resourceEntry destPath="assets/images/buttons/oxygenButtonMaximizeOver.png" sourcePath="assets/images/buttons/oxygenButtonMaximizeOver.png"/>
@@ -101,9 +102,9 @@
     <resourceEntry destPath="assets/images/buttons/old/buttonMaximizeUp.png" sourcePath="assets/images/buttons/old/buttonMaximizeUp.png"/>
     <resourceEntry destPath="assets/images/oxygenSheetBackground.png" sourcePath="assets/images/oxygenSheetBackground.png"/>
     <resourceEntry destPath="assets/images/buttons/old/button_minimize15x15.png" sourcePath="assets/images/buttons/old/button_minimize15x15.png"/>
-    <resourceEntry destPath="assets/images/buttons/oxygenButtonMinimizeOver.png" sourcePath="assets/images/buttons/oxygenButtonMinimizeOver.png"/>
-    <resourceEntry destPath="assets/images/buttons/maximizeButton_dark.png" sourcePath="assets/images/buttons/maximizeButton_dark.png"/>
     <resourceEntry destPath="assets/images/buttons/old/button_close_over15x15.png" sourcePath="assets/images/buttons/old/button_close_over15x15.png"/>
+    <resourceEntry destPath="assets/images/buttons/maximizeButton_dark.png" sourcePath="assets/images/buttons/maximizeButton_dark.png"/>
+    <resourceEntry destPath="assets/images/buttons/oxygenButtonMinimizeOver.png" sourcePath="assets/images/buttons/oxygenButtonMinimizeOver.png"/>
     <resourceEntry destPath="assets/images/titlebarbg.png" sourcePath="assets/images/titlebarbg.png"/>
     <resourceEntry destPath="assets/images/buttons/old/maximizeButton_light.png" sourcePath="assets/images/buttons/old/maximizeButton_light.png"/>
     <resourceEntry destPath="assets/images/oxygenGroupBackground.png" sourcePath="assets/images/oxygenGroupBackground.png"/>
@@ -116,13 +117,13 @@
     <resourceEntry destPath="assets/images/buttons/resizeCursor14x20.png" sourcePath="assets/images/buttons/resizeCursor14x20.png"/>
     <resourceEntry destPath="assets/images/buttons/old/fancy_right.png" sourcePath="assets/images/buttons/old/fancy_right.png"/>
     <resourceEntry destPath="assets/images/buttons/old/closeButton.PNG" sourcePath="assets/images/buttons/old/closeButton.PNG"/>
-    <resourceEntry destPath="assets/images/buttons/old/restoreButton_soft.png" sourcePath="assets/images/buttons/old/restoreButton_soft.png"/>
     <resourceEntry destPath="assets/images/buttons/old/closeButton_light.png" sourcePath="assets/images/buttons/old/closeButton_light.png"/>
+    <resourceEntry destPath="assets/images/buttons/old/restoreButton_soft.png" sourcePath="assets/images/buttons/old/restoreButton_soft.png"/>
     <resourceEntry destPath="assets/images/buttons/oxygenButtonCloseOver.png" sourcePath="assets/images/buttons/oxygenButtonCloseOver.png"/>
     <resourceEntry destPath="assets/images/titlebarbuttonamber.png" sourcePath="assets/images/titlebarbuttonamber.png"/>
     <resourceEntry destPath="assets/images/buttons/oxygenButtonCloseUp.png" sourcePath="assets/images/buttons/oxygenButtonCloseUp.png"/>
-    <resourceEntry destPath="assets/images/buttons/old/close.png" sourcePath="assets/images/buttons/old/close.png"/>
     <resourceEntry destPath="assets/images/buttons/old/closeButton_dark.png" sourcePath="assets/images/buttons/old/closeButton_dark.png"/>
+    <resourceEntry destPath="assets/images/buttons/old/close.png" sourcePath="assets/images/buttons/old/close.png"/>
     <resourceEntry destPath="assets/images/buttons/old/closeButton_soft.png" sourcePath="assets/images/buttons/old/closeButton_soft.png"/>
     <resourceEntry destPath="assets/images/buttons/minimizeButton_dark.png" sourcePath="assets/images/buttons/minimizeButton_dark.png"/>
     <resourceEntry destPath="assets/images/buttons/old/buttonCloseOver.png" sourcePath="assets/images/buttons/old/buttonCloseOver.png"/>

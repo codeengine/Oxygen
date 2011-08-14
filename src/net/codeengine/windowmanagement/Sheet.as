@@ -4,14 +4,19 @@ package net.codeengine.windowmanagement
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
 	import flash.display.IBitmapDrawable;
+	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.geom.Rectangle;
 	
 	import mx.controls.HRule;
+	import mx.events.FlexEvent;
 	import mx.graphics.ImageSnapshot;
 	
 	import net.codeengine.windowmanagement.decorator.IDecorator;
 	
 	import spark.components.BorderContainer;
+	import spark.components.Image;
+	import spark.filters.BlurFilter;
 	import spark.filters.DropShadowFilter;
 
 	/**
@@ -34,6 +39,11 @@ package net.codeengine.windowmanagement
 		private var blocker:BorderContainer;
 		public static var MAXIMUM_ALPHA:Number = 0.95;
 		public static var MINIMUM_ALPHA:Number = 0;
+		[Bindable]
+		private var transparentBlurOverlay_bitmap:Bitmap=new Bitmap();
+		
+		[Bindable]
+		private var transparentBlurOverlay:Image=new Image();
 
 		/**
 		 * Get the window manager that this window is managed by.
@@ -81,6 +91,10 @@ package net.codeengine.windowmanagement
 			this.radius=0;
 			this.isInset=false;
 			this.alpha = 0.95;
+			addEventListener(FlexEvent.CREATION_COMPLETE, function(event:Event):void{
+				simulateBlurryTransparency();
+			});
+			
 		}
 
 		public function get decorator():IDecorator
@@ -167,5 +181,31 @@ package net.codeengine.windowmanagement
 
 			}
 		}
+		
+		protected function simulateBlurryTransparency():void
+		{
+			var rect:Rectangle=new Rectangle(x, y, width, height);
+			this.visible=false;
+			transparentBlurOverlay_bitmap.bitmapData=UIHelper.getSectionFromBehindComponent(window, this);
+			this.visible=true;
+			var blur_filter:BlurFilter=new BlurFilter(20, 20, 1);
+			transparentBlurOverlay.filters=[blur_filter];
+		}
+		
+		protected override function createChildren():void
+		{
+			super.createChildren();
+			transparentBlurOverlay.source=transparentBlurOverlay_bitmap;
+			transparentBlurOverlay.width=width;
+			transparentBlurOverlay.height=height;
+			transparentBlurOverlay.x=0;
+			transparentBlurOverlay.y=0;
+			transparentBlurOverlay.alpha=0.16;
+			addElementAt(transparentBlurOverlay, 0);
+			
+			setStyle("backgroundColor", 0xF0F0F0);
+			setStyle("backgroundAlpha", 1);
+		}
+
 	}
 }

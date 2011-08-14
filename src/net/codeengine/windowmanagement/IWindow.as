@@ -4,6 +4,8 @@ package net.codeengine.windowmanagement {
     
     public interface IWindow extends IEventDispatcher {
         function close():void;
+		function minimize():void;
+		function maximize():void;
         function get isModal():Boolean;
         function set isModal(value:Boolean):void;
         function get windowId():String;
