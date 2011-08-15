@@ -92,7 +92,7 @@ package net.codeengine.windowmanagement
 			this.isInset=false;
 			this.alpha = 0.95;
 			addEventListener(FlexEvent.CREATION_COMPLETE, function(event:Event):void{
-				simulateBlurryTransparency();
+				//simulateBlurryTransparency();
 			});
 			
 		}

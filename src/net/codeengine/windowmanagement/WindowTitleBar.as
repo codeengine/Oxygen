@@ -111,8 +111,8 @@ package net.codeengine.windowmanagement
 				_label.setStyle("fontFamily", "Verdana");
 				_label.setStyle("fontSize", 13);
 				addElement(_label);
-				var etch:DropShadowFilter = new DropShadowFilter(1, 90, 0xffffff, 0.8, 4, 4);
-				_label.filters = [etch];
+//				var etch:DropShadowFilter = new DropShadowFilter(1, 90, 0xffffff, 0.8, 4, 4);
+//				_label.filters = [etch];
 			}
 			
 			addTitleBarButtons();

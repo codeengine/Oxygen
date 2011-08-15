@@ -16,8 +16,8 @@ package net.codeengine.windowmanagement.decorations {
             var dropshadow1:DropShadowFilter=new DropShadowFilter();
 
             dropshadow1.alpha=0.4;
-            dropshadow1.blurX=20;
-            dropshadow1.blurY=20;
+            dropshadow1.blurX=15;
+            dropshadow1.blurY=15;
             dropshadow1.color=0x202020;
             dropshadow1.distance=1;
 

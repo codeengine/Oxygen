@@ -187,7 +187,9 @@ package net.codeengine.windowmanagement
 		public function Window()
 		{
 			//this.repeatImage=Window.oxygenWindowBackground;
-			this.setStyle("backgroundColor", 0xE6E6E6);
+//			this.setStyle("backgroundColor", 0xE6E6E6);
+			this.setStyle("backgroundColor", 0xF0F0F0);
+			
 			this.setStyle("borderThickness", 1);
 //			this.setStyle("borderAlpha", 0);
 			this.setStyle("cornerRadius", 4);

@@ -51,7 +51,7 @@ package net.codeengine.windowmanagement
 		 * ************************************************************ */
 		public static var ENABLE_DECORATIONS:Boolean=true;
 		public static var ENABLE_ANIMATIONS:Boolean=true;
-		public static var ANIMATION_SPEED:int=1200;
+		public static var ANIMATION_SPEED:int=200;
 
 		public static var ORPHAN_TOP_THRESHOLD:Number=5;
 		public static var ORPHAN_LEFT_THRESHOLD:Number=10;
