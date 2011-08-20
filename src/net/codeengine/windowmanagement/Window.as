@@ -8,54 +8,33 @@ package net.codeengine.windowmanagement
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.geom.Point;
-	import flash.geom.Rectangle;
 	import flash.utils.Timer;
 	import flash.utils.getQualifiedClassName;
 	
-	import mx.charts.chartClasses.DualStyleObject;
-	import mx.controls.Alert;
 	import mx.controls.DateField;
 	import mx.controls.Image;
 	import mx.controls.LinkButton;
 	import mx.core.Container;
-	import mx.core.EdgeMetrics;
 	import mx.core.IVisualElement;
-	import mx.core.UIComponent;
-	import mx.core.mx_internal;
-	import mx.effects.Parallel;
 	import mx.events.EffectEvent;
 	import mx.events.MoveEvent;
 	import mx.events.ResizeEvent;
-	import mx.geom.RoundedRectangle;
 	import mx.graphics.ImageSnapshot;
-	import mx.graphics.LinearGradient;
 	import mx.managers.CursorManager;
-	import mx.skins.halo.WindowBackground;
 	
 	import net.codeengine.windowmanagement.animations.AppearPopoverAnimation;
 	import net.codeengine.windowmanagement.animations.DisappearPopoverAnimation;
 	import net.codeengine.windowmanagement.animations.IPopoverAnimation;
 	import net.codeengine.windowmanagement.animations.PopoverAnimationEvent;
-	import net.codeengine.windowmanagement.animations.PulseAnimation;
 	import net.codeengine.windowmanagement.decorations.*;
 	import net.codeengine.windowmanagement.decorator.IDecorator;
 	import net.codeengine.windowmanagement.events.*;
-	import net.codeengine.windowmanagement.skins.TitleBarSkin;
 	
 	import spark.components.BorderContainer;
-	import spark.components.Group;
-	import spark.components.HGroup;
-	import spark.components.Label;
-	import spark.components.SkinnableContainer;
 	import spark.effects.Animate;
 	import spark.effects.Fade;
-	import spark.effects.Move;
-	import spark.effects.Resize;
 	import spark.effects.animation.MotionPath;
 	import spark.effects.animation.SimpleMotionPath;
-	import spark.filters.BlurFilter;
-	import spark.filters.DropShadowFilter;
-	import spark.filters.ShaderFilter;
 
 	/**
 	 * A window is a visual component with extended functionality.
@@ -837,28 +816,33 @@ package net.codeengine.windowmanagement
 
 		public function showBusyIndicator():void
 		{
-			this.addElement(busy as IVisualElement);
+//			this.addElement(busy as IVisualElement);
 			this._isBusyIndicatorShowing=true;
-			var fade:spark.effects.Fade=new spark.effects.Fade(busy);
-			fade.alphaFrom=0;
-			fade.alphaTo=1;
-			fade.duration=500;
-			fade.play();
+//			var fade:spark.effects.Fade=new spark.effects.Fade(busy);
+//			fade.alphaFrom=0;
+//			fade.alphaTo=1;
+//			fade.duration=500;
+//			fade.play();
+			
+			
+			busy.activate(this);
 		}
 
 		public function removeBusyIndicator():void
 		{
 			this._isBusyIndicatorShowing=false;
-			var fade:spark.effects.Fade=new spark.effects.Fade(busy);
-			fade.alphaFrom=1;
-			fade.alphaTo=0;
-			fade.duration=500;
-			fade.play();
-
-			fade.addEventListener(EffectEvent.EFFECT_END, function(event:EffectEvent):void
-			{
-				removeElement(busy as IVisualElement);
-			}, false, 0, true);
+//			var fade:spark.effects.Fade=new spark.effects.Fade(busy);
+//			fade.alphaFrom=1;
+//			fade.alphaTo=0;
+//			fade.duration=500;
+//			fade.play();
+//
+//			fade.addEventListener(EffectEvent.EFFECT_END, function(event:EffectEvent):void
+//			{
+//				removeElement(busy as IVisualElement);
+//			}, false, 0, true);
+			
+			busy.deactivate();
 		}
 
 		//Undocumented API
@@ -1082,6 +1066,7 @@ package net.codeengine.windowmanagement
 
 		private function dimDrawer():void
 		{
+			return;
 			if (this.isDrawerActive)
 			{
 				var a:Animate=new Animate(this.drawer as DisplayObject);
@@ -1099,6 +1084,7 @@ package net.codeengine.windowmanagement
 
 		private function dimSheet():void
 		{
+			return;
 			if (this.isSheetActive)
 			{
 				var a:Animate=new Animate(this.sheet as DisplayObject);
@@ -1116,6 +1102,7 @@ package net.codeengine.windowmanagement
 
 		private function undimSheet():void
 		{
+			return;
 			if (this.isSheetActive)
 			{
 				var a:Animate=new Animate(this.sheet as DisplayObject);
@@ -1133,6 +1120,7 @@ package net.codeengine.windowmanagement
 
 		private function undimDrawer():void
 		{
+			return;
 			if (this.isDrawerActive)
 			{
 				var a:Animate=new Animate(this.drawer as DisplayObject);

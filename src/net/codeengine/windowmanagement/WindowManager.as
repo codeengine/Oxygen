@@ -12,6 +12,8 @@ package net.codeengine.windowmanagement
 	import mx.core.Container;
 	import mx.core.FlexGlobals;
 	import mx.core.IVisualElement;
+	import mx.core.IVisualElementContainer;
+	import mx.core.UIComponent;
 	import mx.effects.Parallel;
 	import mx.events.EffectEvent;
 	import mx.events.FlexEvent;
@@ -62,7 +64,7 @@ package net.codeengine.windowmanagement
 		private var _windowHeaderHeight:Number=20;
 		private var _cornerRadius:Number=5;
 
-		private var _container:Container=null;
+		private var _container:UIComponent=null;
 
 		private var addNewWindowsByCentering:Boolean=true;
 
@@ -171,7 +173,7 @@ package net.codeengine.windowmanagement
 			}
 			try
 			{
-				this.container.setChildIndex(sheet as DisplayObject, this.container.getChildren().length - 1);
+				this.container.setChildIndex(sheet as DisplayObject, this.container.numChildren - 1);
 			}
 			catch (e:*)
 			{
@@ -184,7 +186,7 @@ package net.codeengine.windowmanagement
 		{
 			try
 			{
-				this.container.setChildIndex(object, this.container.getChildren().length - 1);
+				this.container.setChildIndex(object, this.container.numChildren - 1);
 			}
 			catch (e:*)
 			{
@@ -404,7 +406,7 @@ package net.codeengine.windowmanagement
 			}
 
 
-			this.container.addChild((window as DisplayObject));
+			this.container.addChild(window as DisplayObject);
 			this.bringWindowToFront(window);
 			this.windowCount++;
 			window.visible=!ENABLE_ANIMATIONS;
@@ -587,16 +589,16 @@ package net.codeengine.windowmanagement
 				if (window.isDrawerActive)
 				{
 					//Bring the window drawer to the top of the stack.
-					this.container.setChildIndex(window.drawer as DisplayObject, this.container.getChildren().length - 1);
+					this.container.setChildIndex(window.drawer as DisplayObject, this.container.numChildren - 1);
 				}
 				if (window.isSheetActive)
 				{
 					//Bring the window sheet to the top of the window stack.
-					this.container.setChildIndex(window.sheet as DisplayObject, this.container.getChildren().length - 1);
+					this.container.setChildIndex(window.sheet as DisplayObject, this.container.numChildren - 1);
 				}
 
 				//Bring the actual window to the top of the window stack.
-				this.container.setChildIndex(window as DisplayObject, this.container.getChildren().length - 1);
+				this.container.setChildIndex(window as DisplayObject, this.container.numChildren - 1);
 			}
 			catch (e:*)
 			{
@@ -610,12 +612,12 @@ package net.codeengine.windowmanagement
 		 * Get the container object that this window manager is operating on.
 		 * @return The container object that this window manager object is operating on.
 		 */
-		public function get container():Container
+		public function get container():UIComponent
 		{
 			return this._container;
 		}
 
-		public function set container(value:Container):void
+		public function set container(value:UIComponent):void
 		{
 			this._container=value;
 			//Generate a property change event
@@ -655,42 +657,9 @@ package net.codeengine.windowmanagement
 		{
 			if (child == null)
 				return;
-			this.container.addChild(child);
+			this.container.addChild(child as DisplayObject);
 		}
 
-		/**
-		 *  A container typically contains child components, which can be enumerated
-		 *  using the <code>Container.getChildAt()</code> method and
-		 *  <code>Container.numChildren</code> property.  In addition, the container
-		 *  may contain style elements and skins, such as the border and background.
-		 *  Flash Player and AIR do not draw any distinction between child components
-		 *  and skins.  They are all accessible using the player's
-		 *  <code>getChildAt()</code> method  and
-		 *  <code>numChildren</code> property.
-		 *  However, the Container class overrides the <code>getChildAt()</code> method
-		 *  and <code>numChildren</code> property (and several other methods)
-		 *  to create the illusion that
-		 *  the container's children are the only child components.
-		 *
-		 *  <p>If you need to access all of the children of the container (both the
-		 *  content children and the skins), then use the methods and properties
-		 *  on the <code>rawChildren</code> property instead of the regular Container methods.
-		 *  For example, use the <code>Container.rawChildren.getChildAt())</code> method.
-		 *  However, if a container creates a ContentPane Sprite object for its children,
-		 *  the <code>rawChildren</code> property value only counts the ContentPane, not the
-		 *  container's children.
-		 *  It is not always possible to determine when a container will have a ContentPane.</p>
-		 *
-		 *  <p><b>Note:</b>If you call the <code>addChild</code> or
-		 *  <code>addChildAt</code>method of the <code>rawChildren</code> object,
-		 *  set <code>tabEnabled = false</code> on the component that you have added.
-		 *  Doing so prevents users from tabbing to the visual-only component
-		 *  that you have added.</p>
-		 */
-		public function containerAddToRawChildren(child:*):void
-		{
-			this.container.rawChildren.addChild(child);
-		}
 
 		/**
 		 *  Removes a child DisplayObject from the child list of this Container.
@@ -710,7 +679,7 @@ package net.codeengine.windowmanagement
 		{
 			try
 			{
-				this.container.removeChild(child);
+				this.container.removeChild(child as DisplayObject);
 			}
 			catch (e:*)
 			{
@@ -985,7 +954,7 @@ package net.codeengine.windowmanagement
 		 */
 		public function getTopMostWindow():IWindow
 		{
-			var totalChildren:int=this.container.getChildren().length;
+			var totalChildren:int=this.container.numChildren;
 			var index:int=totalChildren - 1;
 			var object:Object;
 
@@ -1105,8 +1074,8 @@ package net.codeengine.windowmanagement
 		private function onContainerChanged(event:Event):void
 		{
 			this.container.addEventListener(ResizeEvent.RESIZE, onContainerResize);
-			this.container.horizontalScrollPolicy="off";
-			this.container.verticalScrollPolicy="off";
+			//this.container.horizontalScrollPolicy="off";
+			//this.container.verticalScrollPolicy="off";
 
 			this.addEventListener(WindowAnimatorEvent.kDidFinishPlayingWindowAppearAnimation, this.onDidFinishPlayingWindowAppearAnimation, false, 0, true);
 			this.addEventListener(WindowAnimatorEvent.kDidFinishPlayingWindowClosingAnimation, this.onDidFinishPlayingWindowClosingAnimation, false, 0, true);

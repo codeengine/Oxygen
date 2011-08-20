@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<fxpProperties abbreviated="false" authoringTool="Flex Builder" parentProject="3bc0e91c-96f7-4cbb-83c8-e426c8cb31cc" projectUUID="90bdc8cf-2dc5-4774-be5e-cb8d618cb7d3" pureCatalystProject="false" sdkVersion="4.5.0" uuid="17f84bad-dbbb-42e5-b437-e9c1fc8d08c2" version="15">
+<fxpProperties abbreviated="false" authoringTool="Flex Builder" parentProject="7c5d2ec9-c8b3-455a-9519-ec9730d213c5" projectUUID="90bdc8cf-2dc5-4774-be5e-cb8d618cb7d3" pureCatalystProject="false" sdkVersion="4.5.0" uuid="732c4d44-e532-4990-aa0c-fc29bbca3968" version="15">
   <projects/>
   <src/>
   <swc>
-    <linked location="sdkPlaceHolder" path="sdkPlaceHolder" position="0" uuid="17f84bad-dbbb-42e5-b437-e9c1fc8d08c2"/>
+    <linked location="sdkPlaceHolder" path="sdkPlaceHolder" position="0" uuid="732c4d44-e532-4990-aa0c-fc29bbca3968"/>
   </swc>
   <misc/>
   <theme/>

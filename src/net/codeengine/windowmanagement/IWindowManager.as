@@ -4,6 +4,8 @@ package net.codeengine.windowmanagement {
     
     import mx.collections.ArrayCollection;
     import mx.core.Container;
+    import mx.core.IVisualElementContainer;
+    import mx.core.UIComponent;
     
     import net.codeengine.windowmanagement.decorator.IDecorator;
 
@@ -28,8 +30,8 @@ package net.codeengine.windowmanagement {
         function getChildIndex(child:DisplayObject):Number;
         function getChildAtIndex(index:int):DisplayObject;
         function sendWindowToFront(windowId:String):void;
-        function get container():Container;
-        function set container(value:Container):void;
+        function get container():UIComponent;
+        function set container(value:UIComponent):void;
         function get version():String;
         function get decorator():IDecorator;
         function getActiveWindow():IWindow;

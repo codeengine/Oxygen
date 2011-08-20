@@ -3,7 +3,6 @@
   <includeClasses>
     <classEntry path="net.codeengine.windowmanagement.AbstractGroup"/>
     <classEntry path="net.codeengine.windowmanagement.Background"/>
-    <classEntry path="net.codeengine.windowmanagement.BusyIndicator"/>
     <classEntry path="net.codeengine.windowmanagement.ContextMenu"/>
     <classEntry path="net.codeengine.windowmanagement.Drawer"/>
     <classEntry path="net.codeengine.windowmanagement.DrawerProxy"/>
@@ -89,12 +88,12 @@
     <resourceEntry destPath="assets/images/buttons/old/closeButton7x7.PNG" sourcePath="assets/images/buttons/old/closeButton7x7.PNG"/>
     <resourceEntry destPath="assets/images/buttons/old/maximizeButton7x7.PNG" sourcePath="assets/images/buttons/old/maximizeButton7x7.PNG"/>
     <resourceEntry destPath="assets/images/buttons/old/fancy_closebox.png" sourcePath="assets/images/buttons/old/fancy_closebox.png"/>
-    <resourceEntry destPath="assets/images/buttons/oxygenButtonMaximizeUp.png" sourcePath="assets/images/buttons/oxygenButtonMaximizeUp.png"/>
-    <resourceEntry destPath="assets/images/buttons/oxygenButtonMaximizeOver.png" sourcePath="assets/images/buttons/oxygenButtonMaximizeOver.png"/>
     <resourceEntry destPath="assets/images/buttons/old/buttonMinimizeOver.png" sourcePath="assets/images/buttons/old/buttonMinimizeOver.png"/>
+    <resourceEntry destPath="assets/images/buttons/oxygenButtonMaximizeOver.png" sourcePath="assets/images/buttons/oxygenButtonMaximizeOver.png"/>
+    <resourceEntry destPath="assets/images/buttons/oxygenButtonMaximizeUp.png" sourcePath="assets/images/buttons/oxygenButtonMaximizeUp.png"/>
     <resourceEntry destPath="assets/images/buttons/grey_button_16x16.png" sourcePath="assets/images/buttons/grey_button_16x16.png"/>
-    <resourceEntry destPath="assets/images/buttons/old/restoreButton_light.png" sourcePath="assets/images/buttons/old/restoreButton_light.png"/>
     <resourceEntry destPath="assets/images/buttons/old/button_restore_over15x15.png" sourcePath="assets/images/buttons/old/button_restore_over15x15.png"/>
+    <resourceEntry destPath="assets/images/buttons/old/restoreButton_light.png" sourcePath="assets/images/buttons/old/restoreButton_light.png"/>
     <resourceEntry destPath="assets/images/buttons/old/fancy_left.png" sourcePath="assets/images/buttons/old/fancy_left.png"/>
     <resourceEntry destPath="assets/images/buttons/resizeHandle11x11.png" sourcePath="assets/images/buttons/resizeHandle11x11.png"/>
     <resourceEntry destPath="assets/images/buttons/old/buttonCloseUp.png" sourcePath="assets/images/buttons/old/buttonCloseUp.png"/>
@@ -131,8 +130,8 @@
     <resourceEntry destPath="assets/images/buttons/old/buttonMinimizeUp.png" sourcePath="assets/images/buttons/old/buttonMinimizeUp.png"/>
     <resourceEntry destPath="assets/images/titlebarbutton.png" sourcePath="assets/images/titlebarbutton.png"/>
     <resourceEntry destPath="assets/images/buttons/old/button_big_frame.png" sourcePath="assets/images/buttons/old/button_big_frame.png"/>
-    <resourceEntry destPath="assets/images/buttons/old/minimizeButton_soft.png" sourcePath="assets/images/buttons/old/minimizeButton_soft.png"/>
     <resourceEntry destPath="assets/images/resizeCursor.png" sourcePath="assets/images/resizeCursor.png"/>
+    <resourceEntry destPath="assets/images/buttons/old/minimizeButton_soft.png" sourcePath="assets/images/buttons/old/minimizeButton_soft.png"/>
     <resourceEntry destPath="assets/images/titlebarbuttonred.png" sourcePath="assets/images/titlebarbuttonred.png"/>
   </includeResources>
   <namespaceManifests/>

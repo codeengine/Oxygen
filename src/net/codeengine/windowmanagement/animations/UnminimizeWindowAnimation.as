@@ -17,7 +17,7 @@ package net.codeengine.windowmanagement.animations {
 
         public function play(target:IWindowProxy):void {
             this.windowProxy=target;
-            target.window.windowManager.container.setChildIndex(target.image as DisplayObject, target.window.windowManager.container.getChildren().length - 1);
+            target.window.windowManager.container.setChildIndex(target.image as DisplayObject, target.window.windowManager.container.numChildren - 1);
                    
             var animate:Animate = new Animate(windowProxy.image);
             var v:Vector.<MotionPath> = new Vector.<MotionPath>();
