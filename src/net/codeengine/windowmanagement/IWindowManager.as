@@ -39,6 +39,8 @@ package net.codeengine.windowmanagement {
         function getActiveWindows():ArrayCollection;
         function get enableAnimation():Boolean;
         function set enableAnimation(value:Boolean):void;
+		
+		function flip(flipbableWindow:IWindowFlipable):void;
 
     }
 }

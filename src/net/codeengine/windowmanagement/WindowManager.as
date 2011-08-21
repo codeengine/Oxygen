@@ -6,6 +6,8 @@ package net.codeengine.windowmanagement
 	import flash.events.EventDispatcher;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import flash.utils.describeType;
+	import flash.utils.getDefinitionByName;
 	
 	import mx.collections.ArrayCollection;
 	import mx.controls.Image;
@@ -61,6 +63,8 @@ package net.codeengine.windowmanagement
 		public static var ORPHAN_BOTTOM_THRESHOLD:Number=10;
 		private var _version:String="0.9.64";
 
+		private var _flipsides:Vector.<IWindowFlipside> = new Vector.<IWindowFlipside>();
+		
 		private var _windowHeaderHeight:Number=20;
 		private var _cornerRadius:Number=5;
 
@@ -916,7 +920,7 @@ package net.codeengine.windowmanagement
 			}
 
 			//Play the window closing animation.
-			if (ENABLE_ANIMATIONS)
+			if (ENABLE_ANIMATIONS && !window is IWindowFlipside)
 			{
 				var zo:WindowDisappearAnimation=new WindowDisappearAnimation();
 				this._closeWindowAnimation.play(window.proxy);
@@ -1116,10 +1120,12 @@ package net.codeengine.windowmanagement
 			var window:IWindow=IWindow(event.currentTarget);
 			window.visible=false;
 			window.dispatchEvent(new WindowEvent(WindowEvent.ON_WINDOW_CREATION_COMPLETE));
-			window.visible=true;
+			if (!window is IWindowFlipside){
+				window.visible=true;
+			}
 			this.manage(window);
 			var dontAnimate:Boolean=!ENABLE_ANIMATIONS;
-			if (dontAnimate || isWindowAnimationInProgress)
+			if (dontAnimate || isWindowAnimationInProgress || window is IWindowFlipside)
 			{
 				if (window.isModal)
 				{
@@ -1582,6 +1588,48 @@ package net.codeengine.windowmanagement
 			}
 		}
 
+		public function flip(flipbableWindow:IWindowFlipable):void
+		{
+			if (!flipbableWindow.isFlipSideActive){
+			//Lookup the flipside window that we need to instantiate
+			var windowFlipside:IWindowFlipside;
+			
+			//Instantiate the class
+			windowFlipside = createClazz(flipbableWindow.flipside);
+			//TODO: Figure out how to best handle this
+			//Register the Window Flipside
+			//_flipsides.push(windowFlipside);
+			//set the state flags
+			flipbableWindow.isFlipSideActive = true;
+			flipbableWindow.windowFlipside = windowFlipside;
+			windowFlipside.window = flipbableWindow;
+			windowFlipside.isActive = flipbableWindow.isFlipSideActive;
+			addWindow(windowFlipside as IWindow);
+			
+			//Perform the flip
+			WindowFlipAnimation.instance.flip(flipbableWindow, windowFlipside, container);
+			}else{
+				WindowFlipAnimation.instance.flip(flipbableWindow.windowFlipside, flipbableWindow, container);
+				removeWindow(flipbableWindow.windowFlipside as IWindow);
+				flipbableWindow.isFlipSideActive = false;
+			}
+		}
+		
+		private function createClazz(clazzName:String):*{
+			//Instantiate the object
+			var clazzName:String = clazzName;
+			
+			var Clazz:Class = getDefinitionByName(clazzName) as Class;
+			var clazz:* = new Clazz();
+			return clazz;
+		}
+		
+//		private function lookupWindowFlipside(flipableWindow:IWindowFlipable):String{
+//			var description:XML = describeType(flipableWindow);
+//			var value:* = description.variable.(@name=="flipside").arg.(@key=="flipside").@value;
+//			return value;
+//		}
+		
 	}
 }
 
