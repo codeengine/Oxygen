@@ -12,7 +12,7 @@ package net.codeengine.windowmanagement
 		
 		public function flip():void
 		{
-			(_window as IWindow).windowManager.flip(_window);
+			WindowManager.instance.flip(_window);
 		}
 		
 		public function get isActive():Boolean

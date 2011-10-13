@@ -116,7 +116,7 @@ package net.codeengine.windowmanagement.animations {
         private function onEffectEnd(event:EffectEvent):void {
             trace("ZoomInOpeningWindowAnimation: onEffectEnd");
             this.target.window.windowManager.removeChild(this.proxy);
-            var e:WindowAnimationDirectorEvent=new WindowAnimationDirectorEvent(WindowAnimationDirectorEvent.OPEN_ANIMATION_COMPLETE);
+            var e:WindowAnimationDirectorEvent=new WindowAnimationDirectorEvent(WindowAnimationDirectorEvent.openingAnimationDidPlay);
             e.windowProxy=this.target;
             this.dispatchEvent(e);
             this.target.window.visible=true;

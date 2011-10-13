@@ -2,7 +2,7 @@ package net.codeengine.windowmanagement
 {
 	public class WindowFlipable extends Window implements IWindowFlipable
 	{
-		private var _flipside:String = "";
+		private var _flipside:*;
 		private var _windowFlipside:IWindowFlipside;
 		private var _isFlipSideActive:Boolean = false;
 		public function WindowFlipable()
@@ -12,7 +12,7 @@ package net.codeengine.windowmanagement
 		
 		public function flip():void
 		{
-			windowManager.flip(this);
+			WindowManager.instance.flip(this);
 		}
 		
 		public function get isFlipSideActive():Boolean
@@ -26,12 +26,12 @@ package net.codeengine.windowmanagement
 		}
 		
 		
-		public function get flipside():String
+		public function get flipside():*
 		{
 			return _flipside;
 		}
 		
-		public function set flipside(value:String):void
+		public function set flipside(value:*):void
 		{
 			_flipside = value;
 			

@@ -27,7 +27,7 @@ package net.codeengine.windowmanagement.animations {
             var marginFromLeft:int=20;
             proxy=windowProxy.image;
             proxy.addEventListener(MouseEvent.CLICK, onMouseClick);
-            windowProxy.window.windowManager.addChild(proxy);
+			WindowManager.instance.addChild(proxy);
        
             var ratio:Number=windowProxy.window.height / minimizedWindowHeight;
      
@@ -38,7 +38,7 @@ package net.codeengine.windowmanagement.animations {
             
             //Move
             var moveX:SimpleMotionPath = new SimpleMotionPath("x", null, marginFromLeft);
-            var moveY:SimpleMotionPath = new SimpleMotionPath("y", null, windowProxy.window.windowManager.height() - marginFromBotton - minimizedWindowHeight);
+            var moveY:SimpleMotionPath = new SimpleMotionPath("y", null, WindowManager.instance.height() - marginFromBotton - minimizedWindowHeight);
             v.push(moveX);
             v.push(moveY);
             
@@ -54,13 +54,13 @@ package net.codeengine.windowmanagement.animations {
         }
 
         private function onEffectEnd(event:EffectEvent):void {
-            var e:WindowAnimationDirectorEvent=new WindowAnimationDirectorEvent(WindowAnimationDirectorEvent.MINIMIZE_ANIMATION_COMPLETE);
+            var e:WindowAnimationDirectorEvent=new WindowAnimationDirectorEvent(WindowAnimationDirectorEvent.minimizeAnimationDidPlay);
             e.windowProxy=windowProxy;
             this.dispatchEvent(e);
         }
 
         private function onMouseClick(event:MouseEvent):void {
-            var e:WindowAnimationDirectorEvent=new WindowAnimationDirectorEvent(WindowAnimationDirectorEvent.MINIMIZED_WINDOW_CLICK);
+            var e:WindowAnimationDirectorEvent=new WindowAnimationDirectorEvent(WindowAnimationDirectorEvent.minimizedWindowDidReceiveClick);
             e.windowProxy=windowProxy;
             this.dispatchEvent(e);
         }

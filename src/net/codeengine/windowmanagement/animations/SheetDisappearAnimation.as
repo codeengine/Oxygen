@@ -21,7 +21,7 @@ package net.codeengine.windowmanagement.animations
 		{
 			this._proxy=target;
 
-			target.sheet.windowManager.addChild(target.image);
+			WindowManager.instance.addChild(target.image);
 			/*var resize:Resize=new Resize(target.image);
 			resize.heightFrom=target.sheet.height;
 			resize.heightTo=0;
@@ -51,7 +51,7 @@ package net.codeengine.windowmanagement.animations
 
 		public function onEffectEnd(event:EffectEvent):void
 		{
-			this._proxy.sheet.windowManager.removeChild(this._proxy.image);
+			WindowManager.instance.removeChild(this._proxy.image);
 			var animationEvent:SheetAnimationEvent=new SheetAnimationEvent(SheetAnimationEvent.SHEET_CLOSING_ANIMATION_COMPLETE);
 			animationEvent.sheet=this._proxy.sheet;
 			dispatchEvent(animationEvent);

@@ -17,7 +17,7 @@ package net.codeengine.windowmanagement.animations {
 
         public function play(target:IWindowProxy):void {
             this.windowProxy=target;
-            target.window.windowManager.container.setChildIndex(target.image as DisplayObject, target.window.windowManager.container.numChildren - 1);
+			WindowManager.instance.container.setChildIndex(target.image as DisplayObject, WindowManager.instance.container.numChildren - 1);
                    
             var animate:Animate = new Animate(windowProxy.image);
             var v:Vector.<MotionPath> = new Vector.<MotionPath>();
@@ -41,7 +41,7 @@ package net.codeengine.windowmanagement.animations {
         }
 
         private function onEffectEnd(event:EffectEvent):void {
-            var e:WindowAnimationDirectorEvent=new WindowAnimationDirectorEvent(WindowAnimationDirectorEvent.UNMINIMIZE_ANIMATION_COMPLETE);
+            var e:WindowAnimationDirectorEvent=new WindowAnimationDirectorEvent(WindowAnimationDirectorEvent.unminimizeAnimationDidPlay);
             e.windowProxy=windowProxy;
             this.dispatchEvent(e);
         }

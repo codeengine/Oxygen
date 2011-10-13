@@ -30,8 +30,8 @@ package net.codeengine.windowmanagement {
         function getChildIndex(child:DisplayObject):Number;
         function getChildAtIndex(index:int):DisplayObject;
         function sendWindowToFront(windowId:String):void;
-        function get container():UIComponent;
-        function set container(value:UIComponent):void;
+        function get container():*;
+        function set container(value:*):void;
         function get version():String;
         function get decorator():IDecorator;
         function getActiveWindow():IWindow;
@@ -39,7 +39,6 @@ package net.codeengine.windowmanagement {
         function getActiveWindows():ArrayCollection;
         function get enableAnimation():Boolean;
         function set enableAnimation(value:Boolean):void;
-		
 		function flip(flipbableWindow:IWindowFlipable):void;
 
     }

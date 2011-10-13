@@ -28,6 +28,7 @@
         <![CDATA[         
 			import mx.controls.Image;
 			import mx.core.IVisualElement;
+			import mx.states.OverrideBase;
 			
 			import spark.primitives.Graphic;
             /**
@@ -38,20 +39,20 @@
 		
             override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number) : void
             {
-				super.updateDisplayList(unscaledWidth, unscaledHeight);
-			
-				var cr:Number = getStyle("cornerRadius");
-				var bc:Number = getStyle("backgroundColor");
-				
-				//bgImage = new bgClass();
-				//bgBitmapData = new BitmapData(bgImage.width, bgImage.height);
-				//bgBitmapData.draw(bgImage);
-				graphics.clear();
-				graphics.beginBitmapFill( new bgClass().bitmapData, null, true, true);
-				//graphics.beginFill(0x000000);
-				// Draw the rectangle manually, rounding only the top two corners
-				graphics.drawRoundRectComplex(-1, 0, width + 2, height, 6, 6, 0, 0);
-				graphics.endFill();
+//				super.updateDisplayList(unscaledWidth, unscaledHeight);
+//				
+//				var cr:Number = getStyle("cornerRadius");
+//				var bc:Number = getStyle("backgroundColor");
+//				width = 0;
+//				//bgImage = new bgClass();
+//				//bgBitmapData = new BitmapData(bgImage.width, bgImage.height);
+//				//bgBitmapData.draw(bgImage);
+//				graphics.clear();
+//				graphics.beginBitmapFill( new bgClass().bitmapData, null, true, true);
+//				//graphics.beginFill(0x000000);
+//				// Draw the rectangle manually, rounding only the top two corners
+//				graphics.drawRoundRectComplex(-1, 0, width + 2, height, 6, 6, 0, 0);
+//				graphics.endFill();
             }
 		
         ]]>        

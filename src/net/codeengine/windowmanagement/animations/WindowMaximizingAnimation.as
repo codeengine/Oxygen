@@ -39,8 +39,8 @@ package net.codeengine.windowmanagement.animations
 				v.push(resizeWidth);
 				(target.window as Window)._isZoomed = false;
 			}else{
-				var resizeHeight:SimpleMotionPath=new SimpleMotionPath("height", null, target.window.windowManager.height() - 2 * margin);
-				var resizeWidth:SimpleMotionPath=new SimpleMotionPath("width", null, target.window.windowManager.width() - 2 * margin);
+				var resizeHeight:SimpleMotionPath=new SimpleMotionPath("height", null, WindowManager.instance.height() - 2 * margin);
+				var resizeWidth:SimpleMotionPath=new SimpleMotionPath("width", null, WindowManager.instance.width() - 2 * margin);
 				v.push(resizeHeight);
 				v.push(resizeWidth);
 				(target.window as Window)._isZoomed = true;

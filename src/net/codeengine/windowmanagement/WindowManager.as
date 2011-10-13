@@ -8,6 +8,7 @@ package net.codeengine.windowmanagement
 	import flash.events.MouseEvent;
 	import flash.utils.describeType;
 	import flash.utils.getDefinitionByName;
+	import flash.utils.setTimeout;
 	
 	import mx.collections.ArrayCollection;
 	import mx.controls.Image;
@@ -48,8 +49,16 @@ package net.codeengine.windowmanagement
 	import spark.effects.easing.Sine;
 
 	[Bindable]
-	public class WindowManager extends EventDispatcher implements IWindowManager
+	public class WindowManager extends EventDispatcher
 	{
+		
+		private static var _instance:WindowManager = new WindowManager();
+		private var _isInitialized:Boolean = false;
+		public static function get instance():WindowManager{
+			return _instance;
+		}
+		
+		
 		/* ************************************************************ *
 		 * Class Properties                                             *
 		 * ************************************************************ */
@@ -61,10 +70,10 @@ package net.codeengine.windowmanagement
 		public static var ORPHAN_LEFT_THRESHOLD:Number=10;
 		public static var ORPHAN_RIGHT_THRESHOLD:Number=10;
 		public static var ORPHAN_BOTTOM_THRESHOLD:Number=10;
-		private var _version:String="0.9.64";
+		private var _version:String="1.9.64";
 
-		private var _flipsides:Vector.<IWindowFlipside> = new Vector.<IWindowFlipside>();
-		
+		private var _flipsides:Vector.<IWindowFlipside>=new Vector.<IWindowFlipside>();
+
 		private var _windowHeaderHeight:Number=20;
 		private var _cornerRadius:Number=5;
 
@@ -117,8 +126,12 @@ package net.codeengine.windowmanagement
 
 		public function WindowManager()
 		{
-			this.addEventListener("containerChanged", onContainerChanged, false, 0, true);
-			this.addEventListeners();
+			if (_instance)throw new Error("SingletonException: cannot instantiate singleton");
+			else init();
+		}
+		
+		private function init():void{
+			addEventListeners();
 		}
 
 		public function getActiveWindow():IWindow
@@ -152,20 +165,20 @@ package net.codeengine.windowmanagement
 		private function addEventListeners():void
 		{
 			//Add all of the window manager system wide event listeners.
-			this._closeWindowAnimation.addEventListener(WindowAnimationDirectorEvent.CLOSE_ANIMATION_COMPLETE, this.onWindowClosingAnimationComplete, false, 0, true);
+			this._closeWindowAnimation.addEventListener(WindowAnimationDirectorEvent.closingAnimationDidPlay, this.onWindowClosingAnimationComplete, false, 0, true);
 			this._closeSheetAnimation.addEventListener(SheetAnimationEvent.SHEET_CLOSING_ANIMATION_COMPLETE, onSheetClosingAnimationComplete, false, 0, true)
-			this._addWindowAnimation.addEventListener(WindowAnimationDirectorEvent.OPEN_ANIMATION_COMPLETE, onWindowOpeningAnimationComplete, false, 0, true);
-			this._unminimizeWindowAnimation.addEventListener(WindowAnimationDirectorEvent.UNMINIMIZE_ANIMATION_COMPLETE, onWindowUnminimizeAnimationComplete, false, 0, true);
-			this.addEventListener(WindowManagerEvent.DRAWER_ADDED_TO_WINDOW, onDrawerAddedToWindow, false, 0, true);
-			this.addEventListener(WindowManagerEvent.DRAWER_REMOVED_FROM_WINDOW, onDrawerRemovedFromWindow, false, 0, true);
-			this.addEventListener(WindowManagerEvent.SHEET_ADDED_TO_WINDOW, onSheetAddedToWindow, false, 0, true);
-			this.addEventListener(WindowManagerEvent.SHEET_REMOVED_FROM_WINDOW, onSheetRemovedFromWindow, false, 0, true);
-			this.addEventListener(WindowManagerEvent.WINDOW_CLOSED, onWindowClosed, false, 0, true);
-			this.addEventListener(WindowManagerEvent.WINDOW_MAXIMIZED, onWindowMaximized, false, 0, true);
-			this.addEventListener(WindowManagerEvent.WINDOW_MINIMIZED, onWindowMinimized, false, 0, true);
-			this.addEventListener(WindowManagerEvent.WINDOW_MOVED, onWindowMoved, false, 0, true);
-			this.addEventListener(WindowManagerEvent.WINDOW_RESIZED, onWindowResized, false, 0, true);
-			this.addEventListener(WindowManagerEvent.WINDOW_RESTORED, onWindowRestored, false, 0, true);
+			this._addWindowAnimation.addEventListener(WindowAnimationDirectorEvent.openingAnimationDidPlay, onWindowOpeningAnimationComplete, false, 0, true);
+			this._unminimizeWindowAnimation.addEventListener(WindowAnimationDirectorEvent.unminimizeAnimationDidPlay, onWindowUnminimizeAnimationComplete, false, 0, true);
+			this.addEventListener(WindowManagerEvent.didAddDrawerToWindow, onDrawerAddedToWindow, false, 0, true);
+			this.addEventListener(WindowManagerEvent.didRemoveDrawerFromWindow, onDrawerRemovedFromWindow, false, 0, true);
+			this.addEventListener(WindowManagerEvent.didAddSheetToWindow, onSheetAddedToWindow, false, 0, true);
+			this.addEventListener(WindowManagerEvent.didRemoveSheetFromWindow, onSheetRemovedFromWindow, false, 0, true);
+			this.addEventListener(WindowManagerEvent.windowDidClose, onWindowClosed, false, 0, true);
+			this.addEventListener(WindowManagerEvent.windowDidMaximize, onWindowMaximized, false, 0, true);
+			this.addEventListener(WindowManagerEvent.windowDidMinimize, onWindowMinimized, false, 0, true);
+			this.addEventListener(WindowManagerEvent.windowDidMove, onWindowMoved, false, 0, true);
+			this.addEventListener(WindowManagerEvent.windowDidResize, onWindowResized, false, 0, true);
+			this.addEventListener(WindowManagerEvent.windowDidRestore, onWindowRestored, false, 0, true);
 			//Be sure to remove all the added event listeners.
 		}
 
@@ -285,8 +298,8 @@ package net.codeengine.windowmanagement
 
 			var headerHeight:Number=(window as Window).getTitlebarHeight() == undefined ? this._windowHeaderHeight : (window as Window).getTitlebarHeight();
 
-			sheet.x = window.x + window.width / 2 - sheet.width / 2;
-			sheet.y = 1 + headerHeight + window.y;
+			sheet.x=window.x + window.width / 2 - sheet.width / 2;
+			sheet.y=1 + headerHeight + window.y;
 		}
 
 		private function positionDrawerRelativeToWindow(drawer:IDrawer, window:IWindow):void
@@ -387,17 +400,6 @@ package net.codeengine.windowmanagement
 				windowId=window.windowId;
 			}
 
-			//Assign this instance to manage the window, if it is not already managed by us
-			if (window.windowManager != this)
-			{
-				window.windowManager=this;
-					//trace("AbstractWindowManager: addWindow: managing window: " + window.windowId);
-			}
-			else
-			{
-				//trace("AbstractWindowManager: addWindow: already managing window: " + window.windowId);
-			}
-
 			/* We will only display this window provided that there is no modal window
 			 * currently displaying. If we find a modal window, we will draw attention to it and return.
 			 */
@@ -421,14 +423,14 @@ package net.codeengine.windowmanagement
 		private function addWindowListeners(window:IWindow):void
 		{
 			//Add window specific event listeners.
-			window.addEventListener(WindowEvent.ON_FOCUS, onWindowFocus, false, 0, true);
+			window.addEventListener(WindowEvent.didGainFocus, onWindowFocus, false, 0, true);
 			window.addEventListener(mx.events.FlexEvent.CREATION_COMPLETE, onWindowCreationComplete, false, 0, true);
-			window.addEventListener(WindowEvent.ON_MOVE, onWindowMoved, false, 0, true);
-			window.addEventListener(WindowEvent.ON_RESIZE, onWindowResize);
-			window.addEventListener(WindowEvent.WINDOW_AUTOMATICALLY_REPOSITIONED, onWindowAutomaticallyRepositioned, false, 0, true);
+			window.addEventListener(WindowEvent.didMove, onWindowMoved, false, 0, true);
+			window.addEventListener(WindowEvent.didResize, onWindowResize);
+			window.addEventListener(WindowEvent.didAutmaticallyReposition, didRepositionWindowAutomatically, false, 0, true);
 		}
 
-		private function onWindowAutomaticallyRepositioned(event:WindowEvent):void
+		private function didRepositionWindowAutomatically(event:WindowEvent):void
 		{
 			this.positionDrawerRelativeToWindow(event.window.drawer, event.window);
 			this.positionSheetRelativeToWindow(event.window.sheet, event.window);
@@ -453,10 +455,10 @@ package net.codeengine.windowmanagement
 
 		private function removeWindowListeners(window:IWindow):void
 		{
-			window.removeEventListener(WindowEvent.ON_FOCUS, onWindowFocus);
+			window.removeEventListener(WindowEvent.didGainFocus, onWindowFocus);
 			window.removeEventListener(mx.events.FlexEvent.CREATION_COMPLETE, onWindowCreationComplete);
-			window.removeEventListener(WindowEvent.ON_MOVE, onWindowMoved);
-			window.removeEventListener(WindowEvent.ON_RESIZE, onWindowResize);
+			window.removeEventListener(WindowEvent.didMove, onWindowMoved);
+			window.removeEventListener(WindowEvent.didResize, onWindowResize);
 		}
 
 		private function removeSheetListeners(sheet:ISheet):void
@@ -468,7 +470,7 @@ package net.codeengine.windowmanagement
 
 		private function removeDrawerListeners(drawer:IDrawer):void
 		{
-			
+
 			drawer.removeEventListener(mx.events.FlexEvent.CREATION_COMPLETE, this.onDrawerCreationComplete)
 		}
 
@@ -505,14 +507,13 @@ package net.codeengine.windowmanagement
 
 		internal function addDrawer(drawer:IDrawer, window:IWindow):void
 		{
-			drawer.windowManager=this;
 			this.addChild(drawer as DisplayObject);
 			this.positionDrawerRelativeToWindow(drawer, window);
 
 			this.addDrawerListeners(drawer);
 
 
-			var event:WindowManagerEvent=new WindowManagerEvent(WindowManagerEvent.DRAWER_ADDED_TO_WINDOW);
+			var event:WindowManagerEvent=new WindowManagerEvent(WindowManagerEvent.didAddDrawerToWindow);
 			event.window=window;
 			dispatchEvent(event);
 
@@ -525,6 +526,7 @@ package net.codeengine.windowmanagement
 			if (window.isClosing)
 			{
 				this.removeChild(drawer as DisplayObject);
+				container.removeChild(drawer as DisplayObject);
 			}
 			else
 			{
@@ -532,11 +534,9 @@ package net.codeengine.windowmanagement
 				animation.play(drawer.proxy);
 			}
 
-			var event:WindowManagerEvent=new WindowManagerEvent(WindowManagerEvent.DRAWER_REMOVED_FROM_WINDOW);
+			var event:WindowManagerEvent=new WindowManagerEvent(WindowManagerEvent.didRemoveDrawerFromWindow);
 			event.window=window;
 			dispatchEvent(event);
-			
-			container.removeChild(drawer as DisplayObject);
 		}
 
 		/**
@@ -616,16 +616,17 @@ package net.codeengine.windowmanagement
 		 * Get the container object that this window manager is operating on.
 		 * @return The container object that this window manager object is operating on.
 		 */
-		public function get container():UIComponent
+		public function get container():*
 		{
 			return this._container;
 		}
 
-		public function set container(value:UIComponent):void
+		public function set container(value:*):void
 		{
 			this._container=value;
 			//Generate a property change event
 			dispatchEvent(new Event("containerChanged"));
+			_container.setStyle("verticalScrollPolicy", "off");
 		}
 
 		/**
@@ -892,10 +893,10 @@ package net.codeengine.windowmanagement
 		{
 			var _minimizeWindowAnimation:IWindowAnimation=new WindowMinimizingAnimation()
 			_minimizeWindowAnimation.play(window.proxy);
-			_minimizeWindowAnimation.addEventListener(WindowAnimationDirectorEvent.MINIMIZE_ANIMATION_COMPLETE, this.onWindowMinimizingAnimationComplete, false, 0, true);
-			_minimizeWindowAnimation.addEventListener(WindowAnimationDirectorEvent.MINIMIZED_WINDOW_CLICK, onMinimizedWindowClick, false, 0, true);
+			_minimizeWindowAnimation.addEventListener(WindowAnimationDirectorEvent.minimizeAnimationDidPlay, this.onWindowMinimizingAnimationComplete, false, 0, true);
+			_minimizeWindowAnimation.addEventListener(WindowAnimationDirectorEvent.minimizedWindowDidReceiveClick, onMinimizedWindowClick, false, 0, true);
 
-			var event:WindowManagerEvent=new WindowManagerEvent(WindowManagerEvent.WINDOW_MINIMIZED);
+			var event:WindowManagerEvent=new WindowManagerEvent(WindowManagerEvent.windowDidMinimize);
 			event.window=window;
 			dispatchEvent(event);
 		}
@@ -931,14 +932,18 @@ package net.codeengine.windowmanagement
 
 			//Remove the window from our stack.
 			var indexOfItemToRemove:int=this.allMyWindows.getItemIndex(window);
-			this.allMyWindows.removeItemAt(indexOfItemToRemove);
+			try{
+				this.allMyWindows.removeItemAt(indexOfItemToRemove);
+			}catch(e:*){
+				trace("WindowManager::removeWindow " + e);
+			}
 
 			//Remove the window from the container.
 			this.container.removeChild(window as DisplayObject)
 
-			var event:WindowManagerEvent=new WindowManagerEvent(WindowManagerEvent.WINDOW_CLOSED);
+			var event:WindowManagerEvent=new WindowManagerEvent(WindowManagerEvent.windowDidClose);
 			dispatchEvent(event);
-			window = null;
+			window=null;
 		}
 
 		/**
@@ -1022,15 +1027,16 @@ package net.codeengine.windowmanagement
 			(sheet as DisplayObject).visible=false;
 			var animation:SheetDisappearAnimation=new SheetDisappearAnimation();
 			animation.play(sheet.proxy);
-			animation.addEventListener(SheetAnimationEvent.SHEET_CLOSING_ANIMATION_COMPLETE, function(event:SheetAnimationEvent):void{
-				event.sheet = null;
+			animation.addEventListener(SheetAnimationEvent.SHEET_CLOSING_ANIMATION_COMPLETE, function(event:SheetAnimationEvent):void
+			{
+				event.sheet=null;
 			}, false, 0, true);
-			animation = null;
+			animation=null;
 			window.isSheetActive=false;
 			this.removeSheetListeners(sheet);
 			window.sheet=null;
-		
-			var event:WindowManagerEvent=new WindowManagerEvent(WindowManagerEvent.SHEET_REMOVED_FROM_WINDOW);
+
+			var event:WindowManagerEvent=new WindowManagerEvent(WindowManagerEvent.didRemoveSheetFromWindow);
 			event.window=window;
 			dispatchEvent(event);
 			window.unblock();
@@ -1048,20 +1054,19 @@ package net.codeengine.windowmanagement
 		{
 			if (sheet == null)
 				return;
+			sheet.window=window;
 			this.addSheetListeners(sheet);
 			this._sheets.addItem(sheet);
 			this.addChild(sheet as DisplayObject);
 			this.positionSheetRelativeToWindow(sheet, window);
 
-			sheet.windowManager=this;
-			sheet.window=window;
 			(sheet as DisplayObject).visible=false;
 			//(window as Panel).enabled=false;
 			window.block();
 			window.isSheetActive=true;
 			window.sheet=sheet;
 
-			var event:WindowManagerEvent=new WindowManagerEvent(WindowManagerEvent.SHEET_ADDED_TO_WINDOW);
+			var event:WindowManagerEvent=new WindowManagerEvent(WindowManagerEvent.didAddSheetToWindow);
 			event.window=window;
 			dispatchEvent(event);
 		}
@@ -1081,8 +1086,8 @@ package net.codeengine.windowmanagement
 			//this.container.horizontalScrollPolicy="off";
 			//this.container.verticalScrollPolicy="off";
 
-			this.addEventListener(WindowAnimatorEvent.kDidFinishPlayingWindowAppearAnimation, this.onDidFinishPlayingWindowAppearAnimation, false, 0, true);
-			this.addEventListener(WindowAnimatorEvent.kDidFinishPlayingWindowClosingAnimation, this.onDidFinishPlayingWindowClosingAnimation, false, 0, true);
+			this.addEventListener(WindowAnimatorEvent.didFinishPlayingWindowAppearAnimation, this.onDidFinishPlayingWindowAppearAnimation, false, 0, true);
+			this.addEventListener(WindowAnimatorEvent.didFinishPlayingWindowClosingAnimation, this.onDidFinishPlayingWindowClosingAnimation, false, 0, true);
 
 
 			FlexGlobals.topLevelApplication.addEventListener(mx.events.FlexEvent.APPLICATION_COMPLETE, onApplicationComplete, false, 0, true);
@@ -1102,7 +1107,7 @@ package net.codeengine.windowmanagement
 			this.getWindowById(event.windowId).visible=true;
 			//Move the window to the top of the window stack.
 			this.bringWindowToFront(this.getWindowById(event.windowId));
-			var e:WindowAnimatorEvent=new WindowAnimatorEvent(WindowAnimatorEvent.kDidFinishPlayingWindowAppearAnimation);
+			var e:WindowAnimatorEvent=new WindowAnimatorEvent(WindowAnimatorEvent.didFinishPlayingWindowAppearAnimation);
 			this.getWindowById(event.windowId).dispatchEvent(e);
 			(this.getWindowById(event.windowId) as IWindow).refresh();
 		}
@@ -1119,17 +1124,24 @@ package net.codeengine.windowmanagement
 		{
 			var window:IWindow=IWindow(event.currentTarget);
 			window.visible=false;
-			window.dispatchEvent(new WindowEvent(WindowEvent.ON_WINDOW_CREATION_COMPLETE));
-			if (!window is IWindowFlipside){
+			window.dispatchEvent(new WindowEvent(WindowEvent.didCreate));
+			if (!window is IWindowFlipside)
+			{
 				window.visible=true;
 			}
 			this.manage(window);
 			var dontAnimate:Boolean=!ENABLE_ANIMATIONS;
 			if (dontAnimate || isWindowAnimationInProgress || window is IWindowFlipside)
 			{
+				if (window is IWindowFlipside){
+					window.visible = false;
+				}
+
 				if (window.isModal)
 				{
-					bringWindowToFront(window);
+					if (!window is IWindowFlipside){
+						bringWindowToFront(window);
+					}
 					for each (var otherWindow:IWindow in this.allMyWindows)
 					{
 						if (window.windowId != otherWindow.windowId)
@@ -1157,6 +1169,8 @@ package net.codeengine.windowmanagement
 				this._addWindowAnimation.play(window.proxy);
 			}
 
+			var e:WindowEvent=new WindowEvent(WindowEvent.didCreate);
+			window.dispatchEvent(e);
 
 		}
 
@@ -1165,7 +1179,7 @@ package net.codeengine.windowmanagement
 			var sheet:ISheet=ISheet(event.currentTarget);
 			this.decorator.decorate(new SheetDecoration(), sheet as DisplayObject);
 			var animation:ISheetAnimation=new SheetAppearAnimation();
-			animation.addEventListener(WindowAnimationDirectorEvent.OPEN_ANIMATION_COMPLETE, onSheetOpeningAnimationComplete, false, 0, true);
+			animation.addEventListener(WindowAnimationDirectorEvent.openingAnimationDidPlay, onSheetOpeningAnimationComplete, false, 0, true);
 			animation.play(sheet.proxy);
 		}
 
@@ -1271,7 +1285,7 @@ package net.codeengine.windowmanagement
 			{
 				this.minimizedWindows.removeItemAt(index);
 			}
-			this.removeChild(event.windowProxy.image);
+			container.removeChild(event.windowProxy.image);
 			event.windowProxy.window.visible=true;
 			this.bringWindowToFront(event.windowProxy.window);
 		}
@@ -1299,7 +1313,7 @@ package net.codeengine.windowmanagement
 			trace("Window Overlapping? " + this.isWindowOverlapping(event.window));
 			if ((event.window.x < this.container.x - ORPHAN_LEFT_THRESHOLD || event.window.x > this.container.width - ORPHAN_RIGHT_THRESHOLD) || (event.window.y < this.container.y - ORPHAN_TOP_THRESHOLD || event.window.y > this.container.height - ORPHAN_BOTTOM_THRESHOLD))
 			{
-				var we:WindowEvent=new WindowEvent(WindowEvent.HALT_DRAGGING);
+				var we:WindowEvent=new WindowEvent(WindowEvent.didHaltDragging);
 				we.window=event.window;
 				event.window.dispatchEvent(we);
 			}
@@ -1573,63 +1587,75 @@ package net.codeengine.windowmanagement
 			else if (event.charCode == 44 && event.ctrlKey && event.altKey)
 			{
 				trace("Asking top most window to shift it's drawer to the left");
-				var drawer:IDrawer = this.getTopMostWindow().drawer;
-				var a:OpenDrawerAnimation = new OpenDrawerAnimation();
-				drawer.location = "left";
+				var drawer:IDrawer=this.getTopMostWindow().drawer;
+				var a:OpenDrawerAnimation=new OpenDrawerAnimation();
+				drawer.location="left";
 				a.play(drawer.proxy);
 			}
 			else if (event.charCode == 46 && event.ctrlKey && event.altKey)
 			{
 				trace("Asking top most window to shift it's drawer to the right");
-				var drawer:IDrawer = this.getTopMostWindow().drawer;
-				var a:OpenDrawerAnimation = new OpenDrawerAnimation();
-				drawer.location = "right";
+				var drawer:IDrawer=this.getTopMostWindow().drawer;
+				var a:OpenDrawerAnimation=new OpenDrawerAnimation();
+				drawer.location="right";
 				a.play(drawer.proxy);
 			}
 		}
 
 		public function flip(flipbableWindow:IWindowFlipable):void
 		{
-			if (!flipbableWindow.isFlipSideActive){
-			//Lookup the flipside window that we need to instantiate
-			var windowFlipside:IWindowFlipside;
-			
-			//Instantiate the class
-			windowFlipside = createClazz(flipbableWindow.flipside);
-			//TODO: Figure out how to best handle this
-			//Register the Window Flipside
-			//_flipsides.push(windowFlipside);
-			//set the state flags
-			flipbableWindow.isFlipSideActive = true;
-			flipbableWindow.windowFlipside = windowFlipside;
-			windowFlipside.window = flipbableWindow;
-			windowFlipside.isActive = flipbableWindow.isFlipSideActive;
-			addWindow(windowFlipside as IWindow);
-			
-			//Perform the flip
-			WindowFlipAnimation.instance.flip(flipbableWindow, windowFlipside, container);
-			}else{
+			if (!flipbableWindow.isFlipSideActive)
+			{
+				//Lookup the flipside window that we need to instantiate
+				var windowFlipside:IWindowFlipside;
+
+				//Instantiate the class
+				windowFlipside=flipbableWindow.flipside;
+				//TODO: Figure out how to best handle this
+				//Register the Window Flipside
+				//_flipsides.push(windowFlipside);
+				//set the state flags
+				
+				flipbableWindow.isFlipSideActive=true;
+				flipbableWindow.windowFlipside=windowFlipside;
+				windowFlipside.window=flipbableWindow;
+				windowFlipside.isActive=flipbableWindow.isFlipSideActive;
+				addWindow(windowFlipside as IWindow);
+				(windowFlipside as IWindow).width = (flipbableWindow as IWindow).width;
+				(windowFlipside as IWindow).height = (flipbableWindow as IWindow).height;
+				//container.addChild(windowFlipside as DisplayObject);
+//				(windowFlipside as IWindow).addEventListener(WindowEvent.ON_WINDOW_CREATION_COMPLETE, function(event:WindowEvent):void{
+					setTimeout(function():void{
+						WindowFlipAnimation.instance.flip(flipbableWindow, windowFlipside, container);	
+					}, 200);
+						
+//				});			
+			}
+			else
+			{
+				
 				WindowFlipAnimation.instance.flip(flipbableWindow.windowFlipside, flipbableWindow, container);
 				removeWindow(flipbableWindow.windowFlipside as IWindow);
-				flipbableWindow.isFlipSideActive = false;
+				flipbableWindow.isFlipSideActive=false;
 			}
 		}
 		
-		private function createClazz(clazzName:String):*{
+		private function createClazz(clazzName:String):*
+		{
 			//Instantiate the object
-			var clazzName:String = clazzName;
-			
-			var Clazz:Class = getDefinitionByName(clazzName) as Class;
-			var clazz:* = new Clazz();
+			var clazzName:String=clazzName;
+
+			var Clazz:Class=getDefinitionByName(clazzName) as Class;
+			var clazz:*=new Clazz();
 			return clazz;
 		}
-		
+
 //		private function lookupWindowFlipside(flipableWindow:IWindowFlipable):String{
 //			var description:XML = describeType(flipableWindow);
 //			var value:* = description.variable.(@name=="flipside").arg.(@key=="flipside").@value;
 //			return value;
 //		}
-		
+
 	}
 }
 

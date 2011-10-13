@@ -20,15 +20,11 @@ package net.codeengine.windowmanagement.animations {
         public function play(target:IWindowProxy):void {
             this.target=target;
             proxy=target.image;
-            target.window.windowManager.addChild(proxy);
+			WindowManager.instance.addChild(proxy);
             this.resizeAboutCenter(proxy, true);
         }
 
         private function resizeAboutCenter(image:Image, sizeUp:Boolean):void {
-            
-            
-            
-            
             var t:Number;
             t=WindowManager.ANIMATION_SPEED;
             /* Calculate the static centers of the image. */
@@ -116,8 +112,8 @@ package net.codeengine.windowmanagement.animations {
 
         private function onEffectEnd(event:EffectEvent):void {
             trace("ZoomInOpeningWindowAnimation: onEffectEnd");
-            this.target.window.windowManager.removeChild(this.proxy);
-            var e:WindowAnimationDirectorEvent=new WindowAnimationDirectorEvent(WindowAnimationDirectorEvent.OPEN_ANIMATION_COMPLETE);
+			WindowManager.instance..removeChild(this.proxy);
+            var e:WindowAnimationDirectorEvent=new WindowAnimationDirectorEvent(WindowAnimationDirectorEvent.openingAnimationDidPlay);
             e.windowProxy=this.target;
             this.dispatchEvent(e);
             this.target.window.visible=true;

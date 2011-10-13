@@ -1,10 +1,11 @@
 package net.codeengine.windowmanagement.animations {
     import flash.events.EventDispatcher;
-
+    
     import mx.collections.ArrayCollection;
     import mx.effects.Move;
-
+    
     import net.codeengine.windowmanagement.IWindowProxy;
+    import net.codeengine.windowmanagement.WindowManager;
 
     public class LayingMinimizedWindowsAnimation extends AbstractAnimation {
         private var startingX:int=20;
@@ -18,7 +19,7 @@ package net.codeengine.windowmanagement.animations {
         public function play(target:ArrayCollection):void {
             this.target=target;
             if (target.length > 0) {
-                this.startingY=(target[0] as IWindowProxy).window.windowManager.height() - (target[0] as IWindowProxy).image.height - 40
+                this.startingY=WindowManager.instance.height() - (target[0] as IWindowProxy).image.height - 40
                 this.currentY=startingY;
             }
             for each (var proxy:IWindowProxy in target) {

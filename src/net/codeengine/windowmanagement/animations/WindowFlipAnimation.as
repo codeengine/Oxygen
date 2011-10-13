@@ -50,7 +50,7 @@ package net.codeengine.windowmanagement.animations
 		public function flip(fromView:*, toView:*, container:*, direction:String="left"):void
 		{
 			_flipViewContainer=new Group();
-
+			
 			//Hide the actual components
 			fromView.visible=false;
 			toView.visible=false;
@@ -58,6 +58,8 @@ package net.codeengine.windowmanagement.animations
 			//Make sure the two views are lined up
 			toView.x=fromView.x;
 			toView.y=fromView.y;
+			//toView.width = fromView.width;
+			//toView.height = fromView.height;
 
 
 			//Copy the filters to the images, to keep the illusion that the
@@ -73,11 +75,10 @@ package net.codeengine.windowmanagement.animations
 
 
 			//Match the width/height of the views
-			toView.width=_flipViewContainer.width;
-			fromView.width=_flipViewContainer.width;
-
-			toView.height=_flipViewContainer.height;
-			fromView.height=_flipViewContainer.height;
+//			toView.width=_flipViewContainer.width;
+//			fromView.width=_flipViewContainer.width;
+//			toView.height=_flipViewContainer.height;
+//			fromView.height=_flipViewContainer.height;
 
 			//Setup the perspective, values approach 180 have a distant perspective,
 			//values approach 0 have a closer perspective
@@ -87,6 +88,7 @@ package net.codeengine.windowmanagement.animations
 			_flipViewContainer.x=fromView.x + fromView.width * 0.5;
 			_flipViewContainer.y=fromView.y + fromView.height * 0.5;
 
+			
 			//Setup the images representing the views
 			_startView_Image.source=getViewAsBitmap(fromView);
 			_endView_Image.source=getViewAsBitmap(toView);
@@ -105,13 +107,13 @@ package net.codeengine.windowmanagement.animations
 
 			_endView_Image.scaleX=-1;
 
-			var timer:Timer=new Timer(_msInSecond / _fps);
+			var timer:Timer=new Timer(10);
 			timer.addEventListener(TimerEvent.TIMER, function(event:Event):void
 			{
 				//startView.rotationY +=10;
 				//startView.x +=10;
 
-				_flipViewContainer.rotationY+=direction == "left" ? 10 : -10;
+				_flipViewContainer.rotationY+=direction == "left" ? 5 : -5;
 				if (_flipViewContainer.rotationY == 90 + _fieldOfView)
 				{
 					_endView_Image.visible=true;
@@ -126,7 +128,7 @@ package net.codeengine.windowmanagement.animations
 				if (_flipViewContainer.rotationY == 180 || _flipViewContainer.rotationY == -180)
 				{
 					timer.stop();
-					container.removeElement(_flipViewContainer);
+					try{container.removeElement(_flipViewContainer);}catch(e:*){trace(e);}
 					toView.visible=true;
 					fromView.visible=false;
 				}

@@ -21,7 +21,7 @@ package net.codeengine.windowmanagement.animations {
         public function play(target:IWindowProxy):void {
             this.target=target;
             proxy=target.image;
-            target.window.windowManager.addChild(proxy);
+			WindowManager.instance.addChild(proxy);
             this.resizeAboutCenter(proxy, false);
         }
 
@@ -105,8 +105,8 @@ package net.codeengine.windowmanagement.animations {
 
         private function onEffectEnd(event:EffectEvent):void {
             trace("ZoomOutClosingWindowAnimation: onEffectEnd");
-            this.target.window.windowManager.removeChild(this.proxy);
-            var e:WindowAnimationDirectorEvent=new WindowAnimationDirectorEvent(WindowAnimationDirectorEvent.OPEN_ANIMATION_COMPLETE);
+			WindowManager.instance.removeChild(this.proxy);
+            var e:WindowAnimationDirectorEvent=new WindowAnimationDirectorEvent(WindowAnimationDirectorEvent.openingAnimationDidPlay);
             e.windowProxy=this.target;
             this.target.window.visible=false;
             this.dispatchEvent(e);

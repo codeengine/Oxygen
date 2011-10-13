@@ -6,16 +6,23 @@ package net.codeengine.windowmanagement
 	import flash.display.IBitmapDrawable;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
+	import flash.utils.setTimeout;
 	
 	import mx.controls.HRule;
+	import mx.core.FlexGlobals;
 	import mx.events.FlexEvent;
 	import mx.graphics.ImageSnapshot;
 	
 	import net.codeengine.windowmanagement.decorator.IDecorator;
 	
 	import spark.components.BorderContainer;
+	import spark.components.Group;
 	import spark.components.Image;
+	import spark.effects.Animate;
+	import spark.effects.animation.MotionPath;
+	import spark.effects.animation.SimpleMotionPath;
 	import spark.filters.BlurFilter;
 	import spark.filters.DropShadowFilter;
 
@@ -28,7 +35,7 @@ package net.codeengine.windowmanagement
 	 * <p>Sheets are standard containers, and as such may contain any elements that you would normally
 	 * add to a container.
 	 */
-	public class Sheet extends Background implements ISheet
+	public class Sheet extends BorderContainer implements ISheet
 	{
 
 		private var _windowDecorator:IDecorator;
@@ -39,11 +46,6 @@ package net.codeengine.windowmanagement
 		private var blocker:BorderContainer;
 		public static var MAXIMUM_ALPHA:Number = 0.95;
 		public static var MINIMUM_ALPHA:Number = 0;
-		[Bindable]
-		private var transparentBlurOverlay_bitmap:Bitmap=new Bitmap();
-		
-		[Bindable]
-		private var transparentBlurOverlay:Image=new Image();
 
 		/**
 		 * Get the window manager that this window is managed by.
@@ -87,13 +89,19 @@ package net.codeengine.windowmanagement
 		public function Sheet()
 		{
 			addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
-			this.repeatImage=Window.oxygenSheetBackground;
-			this.radius=0;
-			this.isInset=false;
-			this.alpha = 0.95;
-			addEventListener(FlexEvent.CREATION_COMPLETE, function(event:Event):void{
-				//simulateBlurryTransparency();
-			});
+//			this.repeatImage=Window.oxygenSheetBackground;
+//			this.radius=0;
+//			this.isInset=false;this.setStyle("borderThickness", 1);
+			//			
+			this.setStyle("borderAlpha", 0);
+			this.setStyle("borderStyle", "none");
+			this.setStyle("borderColor", 0xDBDBDB);
+			this.alpha = 1;
+			addEventListener(FlexEvent.CREATION_COMPLETE, onCreationComplete);
+			
+		}
+		
+		private function onCreationComplete(event:FlexEvent):void{
 			
 		}
 
@@ -184,28 +192,44 @@ package net.codeengine.windowmanagement
 		
 		protected function simulateBlurryTransparency():void
 		{
-			var rect:Rectangle=new Rectangle(x, y, width, height);
-			this.visible=false;
-			transparentBlurOverlay_bitmap.bitmapData=UIHelper.getSectionFromBehindComponent(window, this);
-			this.visible=true;
-			var blur_filter:BlurFilter=new BlurFilter(20, 20, 1);
-			transparentBlurOverlay.filters=[blur_filter];
-		}
-		
-		protected override function createChildren():void
-		{
-			super.createChildren();
-			transparentBlurOverlay.source=transparentBlurOverlay_bitmap;
+			var transparentBlurOverlay:Image=new Image();
 			transparentBlurOverlay.width=width;
 			transparentBlurOverlay.height=height;
 			transparentBlurOverlay.x=0;
 			transparentBlurOverlay.y=0;
 			transparentBlurOverlay.alpha=0.16;
+			transparentBlurOverlay.source=new Bitmap(getSectionFromBehindComponent(window, this));
+			var blur_filter:BlurFilter=new BlurFilter(4, 4, 2);
+			transparentBlurOverlay.filters=[blur_filter];
+			transparentBlurOverlay.x = 0;
+			transparentBlurOverlay.y = 0;
 			addElementAt(transparentBlurOverlay, 0);
-			
+		}
+		
+		protected override function createChildren():void
+		{
+			super.createChildren();
+			visible = false;
 			setStyle("backgroundColor", 0xF0F0F0);
 			setStyle("backgroundAlpha", 1);
+			simulateBlurryTransparency();
 		}
-
+		
+		private function getSectionFromBehindComponent(areaBehind:*, component:*):BitmapData
+		{
+			component.visible = false;
+			var areaBehind_BitmapData:BitmapData=ImageSnapshot.captureBitmapData(areaBehind);
+			return copyFrom(areaBehind_BitmapData, component.x, component.y, component.width, component.height);
+		}
+		
+		private function copyFrom(bitmapData:BitmapData, x:Number, y:Number, width:Number, height:Number):BitmapData
+		{
+			var data:BitmapData=new BitmapData(width, height, true, 0x00ffffff);
+			
+			var rect:Rectangle=new Rectangle(0.5 * (bitmapData.width - width), (window as Window).getTitlebarHeight(), width, height);
+			var pt:Point=new Point(0, 0);
+			data.copyPixels(bitmapData, rect, pt);
+			return data;
+		}
 	}
 }

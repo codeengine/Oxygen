@@ -17,8 +17,6 @@ package net.codeengine.windowmanagement {
         function close():void;
         function get decorator():IDecorator;
         function get proxy():ISheetProxy
-        function get windowManager():IWindowManager;
-        function set windowManager(value:IWindowManager):void;
         function get window():IWindow;
         function set window(value:IWindow):void;
 		function block():void;

@@ -46,7 +46,7 @@ package net.codeengine.windowmanagement.animations {
         }
 
         public function onEffectEnd(event:EffectEvent):void {
-            var e:WindowAnimationDirectorEvent=new WindowAnimationDirectorEvent(WindowAnimationDirectorEvent.ALERT_ANIMATION_COMPLETE);
+            var e:WindowAnimationDirectorEvent=new WindowAnimationDirectorEvent(WindowAnimationDirectorEvent.alertAnimationDidPlay);
             dispatchEvent(e);
         }
     }

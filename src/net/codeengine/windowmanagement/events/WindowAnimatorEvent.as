@@ -5,8 +5,8 @@ package net.codeengine.windowmanagement.events {
 
 
     public class WindowAnimatorEvent extends Event {
-        public static const kDidFinishPlayingWindowAppearAnimation : String = "DidFinishPlayingWindowAppearAnimation";
-        public static const kDidFinishPlayingWindowClosingAnimation : String = "DidFinishPlayingWindowClosingAnimation";
+        public static const didFinishPlayingWindowAppearAnimation : String = "DidFinishPlayingWindowAppearAnimation";
+        public static const didFinishPlayingWindowClosingAnimation : String = "DidFinishPlayingWindowClosingAnimation";
         public var image : Image;
         public var windowId : String;
 

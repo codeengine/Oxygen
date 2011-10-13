@@ -14,8 +14,6 @@ package net.codeengine.windowmanagement {
         function set visible(value:Boolean):void;
         function get title():String;
         function set title(value:String):void;
-        function get windowManager():IWindowManager;
-        function set windowManager(value:IWindowManager):void;
         function get filters():Array;
         function set filters(value:Array):void;
         function get x():Number;

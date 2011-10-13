@@ -23,7 +23,7 @@ package net.codeengine.windowmanagement
 	{
 		private var _windowDecorator:IDecorator;
 
-		[Bindable]private var _windowManager:IWindowManager;
+		[Bindable]private var _windowManager:WindowManager = WindowManager.instance;
 
 		[Bindable]private var _window:IWindow;
 
@@ -49,16 +49,6 @@ package net.codeengine.windowmanagement
 		public function get decorator():IDecorator
 		{
 			return this._windowDecorator;
-		}
-
-		public function get windowManager():IWindowManager
-		{
-			return this._windowManager;
-		}
-
-		public function set windowManager(value:IWindowManager):void
-		{
-			this._windowManager=value;
 		}
 
 		public function get window():IWindow

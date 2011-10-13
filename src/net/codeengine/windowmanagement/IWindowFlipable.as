@@ -2,8 +2,8 @@ package net.codeengine.windowmanagement
 {
 	public interface IWindowFlipable
 	{
-		function get flipside():String;
-		function set flipside(value:String):void;
+		function get flipside():*;
+		function set flipside(value:*):void;
 		
 		function get windowFlipside():IWindowFlipside;
 		function set windowFlipside(value:IWindowFlipside):void;

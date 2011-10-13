@@ -48,7 +48,7 @@ package net.codeengine.windowmanagement.animations {
         }
 
         public function onEffectEnd(event:EffectEvent):void {
-            this._proxy.drawer.windowManager.removeChild(this._proxy.drawer as DisplayObject);
+        	WindowManager.instance.removeChild(this._proxy.drawer as DisplayObject);
         }
     }
 }

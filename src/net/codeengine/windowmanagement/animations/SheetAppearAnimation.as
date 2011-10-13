@@ -19,7 +19,7 @@ package net.codeengine.windowmanagement.animations {
 
         public function play(target:ISheetProxy):void {
             this._proxy=target;
-            target.sheet.windowManager.addChild(target.image);
+            WindowManager.instance.addChild(target.image);
             
             var a:Animate = new Animate(_proxy.image);
 			this._proxy.image.maintainAspectRatio=false;
@@ -44,7 +44,7 @@ package net.codeengine.windowmanagement.animations {
 
 
         public function onEffectEnd(event:EffectEvent):void {
-            this._proxy.sheet.windowManager.removeChild(this._proxy.image);
+			WindowManager.instance.removeChild(this._proxy.image);
             (this._proxy.sheet as DisplayObject).visible=true;
         }
 

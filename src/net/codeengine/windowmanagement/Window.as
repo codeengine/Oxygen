@@ -8,6 +8,7 @@ package net.codeengine.windowmanagement
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.geom.Point;
+	import flash.net.URLLoader;
 	import flash.utils.Timer;
 	import flash.utils.getQualifiedClassName;
 	
@@ -29,6 +30,7 @@ package net.codeengine.windowmanagement
 	import net.codeengine.windowmanagement.decorations.*;
 	import net.codeengine.windowmanagement.decorator.IDecorator;
 	import net.codeengine.windowmanagement.events.*;
+	import net.codeengine.windowmanagement.uicomponents.BusyIndicator;
 	
 	import spark.components.BorderContainer;
 	import spark.effects.Animate;
@@ -79,14 +81,14 @@ package net.codeengine.windowmanagement
 		[Bindable]
 		private var _showResizeHandle:Boolean=true;
 
-		
+		public var windowManager:WindowManager = WindowManager.instance;
 		
 
 		[Embed(source="assets/images/titlebarbg.png")]
 		private var bg:Class;
 
 
-		private var titlebar:IWindowTitleBar=new WindowTitleBar();
+		protected var titlebar:IWindowTitleBar=new WindowTitlebar();
 
 		private var blocker:BorderContainer;
 
@@ -100,9 +102,9 @@ package net.codeengine.windowmanagement
 		public var resizeCursor:Class;
 
 
-		private var busy:IBusy=new BusyIndicator();
+		private var busy:IBusy=new net.codeengine.windowmanagement.uicomponents.BusyIndicator(null, true, 50, getTitlebarHeight());
 
-		private var _windowManager:IWindowManager;
+		private var _windowManager:WindowManager = WindowManager.instance;
 
 		private var _hasFocus:Boolean=false;
 
@@ -181,7 +183,7 @@ package net.codeengine.windowmanagement
 		 * ************************************************************ */
 		public function getTitlebarHeight():int
 		{
-			return _titlebarHeight;
+			return titlebar.height;
 		}
 
 		public function setTitlebarHeight(value:int):void
@@ -330,19 +332,19 @@ package net.codeengine.windowmanagement
 		public function set showCloseButton(value:Boolean):void
 		{
 			this._showCloseButton=value;
-			this.redrawMyTitlebarButtons();
+			this.redrawTitleBar();
 		}
 
 		[Inspectable(category="General")]
 		public function get showMaximizeButton():Boolean
 		{
-			return this._showMaximizeButton
+			return _showMaximizeButton
 		}
 
 		public function set showMaximizeButton(value:Boolean):void
 		{
 			this._showMaximizeButton=value;
-			this.redrawMyTitlebarButtons();
+			//this.redrawTitleBar();
 		}
 
 		[Inspectable(category="General")]
@@ -354,7 +356,7 @@ package net.codeengine.windowmanagement
 		public function set showMinimizeButton(value:Boolean):void
 		{
 			this._showMinimizeButton=value;
-			this.redrawMyTitlebarButtons();
+			//this.redrawTitleBar();
 		}
 
 		[Inspectable(category="General")]
@@ -400,24 +402,7 @@ package net.codeengine.windowmanagement
 		public function set showResizeHandle(value:Boolean):void
 		{
 			this._showResizeHandle=value;
-			this.redrawMyTitlebarButtons();
-		}
-
-		
-
-
-		[Inspectable(category="General")]
-		[Bindable]
-		public function get windowManager():IWindowManager
-		{
-			return _windowManager
-		}
-
-		public function set windowManager(value:IWindowManager):void
-		{
-			_windowManager=value;
-			//Dispatch a change event
-			dispatchEvent(new Event("windowmanagerChanged"));
+			this.redrawTitleBar();
 		}
 
 		private function createTitlebar():void
@@ -432,13 +417,20 @@ package net.codeengine.windowmanagement
 			//l.horizontalCenter=0;
 			//l.verticalCenter=0;
 			//titlebar.addElement(l);
-			
+			//titlebar = new WindowTitlebar();
+		
+			titlebar.width = width;
 			titlebar.title = title;
 			titlebar.height = _titlebarHeight;
 			titlebar.showCloseButton = showCloseButton;
 			titlebar.showMaximizeButton = showMaximizeButton;
 			titlebar.showMinimizeButton = showMinimizeButton;
 			titlebar.window = this;
+			
+			//titlebar.draw();
+			
+			//try{this.removeElement(titlebar as IVisualElement);}catch(e:*){trace(e);}
+			//this.addElement(titlebar as IVisualElement);
 		}
 
 
@@ -500,9 +492,9 @@ package net.codeengine.windowmanagement
 		*/
 		}
 
-		private function redrawMyTitlebarButtons():void
+		private function redrawTitleBar():void
 		{
-			titlebar.deactivateDisabledTitleBarButtonsVisually();
+			titlebar.draw();
 		}
 
 		
@@ -516,14 +508,14 @@ package net.codeengine.windowmanagement
 
 			
 
-			this.addEventListener(ResizeEvent.RESIZE, onResize, false, 0, true);
-			this.addEventListener(WindowEvent.ON_MINIMIZE, onMinimize, false, 0, true);
+			this.addEventListener(ResizeEvent.RESIZE, didResize, false, 0, true);
+			this.addEventListener(WindowEvent.didMinimize, didMinimize, false, 0, true);
 			this.addEventListener(MouseEvent.CLICK, onMouseDown, false, 0, true);
 			this.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove, false, 0, true);
-			this.addEventListener("windowmanagerChanged", onWindowManagerChanged, false, 0, true);
+			this.addEventListener("windowmanagerChanged", didChangeWindowManager, false, 0, true);
 			this.addEventListener(MoveEvent.MOVE, onMove, false, 0, true);
-			this.addEventListener(WindowEvent.ON_WINDOW_CREATION_COMPLETE, onCreationComplete, false, 0, true);
-			this.addEventListener(WindowEvent.HALT_DRAGGING, function(event:WindowEvent):void
+			this.addEventListener(WindowEvent.didCreate, onCreationComplete, false, 0, true);
+			this.addEventListener(WindowEvent.didHaltDragging, function(event:WindowEvent):void
 			{
 				stopDrag();
 
@@ -547,8 +539,8 @@ package net.codeengine.windowmanagement
 				animate.motionPaths=vc;
 				animate.addEventListener(EffectEvent.EFFECT_END, function(event:Event):void
 				{
-					var e:WindowEvent=new WindowEvent(WindowEvent.WINDOW_AUTOMATICALLY_REPOSITIONED);
-					e.window=windowManager.getWindowById(windowId);
+					var e:WindowEvent=new WindowEvent(WindowEvent.didAutmaticallyReposition);
+					e.window=WindowManager.instance.getWindowById(windowId);
 					dispatchEvent(e);
 					undimDrawer();
 					undimSheet();
@@ -578,11 +570,11 @@ package net.codeengine.windowmanagement
 			titlebar.removeEventListener(MouseEvent.MOUSE_UP, onTitleBarMouseUp);
 
 
-			this.removeEventListener(ResizeEvent.RESIZE, onResize);
-			this.removeEventListener(WindowEvent.ON_MINIMIZE, onMinimize);
+			this.removeEventListener(ResizeEvent.RESIZE, didResize);
+			this.removeEventListener(WindowEvent.didMinimize, didMinimize);
 			this.removeEventListener(MouseEvent.CLICK, this.onMouseDown);
 			this.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
-			this.removeEventListener("windowmanagerChanged", onWindowManagerChanged);
+			this.removeEventListener("windowmanagerChanged", didChangeWindowManager);
 			this.removeEventListener(MoveEvent.MOVE, onMove);
 
 			
@@ -601,7 +593,7 @@ package net.codeengine.windowmanagement
 		 */
 		public function addSheet(sheet:ISheet):void
 		{
-			this.windowManager.addSheet(sheet, this);
+			WindowManager.instance.addSheet(sheet, this);
 			/* Store our own reference to the sheet */
 			this.sheet=sheet;
 
@@ -615,7 +607,7 @@ package net.codeengine.windowmanagement
 		 */
 		public function removeSheet(sheet:ISheet):void
 		{
-			this.windowManager.removeSheet(sheet, this);
+			WindowManager.instance.removeSheet(sheet, this);
 			this.sheet=null;
 		}
 
@@ -632,7 +624,7 @@ package net.codeengine.windowmanagement
 				this.removeDrawer(this.drawer);
 			}
 			/* Private API */
-			(this.windowManager as WindowManager).addDrawer(drawer, this);
+			WindowManager.instance.addDrawer(drawer, this);
 			this.drawer=drawer;
 			drawer.window=this;
 			this.isDrawerActive=true;
@@ -645,7 +637,7 @@ package net.codeengine.windowmanagement
 				return;
 			}
 			/* Private API */
-			(this.windowManager as WindowManager).removeDrawer(drawer, this);
+			WindowManager.instance.removeDrawer(drawer, this);
 			this.drawer=null;
 			isDrawerActive=false;
 		}
@@ -668,7 +660,7 @@ package net.codeengine.windowmanagement
 			{
 				//Indicate that this window is closing.
 				this.isClosing=true;
-				this.windowManager.removeWindow(this);
+				WindowManager.instance.removeWindow(this);
 				//Remove any active drawers
 				if (this.isDrawerActive)
 				{
@@ -730,7 +722,7 @@ package net.codeengine.windowmanagement
 
 		private function onPopoverDisappearAnimationComplete(event:PopoverAnimationEvent):void
 		{
-			this.removeChild(event.popover as DisplayObject);
+			this.removeElement(event.popover as IVisualElement);
 		}
 
 
@@ -800,7 +792,7 @@ package net.codeengine.windowmanagement
 
 		public function decorate(decoration:IDecoration):void
 		{
-			this.windowManager.decorator.decorate(decoration, this);
+			WindowManager.instance.decorator.decorate(decoration, this);
 		}
 
 		public function maximize():void
@@ -809,9 +801,9 @@ package net.codeengine.windowmanagement
 				this._prezoomheight = this.height;
 				this._prezoomwidth = this.width;
 			}
-			this.windowManager.maximizeWindow(this);
+			WindowManager.instance.maximizeWindow(this);
 			
-			this.redrawMyTitlebarButtons();
+			this.redrawTitleBar();
 		}
 
 		public function showBusyIndicator():void
@@ -863,12 +855,12 @@ package net.codeengine.windowmanagement
 		//TODO: Undocumented API
 		public function addContextMenu(contextMenu:IContextMenu):void
 		{
-			this.windowManager.addChild(contextMenu as DisplayObject);
+			WindowManager.instance.addChild(contextMenu as DisplayObject);
 			var localp:Point=new Point(contentMouseX, contentMouseY);
 			var globalp:Point=contentToGlobal(localp);
 			(contextMenu as DisplayObject).x=globalp.x;
 			(contextMenu as DisplayObject).y=globalp.y;
-			(this.windowManager as WindowManager).bringToFront(contextMenu as DisplayObject);
+			WindowManager.instance.bringToFront(contextMenu as DisplayObject);
 			this._isContextMenuActive=true;
 			this._currentActiveContextMenu=contextMenu;
 			contextMenu.window=this;
@@ -877,11 +869,11 @@ package net.codeengine.windowmanagement
 		//TODO: Undocumented API
 		public function removeContextMenu(contextMenu:IContextMenu):void
 		{
-			if (contextMenu == null)
-				return;
-			this.windowManager.removeChild(contextMenu as DisplayObject);
-			this._currentActiveContextMenu=null;
-			this._isContextMenuActive=false;
+//			if (contextMenu == null)
+//				return;
+//			WindowManager.instance.removeElement(contextMenu as DisplayObject);
+//			this._currentActiveContextMenu=null;
+//			this._isContextMenuActive=false;
 		}
 
 		//TODO: Undocumented API
@@ -954,12 +946,12 @@ package net.codeengine.windowmanagement
 
 		
 
-		private function onResize(event:ResizeEvent):void
+		private function didResize(event:ResizeEvent):void
 		{
+			redrawTitleBar();
 			removeActiveContextMenu();
-			this.redrawMyTitlebarButtons();
 			//trace("Window: resizeEventHandler");
-			var e:WindowEvent=new WindowEvent(WindowEvent.ON_RESIZE);
+			var e:WindowEvent=new WindowEvent(WindowEvent.didResize);
 			e.window=this;
 			dispatchEvent(e);
 		}
@@ -1020,7 +1012,7 @@ package net.codeengine.windowmanagement
 			}
 			else
 			{
-				var e:WindowEvent=new WindowEvent(WindowEvent.ON_FOCUS);
+				var e:WindowEvent=new WindowEvent(WindowEvent.didGainFocus);
 				e.window=this;
 				this.dispatchEvent(e);
 			}
@@ -1028,6 +1020,7 @@ package net.codeengine.windowmanagement
 
 		private function onTitleBarMouseDown(event:MouseEvent):void
 		{
+			trace("x: " + x  + " y: " + y);
 			removeActiveContextMenu();
 			if (this._transparentOnMove)
 			{
@@ -1039,8 +1032,8 @@ package net.codeengine.windowmanagement
 			this._premovey=this.y;
 			this.startDrag(false);
 			this._isDragging=true;
-			this.windowManager.sendWindowToFront(this.windowId);
-			var e:WindowEvent=new WindowEvent(WindowEvent.ON_FOCUS);
+			WindowManager.instance.sendWindowToFront(this.windowId);
+			var e:WindowEvent=new WindowEvent(WindowEvent.didGainFocus);
 			e.window=this;
 			this.dispatchEvent(e);
 			this.dimDrawer();
@@ -1057,7 +1050,7 @@ package net.codeengine.windowmanagement
 
 			this.stopDrag();
 			this._isDragging=false;
-			var e:WindowEvent=new WindowEvent(WindowEvent.ON_MOVE);
+			var e:WindowEvent=new WindowEvent(WindowEvent.didMove);
 			e.window=this;
 			this.undimDrawer();
 			this.undimSheet();
@@ -1136,41 +1129,41 @@ package net.codeengine.windowmanagement
 			}
 		}
 
-		private function onMinimize(event:WindowEvent):void
+		private function didMinimize(event:WindowEvent):void
 		{
 			//trace("Window: onMinimize");
 		}
 
-		private function onMaximize(event:WindowEvent):void
+		private function didMaximize(event:WindowEvent):void
 		{
 			//trace("Window: onMaximize");
 		}
 
-		private function onRestore(event:WindowEvent):void
+		private function didRestore(event:WindowEvent):void
 		{
 			if (this.currentWindowState == WINDOW_STATE_MINIMIZED)
 			{
 				this.currentWindowState=WINDOW_STATE_NORMAL;
 			}
-			redrawMyTitlebarButtons();
+			redrawTitleBar();
 			//trace("Window: onRestore");
 
 		}
 
-		private function onShake(event:WindowEvent):void
+		private function didShake(event:WindowEvent):void
 		{
 			//trace("Window: onShake");
 		}
 
-		private function onAppear(event:WindowEvent):void
+		private function didAppear(event:WindowEvent):void
 		{
 			//trace("Window: onAppear");
 		}
 
-		private function onWindowManagerChanged(event:Event):void
+		private function didChangeWindowManager(event:Event):void
 		{
 			//trace("Window: onWindowManagerChanged");
-			this.windowManager.addWindow(this);
+			WindowManager.instance.addWindow(this);
 
 		}
 
@@ -1179,7 +1172,7 @@ package net.codeengine.windowmanagement
 			//trace("Window: onMouseMove");
 			if (this._isDragging)
 			{
-				var windowEvent:WindowEvent=new WindowEvent(WindowEvent.ON_MOVE);
+				var windowEvent:WindowEvent=new WindowEvent(WindowEvent.didMove);
 				windowEvent.window=this;
 				dispatchEvent(windowEvent);
 			}
@@ -1243,11 +1236,11 @@ package net.codeengine.windowmanagement
 		}
 		
 		public function minimize():void{
-			windowManager.minimizeWindow(this);
+			WindowManager.instance.minimizeWindow(this);
 		}
 		
 		public function maxmize():void{
-			windowManager.maximizeWindow(this);
+			WindowManager.instance.maximizeWindow(this);
 		}
 	}
 }

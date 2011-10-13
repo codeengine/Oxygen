@@ -7,12 +7,12 @@ package net.codeengine.windowmanagement.events
 
     public class WindowAnimationDirectorEvent extends Event
     {
-        public static var OPEN_ANIMATION_COMPLETE:String = "windowOpeningAnimationCompleted";
-        public static var CLOSE_ANIMATION_COMPLETE:String = "windowClosingAnimationCompleted";
-        public static var ALERT_ANIMATION_COMPLETE:String = "windowAlertingAnimationCompleted";
-        public static var MINIMIZE_ANIMATION_COMPLETE:String = "windowMinimizingAnimationComplete";
-        public static var MINIMIZED_WINDOW_CLICK:String = "windowMinimizedClick";
-        public static var UNMINIMIZE_ANIMATION_COMPLETE:String = "windowUnminimizedAnimationComplete";
+        public static var openingAnimationDidPlay:String = "windowOpeningAnimationCompleted";
+        public static var closingAnimationDidPlay:String = "windowClosingAnimationCompleted";
+        public static var alertAnimationDidPlay:String = "windowAlertingAnimationCompleted";
+        public static var minimizeAnimationDidPlay:String = "windowMinimizingAnimationComplete";
+        public static var minimizedWindowDidReceiveClick:String = "windowMinimizedClick";
+        public static var unminimizeAnimationDidPlay:String = "windowUnminimizedAnimationComplete";
         public var windowProxy:IWindowProxy;
         public function WindowAnimationDirectorEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false)
         {

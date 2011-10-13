@@ -20,15 +20,21 @@ package net.codeengine.windowmanagement
 		function get showMinimizeButton():Boolean;
 
 		function set showMinimizeButton(value:Boolean):void;
-
+		
 		function get height():Number;
 		
 		function set height(value:Number):void;
+		
+		function get width():Number;
+		
+		function set width(value:Number):void;
 		
 		function deactivateDisabledTitleBarButtonsVisually():void;
 		
 		function get window():IWindow;
 		
 		function set window(value:IWindow):void;
+		
+		function draw():void;
 	}
 }
