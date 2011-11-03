@@ -6,12 +6,13 @@ package net.codeengine.windowmanagement
 	import flash.events.EventDispatcher;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
 	import flash.utils.describeType;
 	import flash.utils.getDefinitionByName;
 	import flash.utils.setTimeout;
 	
 	import mx.collections.ArrayCollection;
-	import mx.controls.Image;
 	import mx.core.Container;
 	import mx.core.FlexGlobals;
 	import mx.core.IVisualElement;
@@ -21,6 +22,8 @@ package net.codeengine.windowmanagement
 	import mx.events.EffectEvent;
 	import mx.events.FlexEvent;
 	import mx.events.ResizeEvent;
+	import mx.graphics.BitmapScaleMode;
+	import mx.preloaders.DownloadProgressBar;
 	
 	import net.codeengine.windowmanagement.animations.*;
 	import net.codeengine.windowmanagement.decorations.BackgroundDecoration;
@@ -39,6 +42,7 @@ package net.codeengine.windowmanagement
 	import spark.components.Application;
 	import spark.components.BorderContainer;
 	import spark.components.Group;
+	import spark.components.Image;
 	import spark.components.Panel;
 	import spark.effects.Animate;
 	import spark.effects.Fade;
@@ -47,6 +51,7 @@ package net.codeengine.windowmanagement
 	import spark.effects.animation.MotionPath;
 	import spark.effects.animation.SimpleMotionPath;
 	import spark.effects.easing.Sine;
+	import spark.filters.DropShadowFilter;
 
 	[Bindable]
 	public class WindowManager extends EventDispatcher
@@ -131,6 +136,14 @@ package net.codeengine.windowmanagement
 		}
 		
 		private function init():void{
+			//zeroconf
+			container = new Container();
+			container.x = 0;
+			container.y = 0;
+			container.setStyle("backgroundColor", 0xFFFFFF);
+			container.width = FlexGlobals.topLevelApplication.width;
+			container.height = FlexGlobals.topLevelApplication.height;
+			FlexGlobals.topLevelApplication.addElement(container);
 			addEventListeners();
 		}
 
@@ -164,7 +177,7 @@ package net.codeengine.windowmanagement
 
 		private function addEventListeners():void
 		{
-			//Add all of the window manager system wide event listeners.
+			//Add all of the window manager system wide event listeners.			
 			this._closeWindowAnimation.addEventListener(WindowAnimationDirectorEvent.closingAnimationDidPlay, this.onWindowClosingAnimationComplete, false, 0, true);
 			this._closeSheetAnimation.addEventListener(SheetAnimationEvent.SHEET_CLOSING_ANIMATION_COMPLETE, onSheetClosingAnimationComplete, false, 0, true)
 			this._addWindowAnimation.addEventListener(WindowAnimationDirectorEvent.openingAnimationDidPlay, onWindowOpeningAnimationComplete, false, 0, true);
@@ -627,6 +640,7 @@ package net.codeengine.windowmanagement
 			//Generate a property change event
 			dispatchEvent(new Event("containerChanged"));
 			_container.setStyle("verticalScrollPolicy", "off");
+			applicationReadyToDispatchKeyboardEvents();
 		}
 
 		/**
@@ -1090,13 +1104,19 @@ package net.codeengine.windowmanagement
 			this.addEventListener(WindowAnimatorEvent.didFinishPlayingWindowClosingAnimation, this.onDidFinishPlayingWindowClosingAnimation, false, 0, true);
 
 
-			FlexGlobals.topLevelApplication.addEventListener(mx.events.FlexEvent.APPLICATION_COMPLETE, onApplicationComplete, false, 0, true);
+			
 
 		}
 
-		private function onApplicationComplete(event:FlexEvent):void
+		private function applicationReadyToDispatchKeyboardEvents():void
 		{
-			this.container.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyUp, false, 0, true);
+			//this.container.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyUp, false, 0, true);
+			var t:Timer = new Timer(2000, 1);
+			t.addEventListener(TimerEvent.TIMER_COMPLETE, function(event:TimerEvent):void{
+				FlexGlobals.topLevelApplication.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyUp);
+				t = null;
+			});
+			t.start();
 		}
 
 		private function onDidFinishPlayingWindowAppearAnimation(event:WindowAnimatorEvent):void
@@ -1552,7 +1572,7 @@ package net.codeengine.windowmanagement
 		public function onKeyUp(event:KeyboardEvent):void
 		{
 
-			//trace(event.charCode);
+			trace(event.charCode);
 			if (event.charCode == 27)
 			{
 				trace("Asking top most window to close, if it is allowed");
@@ -1582,7 +1602,7 @@ package net.codeengine.windowmanagement
 			else if (event.charCode == 120 && event.ctrlKey && event.altKey)
 			{
 				trace("Asking window manager to expose all windows");
-				this.expose();
+				this.toggleSlideWindowRenderingAreaInOrOutOfView();
 			}
 			else if (event.charCode == 44 && event.ctrlKey && event.altKey)
 			{
@@ -1606,15 +1626,8 @@ package net.codeengine.windowmanagement
 		{
 			if (!flipbableWindow.isFlipSideActive)
 			{
-				//Lookup the flipside window that we need to instantiate
 				var windowFlipside:IWindowFlipside;
-
-				//Instantiate the class
 				windowFlipside=flipbableWindow.flipside;
-				//TODO: Figure out how to best handle this
-				//Register the Window Flipside
-				//_flipsides.push(windowFlipside);
-				//set the state flags
 				
 				flipbableWindow.isFlipSideActive=true;
 				flipbableWindow.windowFlipside=windowFlipside;
@@ -1623,17 +1636,12 @@ package net.codeengine.windowmanagement
 				addWindow(windowFlipside as IWindow);
 				(windowFlipside as IWindow).width = (flipbableWindow as IWindow).width;
 				(windowFlipside as IWindow).height = (flipbableWindow as IWindow).height;
-				//container.addChild(windowFlipside as DisplayObject);
-//				(windowFlipside as IWindow).addEventListener(WindowEvent.ON_WINDOW_CREATION_COMPLETE, function(event:WindowEvent):void{
-					setTimeout(function():void{
-						WindowFlipAnimation.instance.flip(flipbableWindow, windowFlipside, container);	
-					}, 200);
-						
-//				});			
+				setTimeout(function():void{
+					WindowFlipAnimation.instance.flip(flipbableWindow, windowFlipside, container);	
+				}, 200);
 			}
 			else
 			{
-				
 				WindowFlipAnimation.instance.flip(flipbableWindow.windowFlipside, flipbableWindow, container);
 				removeWindow(flipbableWindow.windowFlipside as IWindow);
 				flipbableWindow.isFlipSideActive=false;
@@ -1649,13 +1657,88 @@ package net.codeengine.windowmanagement
 			var clazz:*=new Clazz();
 			return clazz;
 		}
-
-//		private function lookupWindowFlipside(flipableWindow:IWindowFlipable):String{
-//			var description:XML = describeType(flipableWindow);
-//			var value:* = description.variable.(@name=="flipside").arg.(@key=="flipside").@value;
-//			return value;
-//		}
-
+		
+		private var _isWindowRenderingAreaCurrentlyInCompleteView:Boolean = true;
+		private var _openWindowPreviewRenderingArea:BorderContainer;
+		[Embed(source="assets/images/bg_tile.jpg")]
+		private var _openwindowbarBackgroundImage:Class;
+		private var _openwindowbarAnimationDuration:int = 300;
+		public function toggleSlideWindowRenderingAreaInOrOutOfView():void{
+			if (_isWindowRenderingAreaCurrentlyInCompleteView && !_openWindowPreviewRenderingArea){
+				_openWindowPreviewRenderingArea = new BorderContainer();
+				_openWindowPreviewRenderingArea.setStyle("backgroundImage", _openwindowbarBackgroundImage);
+				
+				_openWindowPreviewRenderingArea.setStyle("backgroundImageFillMode", "repeat");
+				_openWindowPreviewRenderingArea.bottom=0;
+				_openWindowPreviewRenderingArea.height=200;
+				_openWindowPreviewRenderingArea.percentWidth=100;
+				(_container.parent as Object).addElementAt(_openWindowPreviewRenderingArea, 0);
+			}
+			var animate:Animate = new Animate(_container);
+			animate.duration = _openwindowbarAnimationDuration;
+			var v:Vector.<MotionPath> = new Vector.<MotionPath>();
+			
+			/* Move from source to destination. */
+			
+			var moveY:SimpleMotionPath;
+			if (_isWindowRenderingAreaCurrentlyInCompleteView){
+				moveY = new SimpleMotionPath("y", _container.y, _container.y - 200);
+			}else{
+				moveY = new SimpleMotionPath("y", _container.y, _container.y + 200);
+			}
+			
+			v.push(moveY);
+			
+			if (_isWindowRenderingAreaCurrentlyInCompleteView)_container.addEventListener(MouseEvent.CLICK, onUserDidClickWindowRenderingAreaWhileRenderingAreaWasPartiallyHidden);
+			
+			animate.motionPaths = v;
+			
+			animate.play();	
+			
+			_isWindowRenderingAreaCurrentlyInCompleteView = !_isWindowRenderingAreaCurrentlyInCompleteView;
+			if (!_isWindowRenderingAreaCurrentlyInCompleteView){
+				var dropshadow:DropShadowFilter = new DropShadowFilter(2, 90, 0, 0.8, 10, 10, 1, 1, true);
+				_openWindowPreviewRenderingArea.filters = [dropshadow];
+				renderAllOpenWindowsIntoWindowPreviewRenderingArea();
+			}else{
+				removeAllRenderedOpenWindowsFromWindowPreviewRenderingArea();
+				container.filters = [];
+			}
+		}
+		
+		private function renderAllOpenWindowsIntoWindowPreviewRenderingArea():void{
+			removeAllRenderedOpenWindowsFromWindowPreviewRenderingArea();
+			var nextX:int = 25;
+			for each (var window:IWindow in allMyWindows){
+				var image:Image = window.proxy.image;
+				image.id = window.windowId;
+				image.width = 150;
+				image.height = 150;
+				image.smooth = true;
+				image.scaleMode = BitmapScaleMode.LETTERBOX;
+				image.x = nextX;
+				image.y = 25;
+				_openWindowPreviewRenderingArea.addElement(image);
+				nextX += 150 + 25;
+				
+				image.addEventListener(MouseEvent.CLICK, userDidClickPreviewWindowLocatedInWindowPreviewRenderingArea);
+			}
+		}
+		
+		private function removeAllRenderedOpenWindowsFromWindowPreviewRenderingArea():void{
+			_openWindowPreviewRenderingArea.removeAllElements();
+		}
+		
+		private function userDidClickPreviewWindowLocatedInWindowPreviewRenderingArea(event:MouseEvent):void{
+			event.currentTarget.removeEventListener(MouseEvent.CLICK, userDidClickPreviewWindowLocatedInWindowPreviewRenderingArea);
+			toggleSlideWindowRenderingAreaInOrOutOfView();
+			bringWindowToFront(getWindowById(event.currentTarget.id));
+		}
+		
+		private function onUserDidClickWindowRenderingAreaWhileRenderingAreaWasPartiallyHidden(event:MouseEvent):void{
+			_container.removeEventListener(MouseEvent.CLICK, onUserDidClickWindowRenderingAreaWhileRenderingAreaWasPartiallyHidden);
+			toggleSlideWindowRenderingAreaInOrOutOfView();
+		}
 	}
 }
 

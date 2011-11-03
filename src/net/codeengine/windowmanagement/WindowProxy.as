@@ -1,5 +1,5 @@
 package net.codeengine.windowmanagement {
-    import mx.controls.Image;
+	import spark.components.Image;
     
     public class WindowProxy implements IWindowProxy {
         private var _image:Image;

@@ -1,6 +1,6 @@
 package net.codeengine.windowmanagement
 {
-    import mx.controls.Image;
+	import spark.components.Image;
     
     public interface IWindowProxy
     {

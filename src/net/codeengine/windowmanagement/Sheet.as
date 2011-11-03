@@ -192,24 +192,28 @@ package net.codeengine.windowmanagement
 		
 		protected function simulateBlurryTransparency():void
 		{
-			var transparentBlurOverlay:Image=new Image();
-			transparentBlurOverlay.width=width;
-			transparentBlurOverlay.height=height;
-			transparentBlurOverlay.x=0;
-			transparentBlurOverlay.y=0;
-			transparentBlurOverlay.alpha=0.16;
-			transparentBlurOverlay.source=new Bitmap(getSectionFromBehindComponent(window, this));
-			var blur_filter:BlurFilter=new BlurFilter(4, 4, 2);
-			transparentBlurOverlay.filters=[blur_filter];
-			transparentBlurOverlay.x = 0;
-			transparentBlurOverlay.y = 0;
-			addElementAt(transparentBlurOverlay, 0);
+			try{
+				var transparentBlurOverlay:Image=new Image();
+				transparentBlurOverlay.width=width;
+				transparentBlurOverlay.height=height;
+				transparentBlurOverlay.x=0;
+				transparentBlurOverlay.y=0;
+				transparentBlurOverlay.alpha=0.16;
+				transparentBlurOverlay.source=new Bitmap(getSectionFromBehindComponent(window, this));
+				var blur_filter:BlurFilter=new BlurFilter(4, 4, 2);
+				transparentBlurOverlay.filters=[blur_filter];
+				transparentBlurOverlay.x = 0;
+				transparentBlurOverlay.y = 0;
+				addElementAt(transparentBlurOverlay, 0);
+			}catch (e:Error){
+				
+			}
 		}
 		
 		protected override function createChildren():void
 		{
 			super.createChildren();
-			visible = false;
+			//visible = false;
 			setStyle("backgroundColor", 0xF0F0F0);
 			setStyle("backgroundAlpha", 1);
 			simulateBlurryTransparency();

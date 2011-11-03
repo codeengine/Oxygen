@@ -2,7 +2,7 @@ package net.codeengine.windowmanagement.animations
 {
 	import flash.events.Event;
 	
-	import net.codeengine.windowmanagement.IPopover;
+	import net.codeengine.windowmanagement.uicomponents.IPopover;
 
 	public class PopoverAnimationEvent extends Event
 	{

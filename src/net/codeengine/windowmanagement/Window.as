@@ -37,6 +37,7 @@ package net.codeengine.windowmanagement
 	import spark.effects.Fade;
 	import spark.effects.animation.MotionPath;
 	import spark.effects.animation.SimpleMotionPath;
+	import net.codeengine.windowmanagement.uicomponents.IPopover;
 
 	/**
 	 * A window is a visual component with extended functionality.

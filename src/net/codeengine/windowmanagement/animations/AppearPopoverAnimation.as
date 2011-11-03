@@ -6,7 +6,7 @@ package net.codeengine.windowmanagement.animations {
     import mx.effects.IEffect;
     import mx.effects.Move;
 
-    import net.codeengine.windowmanagement.IPopover;
+    import net.codeengine.windowmanagement.uicomponents.IPopover;
 
     public class AppearPopoverAnimation extends AbstractAnimation implements IPopoverAnimation {
 

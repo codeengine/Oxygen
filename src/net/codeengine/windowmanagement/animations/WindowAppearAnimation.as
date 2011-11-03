@@ -1,13 +1,13 @@
 package net.codeengine.windowmanagement.animations {
     import flash.events.EventDispatcher;
     
-    import mx.controls.Image;
     import mx.events.EffectEvent;
     
     import net.codeengine.windowmanagement.IWindowProxy;
     import net.codeengine.windowmanagement.WindowManager;
     import net.codeengine.windowmanagement.events.WindowAnimationDirectorEvent;
     
+    import spark.components.Image;
     import spark.effects.Animate;
     import spark.effects.animation.MotionPath;
     import spark.effects.animation.SimpleMotionPath;
