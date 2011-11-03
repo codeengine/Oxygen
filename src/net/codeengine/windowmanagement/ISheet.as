@@ -21,5 +21,7 @@ package net.codeengine.windowmanagement {
         function set window(value:IWindow):void;
 		function block():void;
 		function unblock():void;
+		function get model():*;
+		function set model(value:*):void;
     }
 }

@@ -6,6 +6,8 @@ package net.codeengine.windowmanagement {
         function close():void;
 		function minimize():void;
 		function maximize():void;
+		function get model():*;
+		function set model(value:*):void;
         function get isModal():Boolean;
         function set isModal(value:Boolean):void;
         function get windowId():String;

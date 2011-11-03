@@ -21,5 +21,7 @@ package net.codeengine.windowmanagement {
         function get proxy():IDrawerProxy;
 		function block():void;
 		function unblock():void;
+		function get model():*;
+		function set model(value:*):void;
     }
 }

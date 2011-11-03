@@ -34,7 +34,17 @@ package net.codeengine.windowmanagement
 		public static const LOCATION_RIGHT:String="right";
 
 		public static const LOCATION_BOTTON:String="bottom";
-		private var blocker:BorderContainer;
+		private var blocker:BorderContainer;	
+		
+		private var _model:*;
+		public function get model():* { return _model; }
+		
+		public function set model(value:*):void
+		{
+			if (_model == value)
+				return;
+			_model = value;
+		}
 
 		public function Drawer()
 		{

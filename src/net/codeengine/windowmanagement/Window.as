@@ -31,13 +31,13 @@ package net.codeengine.windowmanagement
 	import net.codeengine.windowmanagement.decorator.IDecorator;
 	import net.codeengine.windowmanagement.events.*;
 	import net.codeengine.windowmanagement.uicomponents.BusyIndicator;
+	import net.codeengine.windowmanagement.uicomponents.IPopover;
 	
 	import spark.components.BorderContainer;
 	import spark.effects.Animate;
 	import spark.effects.Fade;
 	import spark.effects.animation.MotionPath;
 	import spark.effects.animation.SimpleMotionPath;
-	import net.codeengine.windowmanagement.uicomponents.IPopover;
 
 	/**
 	 * A window is a visual component with extended functionality.
@@ -57,6 +57,18 @@ package net.codeengine.windowmanagement
 		public static var DIM_DURATION_DRAWER:int=0;
 		public static var UNDIM_DURATION_SHEET:int=0;
 		public static var UNDIM_DURATION_DRAWER:int=0;
+		
+		[Bindable]private var _model:*;
+		public function get model():* { return _model; }
+		
+		public function set model(value:*):void
+		{
+			if (_model == value)
+				return;
+			_model = value;
+		}
+		
+		
 
 		[Bindable]
 		[Embed(source='assets/images/oxygenGroupBackground.png')]
@@ -177,6 +189,8 @@ package net.codeengine.windowmanagement
 			this.setStyle("cornerRadius", 4);
 			this.setStyle("borderStyle", "solid");
 			this.setStyle("borderColor", 0xDBDBDB);
+			
+			model = new Object();
 		}
 
 		/* ************************************************************ *
@@ -437,14 +451,9 @@ package net.codeengine.windowmanagement
 
 		protected override function createChildren():void
 		{
-			if (this.minWidth == 0)
-			{
-				this.minWidth=this.width;
-			}
-			if (this.minHeight == 0)
-			{
-				this.minHeight=this.height;
-			}
+			if (this.minWidth == 0)this.minWidth=this.width;
+			if (this.minHeight == 0)this.minHeight=this.height;
+			
 			super.createChildren();
 			doubleClickEnabled=true;
 			addEventHandlers();
@@ -455,42 +464,11 @@ package net.codeengine.windowmanagement
 			}
 			catch (e:*)
 			{
+				trace("Window:: createChildren: ForegroundDecorationException");
 			}
-
-
-
-			/* Create the Title Bar */
-
+			
 			this.createTitlebar();
-
-
-			/*titlebar.addEventListener(MouseEvent.DOUBLE_CLICK, onTitleBarDoubleClick);
-			titlebar.addEventListener(MouseEvent.MOUSE_DOWN, function(event:MouseEvent):void{
-
-				removeActiveContextMenu();
-				if (_transparentOnMove) {
-					alpha=0.8;
-				}
-
-				var r:Rectangle = new Rectangle(windowManager.container.x + 20,windowManager.container.y + 20,windowManager.container.width-20,windowManager.container.height-20);
-				startDrag(false, r);
-				_isDragging=true;
-				windowManager.sendWindowToFront(windowId);
-				var e:WindowEvent=new WindowEvent(WindowEvent.ON_FOCUS);
-				e.window=windowManager.getWindowById(windowId);
-				dispatchEvent(e);
-			});
-			titlebar.addEventListener(MouseEvent.MOUSE_UP, onTitleBarMouseUp);*/
-
 			this.addElement(titlebar as IVisualElement);
-
-
-
-
-		/* Sparkify
-		this.verticalScrollPolicy="off";
-		this.horizontalScrollPolicy="off";
-		*/
 		}
 
 		private function redrawTitleBar():void
@@ -501,14 +479,10 @@ package net.codeengine.windowmanagement
 		
 		private function addEventHandlers():void
 		{
-
 			titlebar.addEventListener(MouseEvent.DOUBLE_CLICK, onTitleBarDoubleClick, false, 0, true);
 			titlebar.addEventListener(MouseEvent.MOUSE_DOWN, onTitleBarMouseDown, false, 0, true);
 			titlebar.addEventListener(MouseEvent.MOUSE_UP, onTitleBarMouseUp, false, 0, true);
-			titlebar.addEventListener(MouseEvent.MOUSE_OVER, onMouseOver, false, 0, true);
-
 			
-
 			this.addEventListener(ResizeEvent.RESIZE, didResize, false, 0, true);
 			this.addEventListener(WindowEvent.didMinimize, didMinimize, false, 0, true);
 			this.addEventListener(MouseEvent.CLICK, onMouseDown, false, 0, true);
@@ -519,23 +493,23 @@ package net.codeengine.windowmanagement
 			this.addEventListener(WindowEvent.didHaltDragging, function(event:WindowEvent):void
 			{
 				stopDrag();
-
-
+				
+				
 				var animate:Animate=new Animate(event.window);
 				var moveX:SimpleMotionPath=new SimpleMotionPath();
 				moveX.property="x";
 				moveX.valueFrom=event.window.x;
 				moveX.valueTo=_premovex;
-
+				
 				var moveY:SimpleMotionPath=new SimpleMotionPath();
 				moveY.property="y";
 				moveY.valueFrom=event.window.y;
 				moveY.valueTo=_premovey;
-
+				
 				var vc:Vector.<MotionPath>=new Vector.<MotionPath>();
 				vc.push(moveX);
 				vc.push(moveY);
-
+				
 				animate.duration=500;
 				animate.motionPaths=vc;
 				animate.addEventListener(EffectEvent.EFFECT_END, function(event:Event):void
@@ -547,21 +521,9 @@ package net.codeengine.windowmanagement
 					undimSheet();
 				}, false, 0, true);
 				animate.play();
-
-
 			}, false, 0, true);
-
-					}
-		
-		private function onMouseOver(event:MouseEvent):void
-		{
-			
-			/*this.titlebar.graphics.clear();
-			this.titlebar.graphics.beginFill(0xFFFFFF,0.8);
-			this.titlebar.graphics.drawCircle(mouseX, mouseY , this.titlebar.height/2);
-			this.titlebar.graphics.endFill();*/
-			
 		}
+		
 
 		private function removeEventListeners():void
 		{
@@ -594,11 +556,10 @@ package net.codeengine.windowmanagement
 		 */
 		public function addSheet(sheet:ISheet):void
 		{
+			sheet.model = model;
 			WindowManager.instance.addSheet(sheet, this);
 			/* Store our own reference to the sheet */
 			this.sheet=sheet;
-
-
 		}
 
 		/**
@@ -610,6 +571,7 @@ package net.codeengine.windowmanagement
 		{
 			WindowManager.instance.removeSheet(sheet, this);
 			this.sheet=null;
+			sheet.model = null;
 		}
 
 		public function addDrawer(drawer:IDrawer):void
@@ -629,6 +591,7 @@ package net.codeengine.windowmanagement
 			this.drawer=drawer;
 			drawer.window=this;
 			this.isDrawerActive=true;
+			drawer.model = model;
 		}
 
 		public function removeDrawer(drawer:IDrawer):void
@@ -641,6 +604,7 @@ package net.codeengine.windowmanagement
 			WindowManager.instance.removeDrawer(drawer, this);
 			this.drawer=null;
 			isDrawerActive=false;
+			drawer.model = null;
 		}
 
 		/**

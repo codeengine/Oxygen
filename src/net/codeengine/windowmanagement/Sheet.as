@@ -46,6 +46,17 @@ package net.codeengine.windowmanagement
 		private var blocker:BorderContainer;
 		public static var MAXIMUM_ALPHA:Number = 0.95;
 		public static var MINIMUM_ALPHA:Number = 0;
+		
+		private var _model:*;
+		public function get model():* { return _model; }
+		
+		public function set model(value:*):void
+		{
+			if (_model == value)
+				return;
+			_model = value;
+		}
+		
 
 		/**
 		 * Get the window manager that this window is managed by.

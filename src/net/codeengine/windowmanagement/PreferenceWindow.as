@@ -12,7 +12,9 @@ package net.codeengine.windowmanagement
 	import spark.effects.animation.SimpleMotionPath;
 
 	public class PreferenceWindow extends Window
-	{
+	{	
+		private var _model:*;
+		
 		public function PreferenceWindow()
 		{
 			super();
