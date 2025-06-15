@@ -9,6 +9,7 @@ files under `web/src/oxygen` to keep the same module structure.
 ### Development
 
 ```
+cd web
 npm install
 npm run dev
 ```
@@ -16,5 +17,6 @@ npm run dev
 ### Build
 
 ```
+cd web
 npm run build
 ```
