@@ -1,1 +1,4 @@
-export interface IWindowProxy {}
+import { IWindow } from './IWindow';
+export interface IWindowProxy {
+  window: IWindow;
+}

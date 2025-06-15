@@ -1,1 +1,3 @@
-export class Background {}
+export class Background {
+  constructor(public color: string = '#fff') {}
+}

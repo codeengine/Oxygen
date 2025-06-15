@@ -1,1 +1,3 @@
-export class WindowTitleBar {}
+export class WindowTitleBar {
+  constructor(public title: string) {}
+}

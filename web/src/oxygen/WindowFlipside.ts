@@ -1,1 +1,3 @@
-export class WindowFlipside {}
+export class WindowFlipside {
+  constructor(public element: HTMLElement) {}
+}

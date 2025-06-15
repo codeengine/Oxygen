@@ -1,1 +1,3 @@
-export interface IPopoverAnimation {}
+export interface IPopoverAnimation {
+  start(): void;
+}

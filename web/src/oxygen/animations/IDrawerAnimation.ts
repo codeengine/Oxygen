@@ -1,1 +1,3 @@
-export interface IDrawerAnimation {}
+export interface IDrawerAnimation {
+  start(): void;
+}

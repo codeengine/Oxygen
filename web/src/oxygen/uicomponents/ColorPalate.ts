@@ -1,1 +1,3 @@
-export class ColorPalate {}
+export class ColorPalate {
+  constructor(public colors: string[]) {}
+}

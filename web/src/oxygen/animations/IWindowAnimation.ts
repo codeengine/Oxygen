@@ -1,1 +1,3 @@
-export interface IWindowAnimation {}
+export interface IWindowAnimation {
+  start(): void;
+}

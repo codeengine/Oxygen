@@ -1,1 +1,3 @@
-export interface IWindowFlipable {}
+export interface IWindowFlipable {
+  flip(): void;
+}

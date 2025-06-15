@@ -1,9 +1,8 @@
 import React, { createContext, useContext, useState } from 'react';
+import { WindowManager } from '../oxygen/WindowManager';
+import { IWindow } from '../oxygen/IWindow';
 
-export interface WindowDescriptor {
-  id: string;
-  title: string;
-}
+export interface WindowDescriptor extends IWindow {}
 
 interface WindowManagerContextProps {
   windows: WindowDescriptor[];
@@ -12,6 +11,7 @@ interface WindowManagerContextProps {
 }
 
 const WindowManagerContext = createContext<WindowManagerContextProps | undefined>(undefined);
+const manager = new WindowManager();
 
 export const useWindowManager = (): WindowManagerContextProps => {
   const ctx = useContext(WindowManagerContext);
@@ -22,10 +22,16 @@ export const useWindowManager = (): WindowManagerContextProps => {
 };
 
 const WindowManagerProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [windows, setWindows] = useState<WindowDescriptor[]>([]);
+  const [windows, setWindows] = useState<WindowDescriptor[]>(manager.windows);
 
-  const addWindow = (win: WindowDescriptor) => setWindows(ws => [...ws, win]);
-  const removeWindow = (id: string) => setWindows(ws => ws.filter(w => w.id !== id));
+  const addWindow = (win: WindowDescriptor) => {
+    manager.addWindow(win);
+    setWindows([...manager.windows]);
+  };
+  const removeWindow = (id: string) => {
+    manager.removeWindow(id);
+    setWindows([...manager.windows]);
+  };
 
   return (
     <WindowManagerContext.Provider value={{ windows, addWindow, removeWindow }}>

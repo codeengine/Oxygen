@@ -1,1 +1,3 @@
-export class PopoverAnimationConstants {}
+export const PopoverAnimationConstants = {
+  duration: 200
+};

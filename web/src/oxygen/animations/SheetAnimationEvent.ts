@@ -1,1 +1,3 @@
-export class SheetAnimationEvent {}
+export class SheetAnimationEvent {
+  constructor(public type: string) {}
+}

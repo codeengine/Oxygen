@@ -1,1 +1,3 @@
-export interface IBusy {}
+export interface IBusy {
+  message: string;
+}

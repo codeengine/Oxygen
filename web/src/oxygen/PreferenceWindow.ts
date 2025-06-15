@@ -1,1 +1,3 @@
-export class PreferenceWindow {}
+export class PreferenceWindow {
+  constructor(public id: string) {}
+}

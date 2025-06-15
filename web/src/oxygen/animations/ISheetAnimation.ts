@@ -1,1 +1,3 @@
-export interface ISheetAnimation {}
+export interface ISheetAnimation {
+  start(): void;
+}

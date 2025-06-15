@@ -1,1 +1,3 @@
-export interface IWindowTitleBar {}
+export interface IWindowTitleBar {
+  title: string;
+}

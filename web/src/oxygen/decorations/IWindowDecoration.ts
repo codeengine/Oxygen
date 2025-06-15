@@ -1,1 +1,3 @@
-export interface IWindowDecoration {}
+export interface IWindowDecoration {
+  apply(): void;
+}

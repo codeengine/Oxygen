@@ -1,1 +1,3 @@
-export interface IPanelWindow {}
+export interface IPanelWindow {
+  id: string;
+}

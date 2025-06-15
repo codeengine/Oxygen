@@ -1,1 +1,3 @@
-export class NotificationWindow {}
+export class NotificationWindow {
+  constructor(public message: string) {}
+}

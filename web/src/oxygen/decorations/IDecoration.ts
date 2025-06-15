@@ -1,1 +1,3 @@
-export interface IDecoration {}
+export interface IDecoration {
+  apply(): void;
+}

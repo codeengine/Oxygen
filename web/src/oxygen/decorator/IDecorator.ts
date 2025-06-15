@@ -1,1 +1,3 @@
-export interface IDecorator {}
+export interface IDecorator {
+  decorate(el: HTMLElement): void;
+}

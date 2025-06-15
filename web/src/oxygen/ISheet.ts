@@ -1,1 +1,4 @@
-export interface ISheet {}
+export interface ISheet {
+  open(): void;
+  close(): void;
+}

@@ -1,1 +1,3 @@
-export interface ITabBarItem {}
+export interface ITabBarItem {
+  label: string;
+}

@@ -1,1 +1,3 @@
-export interface ITabBar {}
+export interface ITabBar {
+  addTab(label: string): void;
+}

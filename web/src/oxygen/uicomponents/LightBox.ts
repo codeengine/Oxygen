@@ -1,1 +1,3 @@
-export class LightBox {}
+export class LightBox {
+  constructor(public content: HTMLElement) {}
+}
