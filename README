@@ -1,1 +1,18 @@
 Oxygen is a Spark and ActionScript based flex window manager, with support for core animations and decorations.
+
+## Web Port
+
+A new experimental React version is provided under the `web/` directory. It uses Vite for development and mirrors the original window manager architecture with a `WindowManagerProvider` context.
+
+### Development
+
+```
+npm install
+npm run dev
+```
+
+### Build
+
+```
+npm run build
+```
