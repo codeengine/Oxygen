@@ -1013,16 +1013,17 @@ package net.codeengine.windowmanagement
 		 *
 		 * @return An existing window object or null if no window matches the specified window id.
 		 */
-		public function getWindowById(forWindowId:String):IWindow
-		{
-			var window:IWindow=null;
-			for each (window in this.allMyWindows)
-			{
-				if (window.windowId == forWindowId)
-					break;
-			}
-			return window;
-		}
+               public function getWindowById(forWindowId:String):IWindow
+               {
+                       for each (var window:IWindow in this.allMyWindows)
+                       {
+                               if (window.windowId == forWindowId)
+                               {
+                                       return window;
+                               }
+                       }
+                       return null;
+               }
 
 		/**
 		 * Remove the specified sheet from the specified window.
